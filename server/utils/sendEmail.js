@@ -1,12 +1,11 @@
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-dotenv.config();
+import config from '../../config.js';
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, 
-    pass: process.env.EMAIL_PASS, 
+    user: config.EMAIL_USER, 
+    pass: config.EMAIL_PASS, 
   },
 });
 
@@ -30,7 +29,7 @@ export const sendEmail = async (to, subject, otpCode) => {
     `;
 
     const info = await transporter.sendMail({
-      from: `"InvoviumAI Support" <${process.env.EMAIL_USER}>`,
+      from: `"InvoviumAI Support" <${config.EMAIL_USER}>`,
       to,
       subject,
       html: htmlTemplate,

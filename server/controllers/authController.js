@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import OTP from '../models/OTP.js';
 import { sendEmail } from '../utils/sendEmail.js';
+import config from '../../config.js';
 
 // Send OTP
 export const sendOtp = async (req, res) => {
@@ -131,7 +132,7 @@ export const signup = async (req, res) => {
     // Generate JWT
     const token = jwt.sign(
       { userId: user._id, email: user.email, accountType: user.accountType },
-      process.env.JWT_SECRET || 'fallback_secret',
+      config.JWT_SECRET || 'fallback_secret',
       { expiresIn: '7d' }
     );
 
@@ -170,7 +171,7 @@ export const login = async (req, res) => {
     // Generate JWT
     const token = jwt.sign(
       { userId: user._id, email: user.email, accountType: user.accountType },
-      process.env.JWT_SECRET || 'fallback_secret',
+      config.JWT_SECRET || 'fallback_secret',
       { expiresIn: '7d' }
     );
 

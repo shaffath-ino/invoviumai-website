@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import config from '../../config.js';
 
 export const handleChat = async (req, res) => {
   try {
@@ -30,7 +31,7 @@ export const handleChat = async (req, res) => {
     const conversation = [systemInstruction, ...messages];
 
     // 3. Connect to AI Engine
-    const apiKey = process.env.GROQ_API_KEY;
+    const apiKey = config.GROQ_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: 'Backend Groq API key is missing in .env layer.' });
     }

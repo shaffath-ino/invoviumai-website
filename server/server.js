@@ -1,12 +1,11 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import dotenv from 'dotenv';
+import config from '../config.js';
 import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js';
 import chatRoutes from './routes/chat.js';
 
-dotenv.config();
 
 const app = express();
 
@@ -29,8 +28,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
 
 // Database connection
-const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/invoviumAI';
+const PORT = config.PORT || 5000;
+const MONGO_URI = config.MONGO_URI || 'mongodb://127.0.0.1:27017/invoviumai';
 
 mongoose.connect(MONGO_URI)
   .then(() => {
