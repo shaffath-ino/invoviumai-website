@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Bot, User, Sparkles } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, User as UserIcon, Sparkles } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { AuthContext } from '../context/AuthContext';
 
 const knowledgeBaseTopics = [
   "About InvoviumAI",
@@ -31,55 +32,45 @@ export default function AIChatbot() {
     }
   }, [messages, isOpen, isTyping]);
 
-  const sendMessageToGroq = async (userMessage) => {
+  const { firstName } = useContext(AuthContext);
+
+  const sendMessageToBackend = async (userMessage) => {
     const userMsgObj = { id: Date.now(), sender: 'user', text: userMessage };
     setMessages(prev => [...prev, userMsgObj]);
     setIsTyping(true);
     
-    const conversation = messages.map(msg => ({
-      role: msg.sender === 'user' ? 'user' : 'assistant',
-      content: msg.text
-    }));
+    // Maintain chat history format for backend
+    const conversation = messages
+      .filter(msg => msg.id !== 1) // Optional: Skip initial greeting to save tokens
+      .map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'assistant',
+        content: msg.text
+      }));
     conversation.push({ role: 'user', content: userMessage });
 
     try {
-      const apiKey = import.meta.env.VITE_GROQ_API_KEY;
-      if (!apiKey) {
-        throw new Error('API key not configured');
-      }
-
-      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      const response = await fetch('http://localhost:5000/api/chat', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
-          messages: [
-            { role: 'system', content: 'You are an AI assistant for InvoviumAI, an enterprise AI company. Be concise, professional, and helpful.  Short reply only' },
-            ...conversation
-          ]
+          messages: conversation,
+          userName: firstName || 'Guest User'
         })
       });
 
       if (!response.ok) {
-         const errData = await response.text();
-         console.error("Groq API Response Error Data:", errData);
-         throw new Error('Groq API Error: ' + response.status);
+         throw new Error('Backend Database API Error: ' + response.status);
       }
 
       const data = await response.json();
-      const botResponse = data.choices[0]?.message?.content || "I couldn't process that.";
       
-      const botMsgObj = { id: Date.now() + 1, sender: 'bot', text: botResponse };
+      const botMsgObj = { id: Date.now() + 1, sender: 'bot', text: data.reply };
       setMessages(prev => [...prev, botMsgObj]);
     } catch (error) {
       console.error(error);
-      const errorText = error.message === 'API key not configured' 
-        ? "Error: Groq API key is missing. Please add VITE_GROQ_API_KEY to your .env file." 
-        : "Error connecting to AI systems. Please try again later.";
-      const errorMsg = { id: Date.now() + 1, sender: 'bot', text: errorText };
+      const errorMsg = { id: Date.now() + 1, sender: 'bot', text: "Error connecting to internal systems securely. Please restart interface." };
       setMessages(prev => [...prev, errorMsg]);
     }
 
@@ -87,7 +78,7 @@ export default function AIChatbot() {
   };
 
   const handleQuickReply = (topic) => {
-    sendMessageToGroq(topic);
+    sendMessageToBackend(topic);
   };
 
   return (
@@ -149,7 +140,7 @@ export default function AIChatbot() {
                     className={`flex items-start gap-2 max-w-[85%] ${msg.sender === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
                   >
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-1 ${msg.sender === 'user' ? 'bg-secondary text-white' : 'bg-primary/20 text-primary border border-primary/30'}`}>
-                      {msg.sender === 'user' ? <User size={12} /> : <Bot size={12} />}
+                      {msg.sender === 'user' ? <UserIcon size={12} /> : <Bot size={12} />}
                     </div>
                     <div className={`text-[13px] px-4 py-2.5 rounded-2xl leading-relaxed whitespace-pre-wrap ${
                       msg.sender === 'user' 
@@ -204,7 +195,7 @@ export default function AIChatbot() {
                   onSubmit={(e) => {
                     e.preventDefault();
                     if(inputMessage.trim()) {
-                      sendMessageToGroq(inputMessage);
+                      sendMessageToBackend(inputMessage);
                       setInputMessage('');
                     }
                   }}

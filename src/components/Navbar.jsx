@@ -119,6 +119,9 @@ export default function Navbar() {
         >
           {isDark ? <Sun size={18} /> : <Moon size={18} />}
         </button>
+        <Link to="/login" className="text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition-colors px-2">
+          Login
+        </Link>
         <Link to="/contact" className="btn-primary !px-5 !py-2 !h-9 text-xs">
           Contact <ArrowRight size={14} />
         </Link>
@@ -165,13 +168,22 @@ export default function Navbar() {
                   <div className="h-px bg-slate-200 dark:bg-white/10 w-full mt-4 transition-colors"></div>
                 </div>
               ))}
-              <Link 
-                to="/contact" 
-                onClick={() => setIsOpen(false)}
-                className="block text-lg font-bold uppercase tracking-wider text-slate-800 dark:text-gray-100 inline-flex items-center gap-2 transition-colors hover:text-primary"
-              >
-                Contact <ArrowRight size={16}/>
-              </Link>
+              <div className="flex items-center justify-between mt-2 pr-2">
+                <Link 
+                  to="/login" 
+                  onClick={() => setIsOpen(false)}
+                  className="block text-lg font-bold uppercase tracking-wider text-slate-800 dark:text-gray-100 transition-colors hover:text-primary"
+                >
+                  Login
+                </Link>
+                <Link 
+                  to="/contact" 
+                  onClick={() => setIsOpen(false)}
+                  className="btn-primary !px-5 !py-2 !h-9 text-xs"
+                >
+                  Contact <ArrowRight size={14}/>
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}

@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ParticleNetwork from './components/ParticleNetwork';
 import AIChatbot from './components/AIChatbot';
+import { AuthProvider } from './context/AuthContext';
 
 // Lazy Loaded Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -13,6 +14,9 @@ const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Login = lazy(() => import('./pages/Login'));
+const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
+const CompanyDashboard = lazy(() => import('./pages/CompanyDashboard'));
 
 // Loading Skeleton
 function PageSkeleton() {
@@ -70,6 +74,9 @@ function AnimatedRoutes() {
           <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
           <Route path="/careers" element={<PageWrapper><Careers /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+          <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
+          <Route path="/student-dashboard" element={<PageWrapper><StudentDashboard /></PageWrapper>} />
+          <Route path="/company-dashboard" element={<PageWrapper><CompanyDashboard /></PageWrapper>} />
         </Routes>
       </Suspense>
     </AnimatePresence>
@@ -92,16 +99,18 @@ function PageWrapper({ children }) {
 
 export default function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <SpotlightTracker>
-        <Navbar />
-        <main className="flex-grow w-full pt-[80px]">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-        <AIChatbot />
-      </SpotlightTracker>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <SpotlightTracker>
+          <Navbar />
+          <main className="flex-grow w-full pt-[80px]">
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+          <AIChatbot />
+        </SpotlightTracker>
+      </Router>
+    </AuthProvider>
   );
 }
