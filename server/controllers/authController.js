@@ -15,7 +15,7 @@ export const sendOtp = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (type === 'signup' && existingUser) {
       return res.status(400).json({ 
-        error: `This email is already registered as a ${existingUser.accountType}. One email cannot be used for both.` 
+        error: `This email is already in use. Multiple users are not allowed to use the same email.` 
       });
     }
     if (type === 'forgot' && !existingUser) {
@@ -104,7 +104,7 @@ export const signup = async (req, res) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ error: `This email is already registered as a ${existingUser.accountType}. One email cannot be used for both.` });
+      return res.status(400).json({ error: `This email is already in use. Multiple users are not allowed to use the same email.` });
     }
 
     // Check if OTP was verified

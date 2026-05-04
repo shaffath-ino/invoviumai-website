@@ -14,7 +14,7 @@ export const sendEmail = async (to, subject, otpCode) => {
     const htmlTemplate = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
         <div style="background-color: #ef4444; padding: 24px; text-align: center;">
-            <h2 style="color: white; margin: 0; font-size: 24px; font-weight: bold;">InvoviumAI Security</h2>
+            <h2 style="color: white; margin: 0; font-size: 24px; font-weight: bold;">InoviumAI Security</h2>
         </div>
         <div style="padding: 40px 30px; text-align: center; background-color: #ffffff;">
             <p style="font-size: 16px; color: #374151; margin-bottom: 24px;">Please use the verification code below to securely access your account.</p>
@@ -29,7 +29,7 @@ export const sendEmail = async (to, subject, otpCode) => {
     `;
 
     const info = await transporter.sendMail({
-      from: `"InvoviumAI Support" <${config.EMAIL_USER}>`,
+      from: `"InoviumAI Support" <${config.EMAIL_USER}>`,
       to,
       subject,
       html: htmlTemplate,

@@ -52,7 +52,7 @@ export default function Home() {
       <section className="relative px-6 py-32 md:py-48 flex flex-col items-center justify-center text-center min-h-[90vh] max-w-5xl mx-auto z-10">
         <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="flex flex-col items-center">
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md shadow-[0_0_20px_rgba(230,57,70,0.15)]">
-            <Sparkles size={14} className="animate-pulse" /> InvoviumAI Intelligence
+            <Sparkles size={14} className="animate-pulse" /> InoviumAI Intelligence
           </motion.div>
           <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] mb-8 text-slate-900 dark:text-white transition-colors">
             Intelligent Infrastructure.<br className="hidden md:block" />
@@ -127,7 +127,7 @@ export default function Home() {
           <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-8 leading-[1.1] text-slate-900 dark:text-white">Transforming Enterprise Potential.</h2>
             <p className="text-slate-600 dark:text-gray-400 mb-6 text-lg leading-relaxed transition-colors">
-              InvoviumAI builds next-generation, high-availability software platforms. We optimize massive workflows through intelligent automation and rigorous systems engineering.
+              InoviumAI builds next-generation, high-availability software platforms. We optimize massive workflows through intelligent automation and rigorous systems engineering.
             </p>
             <ul className="space-y-4 mb-10">
               {['Accelerate Core Operations', 'Zero-Friction Integrations', 'Uncompromising Data Security'].map((i, k) => (

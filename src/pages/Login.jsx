@@ -24,7 +24,7 @@ export default function Login() {
   const [isSendingOtp, setIsSendingOtp] = useState(false);
   const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
 
-  const { login } = useContext(AuthContext);
+  const { login, logout } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -47,10 +47,11 @@ export default function Login() {
       // Auto-redirect based on account type
       setTimeout(() => {
         if (user.accountType === 'student') {
-          window.location.href = '/student-dashboard'; // Redirecting to Student Page
-        } else {
-          window.location.href = '/company-dashboard'; // Redirecting to Company Page
-        }
+          window.location.href = '/dashboard'; // Redirecting to Student Page
+         } 
+        //  else {
+        //   window.location.href = '/company-dashboard'; // Redirecting to Company Page
+        // }
       }, 1500);
     } catch (err) {
       console.error(err);
@@ -115,6 +116,7 @@ export default function Login() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setAccountType('student'); // Defaulting to student for now, can be toggled by user if needed
     if (!name || !email || !password || !confirmPassword) {
       setError('Please fill out all fields.');
       toast.error('Please fill out all fields.');
@@ -231,7 +233,7 @@ export default function Login() {
                   <Lock size={32} className="text-primary" />
                 </div>
                 <h2 className="text-2xl font-black text-slate-900 dark:text-white transition-colors">System Login</h2>
-                <p className="text-slate-500 dark:text-gray-400 text-sm mt-2 transition-colors">Enter your clearance credentials to access InvoviumAI infrastructure.</p>
+                <p className="text-slate-500 dark:text-gray-400 text-sm mt-2 transition-colors">Enter your clearance credentials to access InoviumAI infrastructure.</p>
               </div>
 
               {error && (
@@ -433,14 +435,14 @@ export default function Login() {
               <form onSubmit={handleSignup} className="flex flex-col gap-5">
                 <div className="flex flex-col gap-4">
                   {/* Account Type Selector */}
-                  <div className="w-full grid grid-cols-2 gap-3 mb-1">
+                  {/* <div className="w-full grid grid-cols-2 gap-3 mb-1">
                     <button type="button" onClick={() => setAccountType('student')} className={`py-2 px-3 rounded-xl border flex items-center justify-center gap-2 text-sm font-bold transition-all ${accountType === 'student' ? 'border-primary bg-primary/10 text-primary shadow-sm' : 'border-slate-200 dark:border-white/10 text-slate-500 hover:border-primary/30'}`}>
                       <GraduationCap size={16} /> Student
                     </button>
                     <button type="button" onClick={() => setAccountType('company')} className={`py-2 px-3 rounded-xl border flex items-center justify-center gap-2 text-sm font-bold transition-all ${accountType === 'company' ? 'border-primary bg-primary/10 text-primary shadow-sm' : 'border-slate-200 dark:border-white/10 text-slate-500 hover:border-primary/30'}`}>
                       <Building2 size={16} /> Company
                     </button>
-                  </div>
+                  </div> */}
 
                   {/* Name field */}
                   <div className="relative group/input">
@@ -575,8 +577,7 @@ export default function Login() {
               <button onClick={() => {
                  setStep('login'); 
                  setPassword('');
-                 login('', '', '', '', '', '');
-                 localStorage.clear();
+                 logout();
               }} className="mt-4 text-xs font-bold text-primary hover:text-secondary uppercase tracking-wider transition-colors hover:underline">
                  Log Out
               </button>

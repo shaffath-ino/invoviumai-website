@@ -1,5 +1,5 @@
 {
-  "name": "invoviumai-website",
+  "name": "inoviumai-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,6 +13,7 @@
     "@emailjs/browser": "^4.4.1",
     "autoprefixer": "^10.4.27",
     "axios": "^1.15.0",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.0.1",
     "postcss": "^8.5.8",

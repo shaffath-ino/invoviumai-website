@@ -21,7 +21,7 @@ export default function Footer() {
             <Link to="/" className="flex items-center gap-2 mb-6 hover:opacity-80 transition-opacity">
               <CircleDot size={20} className="text-primary" strokeWidth={3} />
               <h3 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors m-0">
-                InvoviumAI
+                InoviumAI
               </h3>
             </Link>
             <p className="text-slate-500 dark:text-gray-400 text-[13px] leading-relaxed mb-8 transition-colors">
@@ -78,7 +78,7 @@ export default function Footer() {
             </h4>
             <div className="space-y-4 text-[13px] text-slate-600 dark:text-gray-400">
               <p className="flex items-center gap-3">
-                <Mail size={16} className="text-primary shrink-0"/> contact@invoviumai.com
+                <Mail size={16} className="text-primary shrink-0"/> contact@inoviumai.com
               </p>
               <p className="flex items-center gap-3">
                 <Phone size={16} className="text-primary shrink-0"/> <span>9884716042 / 9884946867</span>

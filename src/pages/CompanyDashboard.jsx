@@ -51,7 +51,7 @@ export default function CompanyDashboard() {
             <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-white/5 hover:border-primary/50 transition-all cursor-pointer">
                 <Database size={24} className="text-primary mb-4" />
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">API Infrastructure</h3>
-                <p className="text-sm text-slate-500 dark:text-gray-400">Manage InvoviumAI webhooks, datasets, and LLM throughput keys.</p>
+                <p className="text-sm text-slate-500 dark:text-gray-400">Manage InoviumAI webhooks, datasets, and LLM throughput keys.</p>
             </div>
 
             <div className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-white/5 hover:border-primary/50 transition-all cursor-pointer">

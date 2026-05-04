@@ -2,6 +2,16 @@ import React, { createContext, useState, useEffect } from 'react';
 
 export const AuthContext = createContext();
 
+const AUTH_STORAGE_KEYS = [
+    'token',
+    'username',
+    'userRole',
+    'userId',
+    'roleType',
+    'firstName',
+    'branchName',
+];
+
 export const AuthProvider = ({ children }) => {
     const [username, setUsername] = useState(localStorage.getItem('username'));
     const [userRole, setUserRole] = useState(localStorage.getItem('userRole'));
@@ -43,10 +53,21 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('userId', userId);
         localStorage.setItem('roleType', roleType);
         localStorage.setItem('firstName', firstName);
+        localStorage.setItem('branchName', branchName);
+    };
+
+    const logout = () => {
+        setUsername(null);
+        setUserRole(null);
+        setUserId(null);
+        setRoleType(null);
+        setFirstName(null);
+        setBranchName(null);
+        AUTH_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
     };
 
     return (
-        <AuthContext.Provider value={{ username, userRole, userId, roleType, firstName, branchName, login }}>
+        <AuthContext.Provider value={{ username, userRole, userId, roleType, firstName, branchName, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

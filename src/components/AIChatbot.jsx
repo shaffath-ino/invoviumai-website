@@ -5,14 +5,14 @@ import ReactMarkdown from 'react-markdown';
 import { AuthContext } from '../context/AuthContext';
 
 const knowledgeBaseTopics = [
-  "About InvoviumAI",
+  "About InoviumAI",
   "Services",
   "Projects",
   "Careers"
 ];
 
 const initialMessages = [
-  { id: 1, sender: 'bot', text: "Hello! I'm the InvoviumAI Virtual Assistant. How can I help you architect your future today?" }
+  { id: 1, sender: 'bot', text: "Hello! I'm the InoviumAI Virtual Assistant. How can I help you architect your future today?" }
 ];
 
 export default function AIChatbot() {
@@ -118,7 +118,7 @@ export default function AIChatbot() {
                     <span className="w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white dark:border-cardDark absolute -bottom-1 -right-1"></span>
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-slate-800 dark:text-white leading-none mb-1 transition-colors">InvoviumAI AI</h3>
+                    <h3 className="text-sm font-bold text-slate-800 dark:text-white leading-none mb-1 transition-colors">InoviumAI AI</h3>
                     <p className="text-[10px] text-green-600 dark:text-green-400 font-semibold tracking-wider uppercase">Systems Online</p>
                   </div>
                 </div>
@@ -205,7 +205,7 @@ export default function AIChatbot() {
                     type="text"
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
-                    placeholder="Ask about InvoviumAI..."
+                    placeholder="Ask about InoviumAI..."
                     disabled={isTyping}
                     className="flex-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full px-4 py-2 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-primary/50 transition-colors disabled:opacity-50"
                   />

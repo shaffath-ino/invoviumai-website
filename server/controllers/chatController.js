@@ -17,7 +17,7 @@ export const handleChat = async (req, res) => {
     // 2. Inject DB context into the chatbot's system brain
     const systemInstruction = {
       role: 'system',
-      content: `You are the InvoviumAI Virtual Assistant. You ALREADY have direct read-access to the live internal database cluster. 
+      content: `You are the InoviumAI Virtual Assistant. You ALREADY have direct read-access to the live internal database cluster. 
       CURRENT LIVE DATABASE STATUS: 
       - Total Registered Accounts: ${totalUsers}
       - Student Accounts: ${studentCount}

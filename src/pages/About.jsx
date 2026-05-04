@@ -13,7 +13,7 @@ export default function About() {
           Pioneering the <br/><span className="text-gradient">Intelligent Edge.</span>
         </motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-gray-400 leading-relaxed font-medium">
-          InvoviumAI is a premiere engineering collective rapidly advancing enterprise architecture. We deploy high-availability AI systems designed explicitly for the extreme demands of the global operational landscape.
+          InoviumAI is a premiere engineering collective rapidly advancing enterprise architecture. We deploy high-availability AI systems designed explicitly for the extreme demands of the global operational landscape.
         </motion.p>
       </section>
 
@@ -48,7 +48,7 @@ export default function About() {
                  </div>
                </div>
                <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-primary/30 pl-4 py-1 italic font-medium">
-                 "With over 20 years bridging software engineering, telecommunications, and large-scale system development as Principal Technical Lead at Viasat Inc., Shaffath built InvoviumAI on a foundation of extreme technical excellence and strategic vision."
+                 "With over 20 years bridging software engineering, telecommunications, and large-scale system development as Principal Technical Lead at Viasat Inc., Shaffath built InoviumAI on a foundation of extreme technical excellence and strategic vision."
                </p>
              </motion.div>
 

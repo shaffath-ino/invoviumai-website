@@ -75,7 +75,7 @@ export default function Contact() {
             <div>
               <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">Direct Communications</h4>
               <p className="text-gray-400 text-sm leading-relaxed mb-0.5">For sales and integrations:</p>
-              <span className="text-primary font-bold">contact@invoviumai.com</span>
+              <span className="text-primary font-bold">contact@inoviumai.com</span>
             </div>
           </div>
 

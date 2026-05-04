@@ -16,7 +16,13 @@ const Careers = lazy(() => import('./pages/Careers'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Login = lazy(() => import('./pages/Login'));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
+const InternCourses = lazy(() => import('./pages/InternCourses'));
 const CompanyDashboard = lazy(() => import('./pages/CompanyDashboard'));
+const Payment = lazy(() => import('./pages/Payment'));
+const OfferLetter = lazy(() => import('./pages/OfferLetter'));
+const MyCourses = lazy(() => import('./pages/MyCourses'));
+const Course = lazy(() => import('./pages/Course'));
+const DownloadOfferLetter = lazy(() => import('./pages/DownloadOfferLetter'));
 
 // Loading Skeleton
 function PageSkeleton() {
@@ -75,8 +81,14 @@ function AnimatedRoutes() {
           <Route path="/careers" element={<PageWrapper><Careers /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
           <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
-          <Route path="/student-dashboard" element={<PageWrapper><StudentDashboard /></PageWrapper>} />
+          <Route path="/dashboard" element={<PageWrapper><StudentDashboard /></PageWrapper>} />
+          <Route path="/intern-courses" element={<PageWrapper><InternCourses /></PageWrapper>} />
           <Route path="/company-dashboard" element={<PageWrapper><CompanyDashboard /></PageWrapper>} />
+          <Route path="/payment/:enrollmentId" element={<PageWrapper><Payment /></PageWrapper>} />
+          <Route path="/offer-letter/:enrollmentId" element={<PageWrapper><OfferLetter /></PageWrapper>} />
+          <Route path="/my-courses" element={<PageWrapper><MyCourses /></PageWrapper>} />
+          <Route path="/course/:enrollmentId" element={<PageWrapper><Course /></PageWrapper>} />
+          <Route path="/download-offer-letter" element={<PageWrapper><DownloadOfferLetter /></PageWrapper>} />
         </Routes>
       </Suspense>
     </AnimatePresence>

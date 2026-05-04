@@ -5,6 +5,7 @@ import config from '../config.js';
 import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js';
 import chatRoutes from './routes/chat.js';
+import courseRoutes from './routes/course.js';
 
 
 const app = express();
@@ -12,6 +13,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use('/offer-letters', express.static('public/offer-letters'));
 
 // Rate Limiter
 const limiter = rateLimit({
@@ -26,10 +28,11 @@ app.use('/api', limiter);
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/course', courseRoutes);
 
 // Database connection
 const PORT = config.PORT || 5000;
-const MONGO_URI = config.MONGO_URI || 'mongodb://127.0.0.1:27017/invoviumai';
+const MONGO_URI = config.MONGO_URI || 'mongodb://127.0.0.1:27017/inoviumai';
 
 mongoose.connect(MONGO_URI)
   .then(() => {
