@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 
 import Navbar from './components/Navbar';
@@ -23,6 +24,8 @@ const OfferLetter = lazy(() => import('./pages/OfferLetter'));
 const MyCourses = lazy(() => import('./pages/MyCourses'));
 const Course = lazy(() => import('./pages/Course'));
 const DownloadOfferLetter = lazy(() => import('./pages/DownloadOfferLetter'));
+const CourseDetails = lazy(() => import('./pages/CourseDetails'));
+const WebDevInternship = lazy(() => import('./pages/WebDevInternship'));
 
 // Loading Skeleton
 function PageSkeleton() {
@@ -89,6 +92,8 @@ function AnimatedRoutes() {
           <Route path="/my-courses" element={<PageWrapper><MyCourses /></PageWrapper>} />
           <Route path="/course/:enrollmentId" element={<PageWrapper><Course /></PageWrapper>} />
           <Route path="/download-offer-letter" element={<PageWrapper><DownloadOfferLetter /></PageWrapper>} />
+          <Route path="/course-details/:courseId" element={<PageWrapper><CourseDetails /></PageWrapper>} />
+          <Route path="/web-development-internship" element={<PageWrapper><WebDevInternship /></PageWrapper>} />
         </Routes>
       </Suspense>
     </AnimatePresence>

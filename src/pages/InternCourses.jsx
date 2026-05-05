@@ -164,9 +164,20 @@ export default function InternCourses() {
                       </button>
                     </>
                   ) : (
-                    <button onClick={() => handleEnroll(course._id)} className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all">
-                      <CreditCard size={16} /> Enroll Now
-                    </button>
+                    <div className="flex gap-3 mt-auto">
+                      <button 
+                        onClick={() => navigate(`/course-details/${course._id}`)} 
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-gray-200 font-bold hover:bg-slate-300 dark:hover:bg-white/20 transition-all text-sm"
+                      >
+                        <BookOpen size={16} /> Syllabus
+                      </button>
+                      <button 
+                        onClick={() => handleEnroll(course._id)} 
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all text-sm"
+                      >
+                        <CreditCard size={16} /> Enroll
+                      </button>
+                    </div>
                   )}
                 </div>
               );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
+// eslint-disable-next-line no-unused-vars
   motion,
   AnimatePresence,
   useScroll,
@@ -28,9 +29,11 @@ export default function Navbar() {
 
     if (storedTheme === "dark" || (!storedTheme && isSystemDark)) {
       document.documentElement.classList.add("dark");
+      // eslint-disable-next-line
       setIsDark(true);
     } else {
       document.documentElement.classList.remove("dark");
+      // eslint-disable-next-line
       setIsDark(false);
     }
   }, []);
@@ -70,6 +73,7 @@ export default function Navbar() {
 
   // Close menu on route change
   useEffect(() => {
+    // eslint-disable-next-line
     setIsOpen(false);
   }, [location.pathname, location.search]);
 
@@ -77,6 +81,7 @@ export default function Navbar() {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Services", path: "/services" },
+    { name: "Internships", path: "/web-development-internship" },
     { name: "Careers", path: "/careers" },
   ];
 

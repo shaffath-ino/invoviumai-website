@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { BookOpen, Play, CheckCircle, ArrowLeft, LogOut } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
@@ -23,7 +24,7 @@ export default function MyCourses() {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEnrollments(response.data);
-    } catch (error) {
+    } catch {
       toast.error('Failed to load courses');
     } finally {
       setLoading(false);
@@ -57,14 +58,6 @@ export default function MyCourses() {
     }
   };
 
-  const getStatusText = (status) => {
-    switch (status) {
-      case 'enrolled': return 'Payment Pending';
-      case 'paid': return 'Generate Offer Letter';
-      case 'activated': return 'Start Learning';
-      default: return status;
-    }
-  };
 
   return (
     <div className="w-full relative px-6 py-24 min-h-screen flex flex-col items-center max-w-7xl mx-auto z-10">

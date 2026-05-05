@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { FileText, ArrowLeft, Download } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -13,35 +14,33 @@ export default function OfferLetter() {
   const [generating, setGenerating] = useState(false);
   const [formData, setFormData] = useState({
     college: '',
-    courseDuration: '',
-    startDate: '',
-    endDate: ''
+    startDate: ''
   });
 
   useEffect(() => {
-    fetchEnrollment();
-  }, [enrollmentId]);
-
-  const fetchEnrollment = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/course/my-courses', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const found = response.data.find(e => e._id === enrollmentId);
-      if (found) {
-        setEnrollment(found);
-      } else {
-        toast.error('Enrollment not found');
+    const fetchEnrollment = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:5000/api/course/my-courses', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const found = response.data.find(e => e._id === enrollmentId);
+        if (found) {
+          setEnrollment(found);
+        } else {
+          toast.error('Enrollment not found');
+          navigate('/dashboard');
+        }
+      } catch {
+        toast.error('Failed to load enrollment details');
         navigate('/dashboard');
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      toast.error('Failed to load enrollment details');
-      navigate('/dashboard');
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchEnrollment();
+  }, [enrollmentId, navigate]);
 
   const handleGenerate = async (e) => {
     e.preventDefault();
@@ -120,33 +119,12 @@ export default function OfferLetter() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">Internship Duration</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.courseDuration}
-                      onChange={(e) => setFormData({...formData, courseDuration: e.target.value})}
-                      className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                      placeholder="e.g., 3 months"
-                    />
-                  </div>
-                  <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">Start Date</label>
                     <input
                       type="date"
                       required
                       value={formData.startDate}
                       onChange={(e) => setFormData({...formData, startDate: e.target.value})}
-                      className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">End Date</label>
-                    <input
-                      type="date"
-                      required
-                      value={formData.endDate}
-                      onChange={(e) => setFormData({...formData, endDate: e.target.value})}
                       className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                     />
                   </div>

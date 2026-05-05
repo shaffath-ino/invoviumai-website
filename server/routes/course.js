@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   getCourses,
+  getCourseById,
   enrollCourse,
   processPayment,
   generateOfferLetter,
@@ -12,6 +13,7 @@ import {
 const router = express.Router();
 
 router.get('/courses', getCourses);
+router.get('/courses/:id', getCourseById);
 router.post('/enroll', enrollCourse);
 router.post('/payment', processPayment);
 router.post('/generate-offer-letter', generateOfferLetter);

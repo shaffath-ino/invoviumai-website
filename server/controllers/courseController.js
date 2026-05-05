@@ -5,6 +5,7 @@ import PDFDocument from 'pdfkit';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import config from '../../config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,14 +20,25 @@ const getCourses = async (req, res) => {
   }
 };
 
+// Get course by ID
+const getCourseById = async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course) return res.status(404).json({ message: 'Course not found' });
+    res.json(course);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
 // Enroll in a course
 const enrollCourse = async (req, res) => {
   try {
     console.log('Enroll Course Request Body:', req.body);
     const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'No token provided' });
+    if (!token || token === 'null') return res.status(401).json({ message: 'No token provided' });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, config.JWT_SECRET || 'fallback_secret');
     console.log('Decoded JWT:', decoded);
     const { courseId } = req.body;
 
@@ -52,10 +64,10 @@ const enrollCourse = async (req, res) => {
 const processPayment = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'No token provided' });
+    if (!token || token === 'null') return res.status(401).json({ message: 'No token provided' });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { enrollmentId, paymentMethod } = req.body;
+    const decoded = jwt.verify(token, config.JWT_SECRET || 'fallback_secret');
+    const { enrollmentId } = req.body;
 
     const enrollment = await Enrollment.findOne({ _id: enrollmentId, userId: decoded.userId });
     if (!enrollment) return res.status(404).json({ message: 'Enrollment not found' });
@@ -63,8 +75,8 @@ const processPayment = async (req, res) => {
     const course = await Course.findById(enrollment.courseId);
     if (!course) return res.status(404).json({ message: 'Course not found' });
 
-    // Simulate payment success and activate the course immediately
-    enrollment.status = 'activated';
+    // Simulate payment success and mark as paid (waiting for offer letter)
+    enrollment.status = 'paid';
     enrollment.currentStage = 'Beginner';
     enrollment.paymentDetails = {
       amount: course.price,
@@ -73,7 +85,7 @@ const processPayment = async (req, res) => {
     };
 
     await enrollment.save();
-    res.json({ message: 'Payment successful and course activated', enrollment });
+    res.json({ message: 'Payment successful, please generate your offer letter', enrollment });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
@@ -83,22 +95,39 @@ const processPayment = async (req, res) => {
 const generateOfferLetter = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'No token provided' });
+    if (!token || token === 'null') return res.status(401).json({ message: 'No token provided' });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { enrollmentId, college, courseDuration, startDate, endDate } = req.body;
+    const decoded = jwt.verify(token, config.JWT_SECRET || 'fallback_secret');
+    const { enrollmentId, college, startDate } = req.body;
 
     const enrollment = await Enrollment.findOne({ _id: enrollmentId, userId: decoded.userId }).populate('courseId').populate('userId');
     if (!enrollment) return res.status(404).json({ message: 'Enrollment not found' });
 
+    // Automate duration and end date
+    const durationString = enrollment.courseId.duration || '3 months';
+    const monthsMatch = durationString.match(/(\d+)/);
+    const monthsCount = monthsMatch ? parseInt(monthsMatch[1], 10) : 3;
+    
+    const startObj = new Date(startDate);
+    const endObj = new Date(startObj);
+    endObj.setMonth(startObj.getMonth() + monthsCount);
+
+    const automatedCourseDuration = durationString;
+    const automatedEndDate = endObj.toISOString();
+
     // Update enrollment with additional details
-    enrollment.additionalDetails = { college, courseDuration, startDate, endDate };
+    enrollment.additionalDetails = { 
+      college, 
+      courseDuration: automatedCourseDuration, 
+      startDate, 
+      endDate: automatedEndDate 
+    };
     enrollment.status = 'activated';
 
     // Generate PDF
     const doc = new PDFDocument();
     const fileName = `offer_letter_${enrollment._id}.pdf`;
-    const filePath = path.join(__dirname, '../../public/offer-letters', fileName);
+    const filePath = path.join(__dirname, '../public/offer-letters', fileName);
 
     // Ensure directory exists
     if (!fs.existsSync(path.dirname(filePath))) {
@@ -120,9 +149,9 @@ const generateOfferLetter = async (req, res) => {
     doc.text(`- Description: ${enrollment.courseId.description}`);
     doc.text(`- Duration: ${enrollment.courseId.duration}`);
     doc.text(`- College: ${college}`);
-    doc.text(`- Internship Duration: ${courseDuration}`);
+    doc.text(`- Internship Duration: ${automatedCourseDuration}`);
     doc.text(`- Start Date: ${new Date(startDate).toDateString()}`);
-    doc.text(`- End Date: ${new Date(endDate).toDateString()}`);
+    doc.text(`- End Date: ${new Date(automatedEndDate).toDateString()}`);
     doc.moveDown();
     doc.text('Best regards,');
     doc.text('InoviumAI Team');
@@ -144,9 +173,9 @@ const generateOfferLetter = async (req, res) => {
 const getMyCourses = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'No token provided' });
+    if (!token || token === 'null') return res.status(401).json({ message: 'No token provided' });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, config.JWT_SECRET || 'fallback_secret');
 
     const enrollments = await Enrollment.find({ userId: decoded.userId })
       .populate('courseId')
@@ -162,9 +191,9 @@ const getMyCourses = async (req, res) => {
 const downloadOfferLetter = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'No token provided' });
+    if (!token || token === 'null') return res.status(401).json({ message: 'No token provided' });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, config.JWT_SECRET || 'fallback_secret');
     const { courseId } = req.params;
 
     const enrollment = await Enrollment.findOne({ userId: decoded.userId, courseId, status: 'activated' });
@@ -172,7 +201,7 @@ const downloadOfferLetter = async (req, res) => {
       return res.status(404).json({ message: 'Offer letter not found' });
     }
 
-    const filePath = path.join(__dirname, '../../public', enrollment.offerLetterPath);
+    const filePath = path.join(__dirname, '../public', enrollment.offerLetterPath);
     res.download(filePath);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -183,9 +212,9 @@ const downloadOfferLetter = async (req, res) => {
 const updateCurrentStage = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'No token provided' });
+    if (!token || token === 'null') return res.status(401).json({ message: 'No token provided' });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, config.JWT_SECRET || 'fallback_secret');
     const { enrollmentId, currentStage } = req.body;
 
     const enrollment = await Enrollment.findOneAndUpdate(
@@ -204,6 +233,7 @@ const updateCurrentStage = async (req, res) => {
 
 export {
   getCourses,
+  getCourseById,
   enrollCourse,
   processPayment,
   generateOfferLetter,

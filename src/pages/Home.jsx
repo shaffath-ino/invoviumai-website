@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion, useScroll, useTransform, animate } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Activity, TerminalSquare, ShieldCheck, Zap, Globe, Sparkles, Cpu } from 'lucide-react';

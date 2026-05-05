@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { CreditCard, ArrowLeft, CheckCircle } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -13,29 +14,29 @@ export default function Payment() {
   const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
-    fetchEnrollment();
-  }, [enrollmentId]);
-
-  const fetchEnrollment = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/course/my-courses', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const found = response.data.find(e => e._id === enrollmentId);
-      if (found) {
-        setEnrollment(found);
-      } else {
-        toast.error('Enrollment not found');
+    const fetchEnrollment = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:5000/api/course/my-courses', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const found = response.data.find(e => e._id === enrollmentId);
+        if (found) {
+          setEnrollment(found);
+        } else {
+          toast.error('Enrollment not found');
+          navigate('/dashboard');
+        }
+      } catch {
+        toast.error('Failed to load enrollment details');
         navigate('/dashboard');
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      toast.error('Failed to load enrollment details');
-      navigate('/dashboard');
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchEnrollment();
+  }, [enrollmentId, navigate]);
 
   const handlePayment = async () => {
     setProcessing(true);

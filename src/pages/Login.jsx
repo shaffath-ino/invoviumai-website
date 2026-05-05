@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, KeyRound, ShieldCheck, ArrowRight, Loader2, Lock, User, Hash, Building2, GraduationCap } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';

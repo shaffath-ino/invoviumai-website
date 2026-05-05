@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { FileText, Download, ArrowLeft, LogOut } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
@@ -26,7 +27,7 @@ export default function DownloadOfferLetter() {
       // Filter only activated courses with offer letters
       const activatedCourses = response.data.filter(e => e.status === 'activated');
       setEnrollments(activatedCourses);
-    } catch (error) {
+    } catch {
       toast.error('Failed to load courses');
     } finally {
       setLoading(false);
@@ -53,7 +54,7 @@ export default function DownloadOfferLetter() {
       window.URL.revokeObjectURL(url);
 
       toast.success('Offer letter downloaded successfully!');
-    } catch (error) {
+    } catch {
       toast.error('Failed to download offer letter');
     } finally {
       setDownloading(null);
