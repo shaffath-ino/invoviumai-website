@@ -48,11 +48,12 @@ export default function Login() {
       // Auto-redirect based on account type
       setTimeout(() => {
         if (user.accountType === 'student') {
-          window.location.href = '/dashboard'; // Redirecting to Student Page
-         } 
-        //  else {
-        //   window.location.href = '/company-dashboard'; // Redirecting to Company Page
-        // }
+          window.location.href = '/dashboard';
+        } else if (user.accountType === 'admin') {
+          window.location.href = '/admin-dashboard';
+        } else {
+          window.location.href = '/company-dashboard';
+        }
       }, 1500);
     } catch (err) {
       console.error(err);
@@ -157,9 +158,11 @@ export default function Login() {
       // Auto-redirect based on account type
       setTimeout(() => {
         if (user.accountType === 'student') {
-          window.location.href = '/student-dashboard'; // Redirecting to Student Page
+          window.location.href = '/dashboard';
+        } else if (user.accountType === 'admin') {
+          window.location.href = '/admin-dashboard';
         } else {
-          window.location.href = '/company-dashboard'; // Redirecting to Company Page
+          window.location.href = '/company-dashboard';
         }
       }, 1500);
     } catch (err) {

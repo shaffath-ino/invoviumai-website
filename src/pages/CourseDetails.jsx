@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { 
   BookOpen, ArrowLeft, CreditCard, Clock, GraduationCap, 
@@ -22,7 +23,7 @@ export default function CourseDetails() {
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
         const response = await axios.get(`http://localhost:5000/api/course/courses/${courseId}`, { headers });
         setCourse(response.data);
-      } catch (err) {
+      } catch {
         toast.error('Failed to load course details');
         navigate('/intern-courses');
       } finally {

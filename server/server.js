@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js';
 import chatRoutes from './routes/chat.js';
 import courseRoutes from './routes/course.js';
+import adminRoutes from './routes/admin.js';
 
 
 const app = express();
@@ -29,6 +30,7 @@ app.use('/api', limiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/course', courseRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Database connection
 const PORT = config.PORT || 5000;

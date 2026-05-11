@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
   accountType: {
     type: String,
-    enum: ['student', 'company'],
+    enum: ['student', 'company', 'admin'],
     default: 'student',
   },
   name: {

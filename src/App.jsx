@@ -26,6 +26,8 @@ const Course = lazy(() => import('./pages/Course'));
 const DownloadOfferLetter = lazy(() => import('./pages/DownloadOfferLetter'));
 const CourseDetails = lazy(() => import('./pages/CourseDetails'));
 const WebDevInternship = lazy(() => import('./pages/WebDevInternship'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const JobDetails = lazy(() => import('./pages/JobDetails'));
 
 // Loading Skeleton
 function PageSkeleton() {
@@ -94,6 +96,8 @@ function AnimatedRoutes() {
           <Route path="/download-offer-letter" element={<PageWrapper><DownloadOfferLetter /></PageWrapper>} />
           <Route path="/course-details/:courseId" element={<PageWrapper><CourseDetails /></PageWrapper>} />
           <Route path="/web-development-internship" element={<PageWrapper><WebDevInternship /></PageWrapper>} />
+          <Route path="/admin-dashboard" element={<PageWrapper><AdminDashboard /></PageWrapper>} />
+          <Route path="/careers/:id" element={<PageWrapper><JobDetails /></PageWrapper>} />
         </Routes>
       </Suspense>
     </AnimatePresence>

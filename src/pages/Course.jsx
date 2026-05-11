@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle, Lock, Play, Code2, HelpCircle } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';

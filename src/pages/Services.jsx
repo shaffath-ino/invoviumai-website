@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { ArrowUpRight, Cpu, ShieldCheck, PhoneCall, BarChart2, Activity } from 'lucide-react';
+import { ArrowUpRight, Cpu, ShieldCheck, PhoneCall, BarChart2, Activity, Globe } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -39,12 +39,12 @@ function TiltCard({ children }) {
 }
 
 export default function Services() {
-  const genericServices = [
-    { title: "AI Solutions", icon: Cpu, desc: "Bespoke artificial intelligence pipelines integrating natively with enterprise datasets for predictive autonomy." },
-    { title: "Insurance Management Systems", icon: ShieldCheck, desc: "End-to-end policy lifecycle oversight optimizing workflows and tracking multi-tier premium models seamlessly." },
-    { title: "Telecalling Platforms", icon: PhoneCall, desc: "Automate outbound communications mapping sophisticated lead assignments directly into your central CRM." },
-    { title: "Workflow Automation", icon: Activity, desc: "Eliminate manual overhead with instantaneous sub-ms robotic process integration across your infrastructure." },
-    { title: "Data Analytics", icon: BarChart2, desc: "Ingest massive operational pipelines to forge real-time global synchronous infrastructure tracking." }
+  const services = [
+    { title: "AI Solutions", icon: Cpu, desc: "Custom artificial intelligence models designed to enhance predictive capabilities and automate business processes." },
+    { title: "Enterprise Web Development", icon: ShieldCheck, desc: "End-to-end full stack development for scalable and secure web applications tailored to your business needs." },
+    { title: "Cloud Infrastructure", icon: Globe, desc: "Deploy and manage resilient cloud architectures to ensure high availability and seamless scaling." },
+    { title: "Workflow Automation", icon: Activity, desc: "Streamline operations with intelligent robotic process automation across your digital infrastructure." },
+    { title: "Data Analytics & Engineering", icon: BarChart2, desc: "Transform complex data into actionable insights through robust pipeline engineering and visualization." }
   ];
 
   return (
@@ -55,13 +55,13 @@ export default function Services() {
            Core <span className="text-gradient">Capabilities</span>
         </motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-gray-400 leading-relaxed">
-          Robust, scalable, and intelligent. We construct elite digital infrastructures designed to handle absolute capacity.
+          Robust, scalable, and intelligent. We construct digital infrastructures designed to support your business growth.
         </motion.p>
       </div>
 
       {/* 3. Services Section */}
-      <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
-        {genericServices.map((svc, i) => (
+      <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32 justify-center">
+        {services.map((svc, i) => (
           <TiltCard key={i}>
             <div className="glass-card p-8 flex flex-col h-full group transition-all duration-300">
                <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all mb-6 group-hover:shadow-[0_0_15px_rgba(230,57,70,0.3)]">

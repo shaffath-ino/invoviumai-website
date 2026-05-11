@@ -14,7 +14,7 @@ export default function About() {
           Pioneering the <br/><span className="text-gradient">Intelligent Edge.</span>
         </motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-gray-400 leading-relaxed font-medium">
-          InoviumAI is a premiere engineering collective rapidly advancing enterprise architecture. We deploy high-availability AI systems designed explicitly for the extreme demands of the global operational landscape.
+          InoviumAI is a forward-thinking engineering collective rapidly advancing enterprise architecture. We deploy intelligent, scalable systems designed to meet the growing demands of the modern digital landscape.
         </motion.p>
       </section>
 
@@ -25,7 +25,7 @@ export default function About() {
             <Goal size={200} className="text-primary/5 absolute -right-10 -bottom-10 group-hover:scale-110 transition-transform duration-700" />
             <h2 className="text-3xl font-extrabold mb-8 text-slate-900 dark:text-white relative z-10">Mission & Vision</h2>
             <ul className="space-y-6 relative z-10">
-              {['Engineer structural integrity that obliterates operational bottlenecks globally.', 'Implement unbreachable security margins using strict zero-trust boundaries.', 'Eradicate legacy latency by migrating architectures natively to autonomous neural cores.', 'Form absolute symbiosis with enterprise partners executing high-risk transactions.'].map((pt, i) => (
+              {['Develop robust, scalable web architectures to solve complex operational challenges.', 'Implement robust security protocols to ensure complete data integrity.', 'Leverage advanced AI/ML algorithms to optimize and automate workflows.', 'Build strong partnerships with clients through transparent, high-quality engineering.'].map((pt, i) => (
                 <li key={i} className="flex items-start text-base font-medium text-gray-300">
                   <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-0.5 border border-primary/30">
                     <div className="w-2 h-2 rounded-full bg-primary" />
@@ -59,7 +59,7 @@ export default function About() {
                <div>
                  <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Our Engineering Core</h3>
                  <p className="text-gray-400 text-base leading-relaxed">
-                   A strictly curated team of highly skilled AI/ML engineers and full-stack developers. We bring an aggressive problem-solving mindset to build solutions that exceed expectations and create measurable business impact.
+                   A dedicated team of highly skilled AI/ML engineers and full-stack developers. We bring a collaborative problem-solving mindset to build solutions that exceed expectations and create measurable business impact.
                  </p>
                </div>
              </motion.div>

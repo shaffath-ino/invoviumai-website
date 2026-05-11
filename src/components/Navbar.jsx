@@ -33,7 +33,7 @@ export default function Navbar() {
       setIsDark(true);
     } else {
       document.documentElement.classList.remove("dark");
-      // eslint-disable-next-line
+       
       setIsDark(false);
     }
   }, []);
@@ -91,8 +91,14 @@ export default function Navbar() {
     { name: "My Courses", path: "/my-courses" },
   ];
 
-  const isLoggedIn = userRole === "student" || userRole === "company";
+  const adminLinks = [
+    { name: "Dashboard", path: "/admin-dashboard" },
+    { name: "Careers", path: "/careers" },
+  ];
+
+  const isLoggedIn = userRole === "student" || userRole === "company" || userRole === "admin";
   const displayLinks =
+    userRole === "admin" ? adminLinks :
     isLoggedIn && userRole === "student" ? studentLinks : navLinks;
 
   const handleLogout = () => {

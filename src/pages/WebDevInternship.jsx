@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { 
   Code, Database, Server, MonitorSmartphone, Layout, GitBranch, 
@@ -22,7 +23,7 @@ export default function WebDevInternship() {
         if (webCourse) {
           setCourseId(webCourse._id);
         }
-      } catch (err) {
+      } catch {
         console.error('Failed to fetch course ID');
       }
     };
