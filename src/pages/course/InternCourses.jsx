@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ArrowLeft, BookOpen, CheckCircle, CreditCard, GraduationCap, LogOut } from 'lucide-react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';

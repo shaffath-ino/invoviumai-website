@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Briefcase, MapPin, Clock, ArrowUpRight, Zap, Search, Plus, Edit2, Trash2, X } from 'lucide-react';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
 // eslint-disable-next-line no-unused-vars

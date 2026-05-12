@@ -37,21 +37,40 @@ export default function About() {
           </motion.div>
           
           <div className="flex flex-col gap-12 justify-center">
-             {/* Founder Highlight */}
-             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass-card p-10 border-primary/20 transition-colors duration-300">
-               <div className="flex items-center gap-4 mb-6">
-                 <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center border border-primary/50 shadow-[0_0_15px_rgba(230,57,70,0.3)]">
-                   <Medal size={28} className="text-primary" />
-                 </div>
-                 <div>
-                   <h3 className="text-xl font-bold text-slate-900 dark:text-white">Shaffath Hussain Shakir</h3>
-                   <p className="text-primary text-xs uppercase tracking-widest font-bold">Founder & Technology Leader</p>
-                 </div>
-               </div>
-               <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-primary/30 pl-4 py-1 italic font-medium">
-                 "With over 20 years bridging software engineering, telecommunications, and large-scale system development as Principal Technical Lead at Viasat Inc., Shaffath built InoviumAI on a foundation of extreme technical excellence and strategic vision."
-               </p>
-             </motion.div>
+             {/* Founders Highlight */}
+             <div className="flex flex-col gap-6">
+               {[
+                 {
+                   name: 'Palaniappa Deepa',
+                   role: 'Founder',
+                   desc: '"Driving innovation and operational excellence with a strong commitment to scaling enterprise solutions and delivering unmatched value to our partners and clients."',
+                   highlight: true
+                 },
+                 {
+                   name: 'Arshiya Mobeen',
+                   role: 'Founder',
+                   desc: '"Championing technical strategy and business growth, ensuring InoviumAI remains at the forefront of AI and engineering advancements while fostering a culture of excellence."',
+                   highlight: true
+                 }
+               ].map((founder, idx) => (
+                 <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }} className={`glass-card p-6 ${founder.highlight ? 'border-primary/20 shadow-[0_0_15px_rgba(230,57,70,0.1)]' : 'border-white/5 hover:border-primary/20'} transition-all duration-300`}>
+                   <div className={`flex items-center gap-4 ${founder.desc ? 'mb-4' : ''}`}>
+                     <div className={`w-12 h-12 rounded-full flex items-center justify-center border ${founder.highlight ? 'bg-primary/20 border-primary/50' : 'bg-primary/5 border-primary/20'}`}>
+                       <Medal size={20} className="text-primary" />
+                     </div>
+                     <div>
+                       <h3 className="text-lg font-bold text-slate-900 dark:text-white">{founder.name}</h3>
+                       <p className="text-primary text-xs uppercase tracking-widest font-bold">{founder.role}</p>
+                     </div>
+                   </div>
+                   {founder.desc && (
+                     <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-primary/30 pl-4 py-1 italic font-medium">
+                       {founder.desc}
+                     </p>
+                   )}
+                 </motion.div>
+               ))}
+             </div>
 
              {/* Team Strength */}
              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="glass-card p-10 border-white/10 shadow-xl group hover:border-primary/40 transition-all flex items-start gap-6">

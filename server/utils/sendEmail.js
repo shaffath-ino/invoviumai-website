@@ -42,8 +42,14 @@ export const sendEmail = async (to, subject, otpCode) => {
     console.log('Message sent: %s', info.messageId);
     return true;
   } catch (error) {
+    // Strict Dev Mode Bypass: Only bypass if NO email credentials are provided at all.
+    if (!config.EMAIL_USER) {
+      console.warn('⚠️ CRITICAL WARNING: Bypassing email sending because EMAIL_USER is not configured. Do not use in production!');
+      return true;
+    }
+    
+    // In production (with credentials), log the real error and ALWAYS return false
     console.error('Nodemailer Error: Authentication or network issue ->', error.message);
-    // Dev Mode Bypass: Return true so the frontend doesn't get blocked
-    return true;
+    return false;
   }
 };

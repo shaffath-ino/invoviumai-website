@@ -92,38 +92,22 @@ export default function Footer() {
 
         </div>
 
-        {/* Corporate Authority Grid */}
-        <div className="border-t border-slate-200 dark:border-white/10 pt-10 mb-8 grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div>
-            <h4 className="text-slate-900 dark:text-white font-bold mb-5 text-sm uppercase tracking-widest flex items-center gap-2 transition-colors">
-              <ShieldCheck size={16} className="text-primary"/> Certification Authority
-            </h4>
-            <div className="space-y-2 text-[13px] text-slate-600 dark:text-gray-400 flex flex-col transition-colors">
-              <span className="font-semibold text-slate-800 dark:text-gray-300">Government of India</span>
-              <span>Ministry of Corporate Affairs</span>
-              <span>Central Registration Centre</span>
-              <span className="mt-4 text-[11px] italic pr-4 border-l-2 border-primary/50 pl-3 py-1 bg-primary/5 rounded-r">
-                Disclaimer: Incorporation proof only. Not a business license. Regulatory approvals may be required.
-              </span>
-            </div>
+        {/* Corporate Authority Details - Hidden & Shortened */}
+        <details className="mb-8 text-xs text-slate-500 dark:text-gray-500 group cursor-pointer border-t border-slate-200 dark:border-white/10 pt-6">
+          <summary className="font-semibold outline-none hover:text-primary transition-colors flex items-center gap-2 select-none">
+            <ShieldCheck size={14} className="text-primary" /> View Corporate Registration Details
+          </summary>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8 pl-6 border-l-2 border-slate-200 dark:border-white/10 opacity-80">
+             <div>
+               <p className="font-medium text-slate-700 dark:text-gray-300">Govt. of India | Ministry of Corporate Affairs</p>
+               <p className="mt-1 text-[10px] italic">Disclaimer: Incorporation proof only. Not a business license.</p>
+             </div>
+             <div>
+               <p className="font-medium text-slate-700 dark:text-gray-300 uppercase">INOVIUM AI PRIVATE LIMITED</p>
+               <p className="mt-1 font-mono text-[10.5px]">CIN: U62011TN2024PTC170765 | PAN: AAHCI7029M | TAN: CHEI12079E | Inc: 03 Jun 2024</p>
+             </div>
           </div>
-
-          <div>
-             <h4 className="text-slate-900 dark:text-white font-bold mb-5 text-sm uppercase tracking-widest flex items-center gap-2 transition-colors">
-              <Building size={16} className="text-primary"/> Company Registry
-            </h4>
-            <div className="text-[13px] text-slate-600 dark:text-gray-400 transition-colors">
-              <p className="font-semibold text-slate-800 dark:text-gray-200 uppercase mb-3">INOVIUM AI PRIVATE LIMITED</p>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[12px] max-w-[320px]">
-                <div className="opacity-80">Type:</div><div className="font-medium text-slate-800 dark:text-gray-300">Private Limited</div>
-                <div className="opacity-80">Inc Date:</div><div className="font-medium text-slate-800 dark:text-gray-300">3 June 2024</div>
-                <div className="opacity-80">CIN:</div><div className="font-medium text-slate-800 dark:text-gray-300">U62011TN2024PTC170765</div>
-                <div className="opacity-80">PAN:</div><div className="font-medium text-slate-800 dark:text-gray-300">AAHCI7029M</div>
-                <div className="opacity-80">TAN:</div><div className="font-medium text-slate-800 dark:text-gray-300">CHEI12079E</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </details>
 
         {/* Bottom Bar Container */}
         <div className="border-t border-slate-200 dark:border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 transition-colors">

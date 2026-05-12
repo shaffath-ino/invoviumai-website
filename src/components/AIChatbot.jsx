@@ -12,8 +12,28 @@ const knowledgeBaseTopics = [
   "Careers"
 ];
 
+const TypewriterMarkdown = ({ text, onComplete }) => {
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < text.length) {
+        setDisplayedText(prev => prev + text.charAt(i));
+        i++;
+      } else {
+        clearInterval(timer);
+        if (onComplete) onComplete();
+      }
+    }, 15);
+    return () => clearInterval(timer);
+  }, [text, onComplete]);
+
+  return <ReactMarkdown>{displayedText}</ReactMarkdown>;
+};
+
 const initialMessages = [
-  { id: 1, sender: 'bot', text: "Hello! I'm the InoviumAI Virtual Assistant. How can I help you architect your future today?" }
+  { id: 1, sender: 'bot', text: "Hello! I'm the InoviumAI Virtual Assistant. How can I help you architect your future today?", isAnimated: false }
 ];
 
 export default function AIChatbot() {
@@ -50,7 +70,8 @@ export default function AIChatbot() {
     conversation.push({ role: 'user', content: userMessage });
 
     try {
-      const response = await fetch('http://localhost:5000/api/chat', {
+      const apiUrl = import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL}/api/chat` : 'http://localhost:5000/api/chat';
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -67,11 +88,11 @@ export default function AIChatbot() {
 
       const data = await response.json();
       
-      const botMsgObj = { id: Date.now() + 1, sender: 'bot', text: data.reply };
+      const botMsgObj = { id: Date.now() + 1, sender: 'bot', text: data.reply, isAnimated: true };
       setMessages(prev => [...prev, botMsgObj]);
     } catch (error) {
       console.error(error);
-      const errorMsg = { id: Date.now() + 1, sender: 'bot', text: "Error connecting to internal systems securely. Please restart interface." };
+      const errorMsg = { id: Date.now() + 1, sender: 'bot', text: "Error connecting to internal systems securely. Please restart interface.", isAnimated: true };
       setMessages(prev => [...prev, errorMsg]);
     }
 
@@ -150,9 +171,16 @@ export default function AIChatbot() {
                     }`}>
                       {msg.sender === 'bot' ? (
                         <div className="prose prose-sm dark:prose-invert prose-p:leading-snug prose-p:my-1 prose-ul:my-1 prose-ol:my-1 max-w-none prose-a:text-primary">
-                          <ReactMarkdown>
-                            {msg.text}
-                          </ReactMarkdown>
+                          {msg.isAnimated ? (
+                            <TypewriterMarkdown 
+                              text={msg.text} 
+                              onComplete={() => {
+                                setMessages(prev => prev.map(m => m.id === msg.id ? { ...m, isAnimated: false } : m));
+                              }} 
+                            />
+                          ) : (
+                            <ReactMarkdown>{msg.text}</ReactMarkdown>
+                          )}
                         </div>
                       ) : (
                         msg.text

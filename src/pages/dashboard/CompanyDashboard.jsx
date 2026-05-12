@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Building2, LogOut, Users, Settings, Database } from 'lucide-react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function CompanyDashboard() {

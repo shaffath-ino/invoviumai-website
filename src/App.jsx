@@ -10,24 +10,35 @@ import AIChatbot from './components/AIChatbot';
 import { AuthProvider } from './context/AuthContext';
 
 // Lazy Loaded Pages
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
-const Services = lazy(() => import('./pages/Services'));
-const Careers = lazy(() => import('./pages/Careers'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Login = lazy(() => import('./pages/Login'));
-const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
-const InternCourses = lazy(() => import('./pages/InternCourses'));
-const CompanyDashboard = lazy(() => import('./pages/CompanyDashboard'));
-const Payment = lazy(() => import('./pages/Payment'));
-const OfferLetter = lazy(() => import('./pages/OfferLetter'));
-const MyCourses = lazy(() => import('./pages/MyCourses'));
-const Course = lazy(() => import('./pages/Course'));
-const DownloadOfferLetter = lazy(() => import('./pages/DownloadOfferLetter'));
-const CourseDetails = lazy(() => import('./pages/CourseDetails'));
-const WebDevInternship = lazy(() => import('./pages/WebDevInternship'));
-const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
-const JobDetails = lazy(() => import('./pages/JobDetails'));
+// -- Public Pages --
+const Home = lazy(() => import('./pages/public/Home'));
+const About = lazy(() => import('./pages/public/About'));
+const Services = lazy(() => import('./pages/public/Services'));
+const Contact = lazy(() => import('./pages/public/Contact'));
+
+// -- Auth --
+const Login = lazy(() => import('./pages/auth/Login'));
+
+// -- Dashboards --
+const StudentDashboard = lazy(() => import('./pages/dashboard/StudentDashboard'));
+const CompanyDashboard = lazy(() => import('./pages/dashboard/CompanyDashboard'));
+const AdminDashboard = lazy(() => import('./pages/dashboard/AdminDashboard'));
+
+// -- Courses & Internships --
+const Course = lazy(() => import('./pages/course/Course'));
+const CourseDetails = lazy(() => import('./pages/course/CourseDetails'));
+const InternCourses = lazy(() => import('./pages/course/InternCourses'));
+const MyCourses = lazy(() => import('./pages/course/MyCourses'));
+const WebDevInternship = lazy(() => import('./pages/course/WebDevInternship'));
+
+// -- Careers --
+const Careers = lazy(() => import('./pages/career/Careers'));
+const JobDetails = lazy(() => import('./pages/career/JobDetails'));
+
+// -- Onboarding & Payment --
+const Payment = lazy(() => import('./pages/onboarding/Payment'));
+const OfferLetter = lazy(() => import('./pages/onboarding/OfferLetter'));
+const DownloadOfferLetter = lazy(() => import('./pages/onboarding/DownloadOfferLetter'));
 
 // Loading Skeleton
 function PageSkeleton() {

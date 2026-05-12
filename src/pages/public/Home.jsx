@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, animate } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Activity, TerminalSquare, ShieldCheck, Zap, Globe, Sparkles, Cpu } from 'lucide-react';
 
-import bannerImg from '../assets/banner.jpeg';
+import bannerImg from '../../assets/banner.jpeg';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },

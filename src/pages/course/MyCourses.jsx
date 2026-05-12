@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { FileText, Download, ArrowLeft, LogOut } from 'lucide-react';
-import { AuthContext } from '../context/AuthContext';
+import { BookOpen, Play, CheckCircle, ArrowLeft, LogOut } from 'lucide-react';
+import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-export default function DownloadOfferLetter() {
+export default function MyCourses() {
   const { firstName, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [downloading, setDownloading] = useState(null);
 
   useEffect(() => {
     fetchMyCourses();
@@ -24,9 +23,7 @@ export default function DownloadOfferLetter() {
       const response = await axios.get('http://localhost:5000/api/course/my-courses', {
         headers: { Authorization: `Bearer ${token}` }
       });
-      // Filter only activated courses with offer letters
-      const activatedCourses = response.data.filter(e => e.status === 'activated');
-      setEnrollments(activatedCourses);
+      setEnrollments(response.data);
     } catch {
       toast.error('Failed to load courses');
     } finally {
@@ -34,30 +31,13 @@ export default function DownloadOfferLetter() {
     }
   };
 
-  const handleDownload = async (courseId) => {
-    setDownloading(courseId);
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:5000/api/course/download-offer-letter/${courseId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-        responseType: 'blob'
-      });
-
-      // Create blob link to download
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `offer_letter_${courseId}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-
-      toast.success('Offer letter downloaded successfully!');
-    } catch {
-      toast.error('Failed to download offer letter');
-    } finally {
-      setDownloading(null);
+  const handleStartCourse = (enrollment) => {
+    if (enrollment.status === 'activated') {
+      navigate(`/course/${enrollment._id}`);
+    } else if (enrollment.status === 'paid') {
+      navigate(`/offer-letter/${enrollment._id}`);
+    } else {
+      navigate(`/payment/${enrollment._id}`);
     }
   };
 
@@ -69,8 +49,18 @@ export default function DownloadOfferLetter() {
     navigate('/login');
   };
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'enrolled': return 'text-yellow-500';
+      case 'paid': return 'text-blue-500';
+      case 'activated': return 'text-green-500';
+      default: return 'text-gray-500';
+    }
+  };
+
+
   return (
-    <div className="w-full relative px-6 py-24 min-h-screen flex flex-col items-center max-w-4xl mx-auto z-10">
+    <div className="w-full relative px-6 py-24 min-h-screen flex flex-col items-center max-w-7xl mx-auto z-10">
       {/* Background Radiance */}
       <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
@@ -92,7 +82,7 @@ export default function DownloadOfferLetter() {
               <ArrowLeft size={20} />
             </button>
             <div>
-              <h2 className="text-3xl font-black text-slate-900 dark:text-white">Download Offer Letter</h2>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">My Courses</h2>
               <p className="text-slate-500 dark:text-gray-400 font-medium">Welcome back, {firstName || 'Student'}</p>
             </div>
           </div>
@@ -106,8 +96,8 @@ export default function DownloadOfferLetter() {
           <div className="text-center py-12">Loading your courses...</div>
         ) : enrollments.length === 0 ? (
           <div className="text-center py-12">
-            <FileText size={48} className="text-slate-400 mx-auto mb-4" />
-            <p className="text-slate-500 dark:text-gray-400">No offer letters available. Complete your course enrollment and payment first.</p>
+            <BookOpen size={48} className="text-slate-400 mx-auto mb-4" />
+            <p className="text-slate-500 dark:text-gray-400">No courses enrolled yet.</p>
             <button 
               onClick={() => navigate('/dashboard')}
               className="mt-4 px-6 py-2 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all"
@@ -116,8 +106,7 @@ export default function DownloadOfferLetter() {
             </button>
           </div>
         ) : (
-          <div className="space-y-4">
-            <p className="text-slate-600 dark:text-gray-400 mb-6">Select a course to download your offer letter:</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {enrollments.map((enrollment) => (
               <motion.div 
                 key={enrollment._id}
@@ -126,23 +115,38 @@ export default function DownloadOfferLetter() {
                 transition={{ duration: 0.5 }}
                 className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-white/5 hover:border-primary/50 transition-all"
               >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">{enrollment.courseId.title}</h3>
-                    <p className="text-sm text-slate-500 dark:text-gray-400">{enrollment.courseId.description}</p>
-                    <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">
-                      Enrolled on: {new Date(enrollment.createdAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <button 
-                    onClick={() => handleDownload(enrollment.courseId._id)}
-                    disabled={downloading === enrollment.courseId._id}
-                    className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <Download size={16} />
-                    {downloading === enrollment.courseId._id ? 'Downloading...' : 'Download PDF'}
-                  </button>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">{enrollment.courseId.title}</h3>
+                  <span className={`text-sm font-medium px-2 py-1 rounded-full ${getStatusColor(enrollment.status)} bg-current/10`}>
+                    {enrollment.status}
+                  </span>
                 </div>
+                <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">{enrollment.courseId.description}</p>
+                <div className="space-y-2 mb-4">
+                  <p className="text-sm"><span className="font-medium">Duration:</span> {enrollment.courseId.duration}</p>
+                  <p className="text-sm"><span className="font-medium">Amount:</span> ₹{enrollment.paymentDetails?.amount || enrollment.courseId.price}</p>
+                  {enrollment.additionalDetails?.college && (
+                    <p className="text-sm"><span className="font-medium">College:</span> {enrollment.additionalDetails.college}</p>
+                  )}
+                </div>
+                <button 
+                  onClick={() => handleStartCourse(enrollment)}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all"
+                >
+                  {enrollment.status === 'activated' ? (
+                    <>
+                      <Play size={16} /> Start Learning
+                    </>
+                  ) : enrollment.status === 'paid' ? (
+                    <>
+                      <CheckCircle size={16} /> Generate Offer Letter
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle size={16} /> Complete Payment
+                    </>
+                  )}
+                </button>
               </motion.div>
             ))}
           </div>
