@@ -54,9 +54,12 @@ export const handleChat = async (req, res) => {
     });
 
     if (!response.ok) {
-      const errData = await response.text();
-      console.error("Groq Backend Connect Error:", errData);
-      return res.status(500).json({ error: 'LLM Engine Failure' });
+      const errData = await response.json();
+      console.error("Groq API Error Detail:", JSON.stringify(errData, null, 2));
+      return res.status(response.status).json({ 
+        error: 'AI Engine Error', 
+        details: errData.error?.message || 'Unknown provider error' 
+      });
     }
 
     const data = await response.json();
