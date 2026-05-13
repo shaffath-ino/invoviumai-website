@@ -52,7 +52,7 @@ export default function Services() {
       {/* Services Intro */}
       <div className="text-center mb-24 max-w-3xl mx-auto">
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-7xl font-black mb-8 leading-[1.1]">
-           Core <span className="text-gradient">Capabilities</span>
+          Core <span className="text-gradient">Capabilities</span>
         </motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-gray-400 leading-relaxed">
           Robust, scalable, and intelligent. We construct digital infrastructures designed to support your business growth.
@@ -64,14 +64,14 @@ export default function Services() {
         {services.map((svc, i) => (
           <TiltCard key={i}>
             <div className="glass-card p-8 flex flex-col h-full group transition-all duration-300">
-               <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all mb-6 group-hover:shadow-[0_0_15px_rgba(230,57,70,0.3)]">
-                 <svc.icon size={28} className="text-primary" />
-               </div>
-               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-wide">{svc.title}</h3>
-               <p className="text-gray-400 text-sm leading-relaxed mb-6">{svc.desc}</p>
-               <div className="mt-auto group-hover:translate-x-2 transition-transform duration-300">
-                 <ArrowUpRight size={20} className="text-primary opacity-50 group-hover:opacity-100" />
-               </div>
+              <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all mb-6 group-hover:shadow-[0_0_15px_rgba(230,57,70,0.3)]">
+                <svc.icon size={28} className="text-primary" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-wide">{svc.title}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed mb-6">{svc.desc}</p>
+              <div className="mt-auto group-hover:translate-x-2 transition-transform duration-300">
+                <ArrowUpRight size={20} className="text-primary opacity-50 group-hover:opacity-100" />
+              </div>
             </div>
           </TiltCard>
         ))}
@@ -79,7 +79,7 @@ export default function Services() {
 
       {/* Key Projects Showcase */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20 border-t border-white/5 pt-24">
-        
+
         {/* 4. First Project */}
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="glass-card p-10 lg:p-14 relative overflow-hidden group border-primary/20 hover:border-primary/50 transition-colors shadow-2xl">
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] group-hover:bg-primary/30 transition-colors" />
@@ -89,11 +89,11 @@ export default function Services() {
             An advanced AI-powered vehicle insurance management platform designed to simplify, automate, and scale your operations. From tracking high-volume premiums to monitoring payouts and policy lifecycles across diverse segments (2-wheelers, private cars, commercial), everything is unified within a single intelligent dashboard.
           </p>
           <ul className="space-y-4 mb-8 relative z-10 border-t border-white/10 pt-8 mt-auto">
-             {['Centralized Policy & Premium Tracking', 'Real-Time Insights & Advanced Filtering', 'Automated Claims & Payout Monitoring', 'Multi-Segment Vehicle Support'].map((feat, k) => (
-               <li key={k} className="flex items-center text-sm font-semibold text-slate-900 dark:text-white">
-                 <ShieldCheck size={16} className="text-primary mr-3" /> {feat}
-               </li>
-             ))}
+            {['Centralized Policy & Premium Tracking', 'Real-Time Insights & Advanced Filtering', 'Automated Claims & Payout Monitoring', 'Multi-Segment Vehicle Support'].map((feat, k) => (
+              <li key={k} className="flex items-center text-sm font-semibold text-slate-900 dark:text-white">
+                <ShieldCheck size={16} className="text-primary mr-3" /> {feat}
+              </li>
+            ))}
           </ul>
         </motion.div>
 
@@ -106,11 +106,11 @@ export default function Services() {
             Transform the way you manage policy renewals with a results-driven telecalling platform. Intelligently track upcoming expiries, equip telecallers with centralized lead data, and automate reminders so your team never misses a follow-up. Designed to maximize conversion rates and streamline customer outreach.
           </p>
           <ul className="space-y-4 mb-8 relative z-10 border-t border-white/10 pt-8 mt-auto">
-             {['Automated Expiry Identification & Tracking', 'Centralized Telecaller Leaderboards & CRM', 'Real-Time Status & Interaction Updates', 'Missed Follow-Up Prevention'].map((feat, k) => (
-               <li key={k} className="flex items-center text-sm font-semibold text-slate-900 dark:text-white">
-                 <PhoneCall size={16} className="text-primary mr-3" /> {feat}
-               </li>
-             ))}
+            {['Automated Expiry Identification & Tracking', 'Centralized Telecaller Leaderboards & CRM', 'Real-Time Status & Interaction Updates', 'Missed Follow-Up Prevention'].map((feat, k) => (
+              <li key={k} className="flex items-center text-sm font-semibold text-slate-900 dark:text-white">
+                <PhoneCall size={16} className="text-primary mr-3" /> {feat}
+              </li>
+            ))}
           </ul>
         </motion.div>
 
