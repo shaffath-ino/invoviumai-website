@@ -30,7 +30,7 @@ export default function Careers() {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/jobs');
+      const res = await axios.get('http://187.127.166.185:5000/api/admin/jobs');
       setJobs(res.data);
     } catch {
       toast.error('Failed to load jobs');
@@ -86,12 +86,12 @@ export default function Careers() {
       };
 
       if (editingJob) {
-        await axios.put(`http://localhost:5000/api/admin/jobs/${editingJob._id}`, submissionData, {
+        await axios.put(`http://187.127.166.185:5000/api/admin/jobs/${editingJob._id}`, submissionData, {
           headers: { Authorization: `Bearer ${token}` }
         });
         toast.success('Job updated');
       } else {
-        await axios.post('http://localhost:5000/api/admin/jobs', submissionData, {
+        await axios.post('http://187.127.166.185:5000/api/admin/jobs', submissionData, {
           headers: { Authorization: `Bearer ${token}` }
         });
         toast.success('Job created');
@@ -107,7 +107,7 @@ export default function Careers() {
     if (!window.confirm('Are you sure you want to delete this job?')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/admin/jobs/${id}`, {
+      await axios.delete(`http://187.127.166.185:5000/api/admin/jobs/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Job deleted');

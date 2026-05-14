@@ -70,7 +70,7 @@ export default function AIChatbot() {
     conversation.push({ role: 'user', content: userMessage });
 
     try {
-      const apiUrl = import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL}/api/chat` : 'http://localhost:5000/api/chat';
+      const apiUrl = import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL}/api/chat` : 'http://187.127.166.185:5000/api/chat';
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {

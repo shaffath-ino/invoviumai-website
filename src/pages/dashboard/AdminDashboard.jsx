@@ -20,7 +20,7 @@ export default function AdminDashboard() {
     const fetchStudents = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/admin/students', {
+        const res = await axios.get('http://187.127.166.185:5000/api/admin/students', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setStudents(res.data);

@@ -18,7 +18,7 @@ export default function WebDevInternship() {
   useEffect(() => {
     const fetchCourseId = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/course/courses');
+        const response = await axios.get('http://187.127.166.185:5000/api/course/courses');
         const webCourse = response.data.find(c => c.title === 'Web Development Internship');
         if (webCourse) {
           setCourseId(webCourse._id);
@@ -45,7 +45,7 @@ export default function WebDevInternship() {
       }
       
       const response = await axios.post(
-        'http://localhost:5000/api/course/enroll',
+        'http://187.127.166.185:5000/api/course/enroll',
         { courseId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

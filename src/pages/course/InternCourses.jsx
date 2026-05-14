@@ -46,8 +46,8 @@ export default function InternCourses() {
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
       const [coursesResponse, enrollmentsResponse] = await Promise.all([
-        axios.get('http://localhost:5000/api/course/courses', { headers }),
-        axios.get('http://localhost:5000/api/course/my-courses', { headers })
+        axios.get('http://187.127.166.185:5000/api/course/courses', { headers }),
+        axios.get('http://187.127.166.185:5000/api/course/my-courses', { headers })
       ]);
       setCourses(coursesResponse.data);
       setEnrollments(enrollmentsResponse.data);
@@ -66,7 +66,7 @@ export default function InternCourses() {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:5000/api/course/enroll',
+        'http://187.127.166.185:5000/api/course/enroll',
         { courseId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

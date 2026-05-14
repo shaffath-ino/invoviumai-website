@@ -17,7 +17,7 @@ export default function Payment() {
     const fetchEnrollment = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/course/my-courses', {
+        const response = await axios.get('http://187.127.166.185:5000/api/course/my-courses', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const found = response.data.find(e => e._id === enrollmentId);
@@ -42,7 +42,7 @@ export default function Payment() {
     setProcessing(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/course/payment', 
+      await axios.post('http://187.127.166.185:5000/api/course/payment', 
         { enrollmentId, paymentMethod: 'card' }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );

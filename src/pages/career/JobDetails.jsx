@@ -13,7 +13,7 @@ export default function JobDetails() {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/admin/jobs/${id}`);
+        const res = await axios.get(`http://187.127.166.185:5000/api/admin/jobs/${id}`);
         setJob(res.data);
       } catch {
         toast.error('Failed to load job details');
