@@ -8,18 +8,14 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { day1Content } from '../../data/web-dev-course/day1';
+
 
 export default function WebDevInternship() {
   const navigate = useNavigate();
   const [courseId, setCourseId] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // New States for Day 1 Preview
-  const [htmlCode, setHtmlCode] = useState(day1Content.compiler.initialCode);
-  const [userAnswers, setUserAnswers] = useState({});
 
-  const { mcqs, compiler: { testCases }, scope, routine } = day1Content;
 
   // Fetch the actual Web Development course ID from the database for enrollment
   useEffect(() => {
@@ -213,137 +209,17 @@ export default function WebDevInternship() {
       </div>
 
       {/* Day 1 Free Preview */}
-      <div className="py-24 px-6 max-w-5xl mx-auto relative z-10 border-t border-slate-200 dark:border-white/10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">{day1Content.title}</h2>
-          <p className="text-lg text-slate-600 dark:text-gray-400">{day1Content.description}</p>
-        </div>
-
-        <div className="glass-card p-8 rounded-3xl border border-slate-200 dark:border-white/10 mb-12 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl">
-          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Realistic Day 1 Scope</h3>
-          <p className="text-slate-600 dark:text-gray-300 mb-4 leading-relaxed">
-            For learning, absorbing 100,000 words in a single "Day 1" is not only unrealistic but also harmful for understanding and memory. We keep Day 1 content small and focused, building over many days. By the end of Day 1, you should comfortably:
-          </p>
-          <ul className="list-disc list-inside text-slate-600 dark:text-gray-300 space-y-2 mb-6">
-            {scope.map((item, idx) => (
-              <li key={idx}>{item}</li>
-            ))}
-          </ul>
-          
-          <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 mb-6">
-            <h4 className="font-bold text-slate-900 dark:text-white mb-2">Effective Learning Routine</h4>
-            <p className="text-slate-600 dark:text-gray-300 space-y-1">
-              {routine.map((item, idx) => (
-                <span key={idx} className="block">• {item}</span>
-              ))}
-            </p>
-          </div>
-
-          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8">{day1Content.bonusTitle}</h3>
-          <p className="text-slate-600 dark:text-gray-300 leading-relaxed mb-4">
-            {day1Content.bonusText}
-          </p>
-        </div>
-
-        {/* Interactive Compiler */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">Try it yourself: Live HTML Compiler</h3>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[400px]">
-            <div className="flex flex-col h-full bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
-              <div className="bg-slate-800 px-4 py-3 flex items-center justify-between">
-                <span className="text-white text-sm font-bold flex items-center gap-2"><Code size={16}/> index.html</span>
-              </div>
-              <textarea
-                value={htmlCode}
-                onChange={(e) => setHtmlCode(e.target.value)}
-                className="flex-1 w-full p-6 bg-slate-900 text-green-400 font-mono text-sm resize-none focus:outline-none"
-                spellCheck="false"
-              />
-            </div>
-            <div className="flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-xl">
-              <div className="bg-slate-100 dark:bg-slate-800 px-4 py-3 border-b border-slate-200 dark:border-slate-700">
-                <span className="text-slate-600 dark:text-slate-300 text-sm font-bold flex items-center gap-2"><Layout size={16}/> Output Preview</span>
-              </div>
-              <iframe
-                srcDoc={htmlCode}
-                title="output"
-                className="flex-1 w-full bg-white"
-                sandbox="allow-scripts"
-              />
-            </div>
-          </div>
-          
-          <div className="mt-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm">
-            <h4 className="font-bold text-slate-900 dark:text-white mb-4 text-sm uppercase tracking-wider">Compiler Test Cases</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {testCases.map((tc, idx) => {
-                const passed = tc.regex.test(htmlCode);
-                return (
-                  <div key={idx} className="flex items-center gap-3 text-sm bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
-                    {passed ? (
-                      <ShieldCheck className="text-green-500 shrink-0" size={20} />
-                    ) : (
-                      <div className="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 shrink-0" />
-                    )}
-                    <span className={passed ? "text-green-700 dark:text-green-400 font-bold" : "text-slate-600 dark:text-gray-400 font-medium"}>
-                      {tc.label}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* MCQs */}
-        <div>
-          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">Day 1 Knowledge Check</h3>
-          <div className="space-y-6">
-            {mcqs.map((mcq, index) => (
-              <div key={index} className="glass-card p-6 md:p-8 rounded-3xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl">
-                <p className="font-bold text-slate-900 dark:text-white text-lg mb-6">{index + 1}. {mcq.question}</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {mcq.options.map((option, optIdx) => {
-                    const isSelected = userAnswers[index] === optIdx;
-                    const isCorrect = optIdx === mcq.answer;
-                    const showResult = userAnswers[index] !== undefined;
-                    
-                    let btnClass = "p-4 rounded-xl border text-left transition-all font-medium flex items-center justify-between ";
-                    
-                    if (showResult) {
-                      if (isCorrect) {
-                        btnClass += "bg-green-500/10 border-green-500 text-green-700 dark:text-green-400 shadow-sm";
-                      } else if (isSelected && !isCorrect) {
-                        btnClass += "bg-red-500/10 border-red-500 text-red-700 dark:text-red-400 shadow-sm";
-                      } else {
-                        btnClass += "bg-transparent border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 opacity-50";
-                      }
-                    } else {
-                      btnClass += "bg-white dark:bg-slate-800 border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-primary hover:shadow-md";
-                    }
-
-                    return (
-                      <button
-                        key={optIdx}
-                        disabled={showResult}
-                        onClick={() => {
-                          const newAnswers = { ...userAnswers };
-                          newAnswers[index] = optIdx;
-                          setUserAnswers(newAnswers);
-                        }}
-                        className={btnClass}
-                      >
-                        <span>{option}</span>
-                        {showResult && isCorrect && <CheckCircle2 size={20} className="text-green-500 shrink-0" />}
-                        {showResult && isSelected && !isCorrect && <XCircle size={20} className="text-red-500 shrink-0" />}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="py-24 px-6 max-w-5xl mx-auto relative z-10 border-t border-slate-200 dark:border-white/10 text-center">
+        <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-6">Experience the Curriculum</h2>
+        <p className="text-lg text-slate-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+          Not sure what to expect? Try out the interactive, hands-on learning environment with our Day 1 curriculum module completely for free.
+        </p>
+        <button 
+          onClick={() => navigate('/day1')}
+          className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:-translate-y-1 hover:shadow-xl transition-all"
+        >
+          Start Day 1 Free Preview <ChevronRight size={20} />
+        </button>
       </div>
 
       {/* Call to Action Footer */}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   BookOpen, Code, Terminal, Database, CheckCircle, 
@@ -116,7 +117,7 @@ JavaScript is the language of the web. It is dynamically typed, meaning you don'
 ### Type Coercion
 JavaScript automatically converts types when needed, which can lead to bugs. Always use strict equality (\`===\`) instead of loose equality (\`==\`) to prevent unexpected type coercion.
     `,
-    interview: "Q: What is the difference between == and ===?\nA: \`==\` checks for value equality with type coercion (e.g., '5' == 5 is true). \`===\` checks for both value and type equality without coercion (e.g., '5' === 5 is false)."
+    interview: "Q: What is the difference between == and ===?\nA: `==` checks for value equality with type coercion (e.g., '5' == 5 is true). `===` checks for both value and type equality without coercion (e.g., '5' === 5 is false)."
   },
   {
     id: "js-control-flow",
@@ -171,7 +172,7 @@ Git is a distributed version control system. It tracks changes in your source co
 5. Open a Pull Request (PR) on GitHub.
 6. Review, approve, and merge into the main branch.
     `,
-    interview: "Q: What is the difference between git fetch and git pull?\nA: \`git fetch\` downloads the latest changes from the remote repo but does NOT merge them into your working files. \`git pull\` does a fetch and then immediately merges the changes into your current branch."
+    interview: "Q: What is the difference between git fetch and git pull?\nA: `git fetch` downloads the latest changes from the remote repo but does NOT merge them into your working files. `git pull` does a fetch and then immediately merges the changes into your current branch."
   }
 ];
 
@@ -291,7 +292,7 @@ const MarkdownRenderer = ({ text }) => {
     parsed = parsed.replace(/^## (.*$)/gim, '<h2 class="text-3xl font-black mt-10 mb-6 text-slate-900 dark:text-white">$1</h2>');
     parsed = parsed.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900 dark:text-white">$1</strong>');
     parsed = parsed.replace(/`(.*?)`/g, '<code class="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-sm text-primary font-mono">$1</code>');
-    parsed = parsed.replace(/^\- (.*$)/gim, '<li class="ml-4 list-disc mb-2">$1</li>');
+    parsed = parsed.replace(/^- (.*$)/gim, '<li class="ml-4 list-disc mb-2">$1</li>');
     parsed = parsed.replace(/\n\n/g, '</p><p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-300">');
     return `<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-300">${parsed}</p>`;
   };
@@ -466,7 +467,7 @@ export default function Day1() {
             <motion.div 
               className="h-full bg-primary"
               initial={{ width: 0 }}
-              animate={{ width: \`\${calculateProgress()}%\` }}
+              animate={{ width: `${calculateProgress()}%` }}
               transition={{ duration: 0.5 }}
             />
           </div>
@@ -476,19 +477,19 @@ export default function Day1() {
         <div className="p-4 flex flex-col gap-2 flex-1 overflow-y-auto">
           <button 
             onClick={() => { setActiveTab('reading'); setSidebarOpen(false); }}
-            className={\`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium \${activeTab === 'reading' ? 'bg-primary/10 text-primary' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}\`}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium ${activeTab === 'reading' ? 'bg-primary/10 text-primary' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
           >
             <BookOpen size={20} /> Reading Material
           </button>
           <button 
             onClick={() => { setActiveTab('compiler'); setSidebarOpen(false); }}
-            className={\`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium \${activeTab === 'compiler' ? 'bg-primary/10 text-primary' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}\`}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium ${activeTab === 'compiler' ? 'bg-primary/10 text-primary' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
           >
             <Terminal size={20} /> Practice Compiler
           </button>
           <button 
             onClick={() => { setActiveTab('quiz'); setSidebarOpen(false); }}
-            className={\`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium \${activeTab === 'quiz' ? 'bg-primary/10 text-primary' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}\`}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium ${activeTab === 'quiz' ? 'bg-primary/10 text-primary' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
           >
             <CheckCircle size={20} /> Knowledge Quiz
           </button>
@@ -507,10 +508,12 @@ export default function Day1() {
                     }}
                     className="w-full flex items-start gap-3 px-4 py-2.5 text-left text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg group"
                   >
-                    <div className={\`mt-0.5 shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center \${isRead ? 'bg-green-500 border-green-500 text-white' : 'border-slate-300 dark:border-slate-600 text-transparent group-hover:border-primary'}\`}>
+                    <div 
+                      className={`mt-0.5 shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${isRead ? 'bg-green-500 border-green-500 text-white' : 'border-slate-300 dark:border-slate-600 text-transparent group-hover:border-primary'}`}
+                    >
                       <Check size={12} strokeWidth={3} />
                     </div>
-                    <span className={\`leading-tight \${isRead ? 'text-slate-500 dark:text-slate-400' : 'text-slate-700 dark:text-slate-200'}\`}>
+                    <span className={`leading-tight ${isRead ? 'text-slate-500 dark:text-slate-400' : 'text-slate-700 dark:text-slate-200'}`}>
                       {idx + 1}. {topic.title}
                     </span>
                   </button>
@@ -587,10 +590,10 @@ export default function Day1() {
                     className="relative"
                   >
                     <div className="absolute -left-4 md:-left-12 top-2 h-full flex flex-col items-center hidden md:flex">
-                      <div className={\`w-8 h-8 rounded-full border-4 flex items-center justify-center font-bold text-xs \${readTopics.includes(topic.id) ? 'bg-primary border-primary text-white' : 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-400'}\`}>
+                      <div className={`w-8 h-8 rounded-full border-4 flex items-center justify-center font-bold text-xs ${readTopics.includes(topic.id) ? 'bg-primary border-primary text-white' : 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-400'}`}>
                         {index + 1}
                       </div>
-                      <div className={\`w-0.5 flex-1 mt-2 \${readTopics.includes(topic.id) ? 'bg-primary/30' : 'bg-slate-200 dark:bg-slate-800'}\`} />
+                      <div className={`w-0.5 flex-1 mt-2 ${readTopics.includes(topic.id) ? 'bg-primary/30' : 'bg-slate-200 dark:bg-slate-800'}`} />
                     </div>
 
                     <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-10 border border-slate-200 dark:border-slate-800 shadow-sm">
@@ -616,7 +619,7 @@ export default function Day1() {
                         <button 
                           onClick={() => markAsRead(topic.id)}
                           disabled={readTopics.includes(topic.id)}
-                          className={\`px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all \${readTopics.includes(topic.id) ? 'bg-green-500/10 text-green-600 cursor-default' : 'bg-primary text-white hover:bg-primary/90 hover:-translate-y-1 shadow-lg shadow-primary/30'}\`}
+                          className={`px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all ${readTopics.includes(topic.id) ? 'bg-green-500/10 text-green-600 cursor-default' : 'bg-primary text-white hover:bg-primary/90 hover:-translate-y-1 shadow-lg shadow-primary/30'}`}
                         >
                           {readTopics.includes(topic.id) ? <><CheckCircle size={18}/> Completed</> : "Mark as Understood"}
                         </button>
@@ -652,7 +655,7 @@ export default function Day1() {
                         setConsoleOutput([]);
                         setTestResults([]);
                       }}
-                      className={\`text-left p-4 rounded-xl border shrink-0 w-64 lg:w-full transition-all \${activeChallengeIdx === i ? 'bg-primary/20 border-primary text-primary' : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'}\`}
+                      className={`text-left p-4 rounded-xl border shrink-0 w-64 lg:w-full transition-all ${activeChallengeIdx === i ? 'bg-primary/20 border-primary text-primary' : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'}`}
                     >
                       <div className="font-bold text-sm mb-1 text-white">{c.title}</div>
                       <div className="text-xs line-clamp-2">{c.description}</div>
@@ -703,10 +706,10 @@ export default function Day1() {
                       ) : (
                         <div className="space-y-3">
                           {testResults.map((tr, i) => (
-                            <div key={i} className={\`p-3 rounded-lg border \${tr.passed ? 'bg-green-500/10 border-green-500/30' : 'bg-red-500/10 border-red-500/30'}\`}>
+                            <div key={i} className={`p-3 rounded-lg border ${tr.passed ? 'bg-green-500/10 border-green-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
                               <div className="flex items-center gap-2 mb-2">
                                 {tr.passed ? <CheckCircle size={16} className="text-green-500"/> : <X size={16} className="text-red-500"/>}
-                                <span className={\`font-bold text-sm \${tr.passed ? 'text-green-400' : 'text-red-400'}\`}>Test Case {i + 1}</span>
+                                <span className={`font-bold text-sm ${tr.passed ? 'text-green-400' : 'text-red-400'}`}>Test Case {i + 1}</span>
                               </div>
                               <div className="text-xs font-mono text-slate-400 space-y-1">
                                 <div>Input: <span className="text-slate-300">{JSON.stringify(tr.args)}</span></div>
@@ -771,7 +774,7 @@ export default function Day1() {
                             key={oIdx}
                             disabled={quizSubmitted}
                             onClick={() => setQuizAnswers({...quizAnswers, [qIdx]: oIdx})}
-                            className={\`w-full text-left p-4 rounded-xl border-2 transition-all flex items-center justify-between \${btnStyle}\`}
+                            className={`w-full text-left p-4 rounded-xl border-2 transition-all flex items-center justify-between ${btnStyle}`}
                           >
                             <span>{opt}</span>
                             {quizSubmitted && isCorrect && <CheckCircle size={20} className="text-green-500" />}
@@ -782,7 +785,7 @@ export default function Day1() {
                     </div>
                     
                     {quizSubmitted && (
-                      <div className={\`mt-6 p-4 rounded-xl \${quizAnswers[qIdx] === q.answer ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}\`}>
+                      <div className={`mt-6 p-4 rounded-xl ${quizAnswers[qIdx] === q.answer ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}>
                         <strong className="block mb-1">Explanation:</strong>
                         {q.explanation}
                       </div>

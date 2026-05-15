@@ -30,6 +30,7 @@ const CourseDetails = lazy(() => import('./pages/course/CourseDetails'));
 const InternCourses = lazy(() => import('./pages/course/InternCourses'));
 const MyCourses = lazy(() => import('./pages/course/MyCourses'));
 const WebDevInternship = lazy(() => import('./pages/course/WebDevInternship'));
+const Day1 = lazy(() => import('./pages/course/web-dev-course/Day1'));
 
 // -- Careers --
 const Careers = lazy(() => import('./pages/career/Careers'));
@@ -107,6 +108,7 @@ function AnimatedRoutes() {
           <Route path="/download-offer-letter" element={<PageWrapper><DownloadOfferLetter /></PageWrapper>} />
           <Route path="/course-details/:courseId" element={<PageWrapper><CourseDetails /></PageWrapper>} />
           <Route path="/web-development-internship" element={<PageWrapper><WebDevInternship /></PageWrapper>} />
+          <Route path="/day1" element={<PageWrapper><Day1 /></PageWrapper>} />
           <Route path="/admin-dashboard" element={<PageWrapper><AdminDashboard /></PageWrapper>} />
           <Route path="/careers/:id" element={<PageWrapper><JobDetails /></PageWrapper>} />
         </Routes>
