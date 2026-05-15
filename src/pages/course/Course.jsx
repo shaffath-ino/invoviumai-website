@@ -87,7 +87,7 @@ export default function Course() {
     const fetchEnrollment = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://187.127.166.185:5000/api/course/my-courses', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/course/my-courses`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const found = response.data.find(e => e._id === enrollmentId);

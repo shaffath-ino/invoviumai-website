@@ -20,7 +20,7 @@ export default function MyCourses() {
   const fetchMyCourses = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://187.127.166.185:5000/api/course/my-courses', {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/course/my-courses`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEnrollments(response.data);

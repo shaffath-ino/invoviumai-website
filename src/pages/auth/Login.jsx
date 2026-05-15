@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
-const API_BASE_URL = 'http://187.127.166.185:5000/api/auth';
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}/auth`;
 
 export default function Login() {
   const [step, setStep] = useState('login'); // 'login' | 'signup' | 'success'

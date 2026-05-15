@@ -46,8 +46,8 @@ export default function InternCourses() {
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
       const [coursesResponse, enrollmentsResponse] = await Promise.all([
-        axios.get('http://187.127.166.185:5000/api/course/courses', { headers }),
-        axios.get('http://187.127.166.185:5000/api/course/my-courses', { headers })
+        axios.get(`${import.meta.env.VITE_API_URL}/course/courses`, { headers }),
+        axios.get(`${import.meta.env.VITE_API_URL}/course/my-courses`, { headers })
       ]);
       setCourses(coursesResponse.data);
       setEnrollments(enrollmentsResponse.data);
@@ -66,7 +66,7 @@ export default function InternCourses() {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://187.127.166.185:5000/api/course/enroll',
+        `${import.meta.env.VITE_API_URL}/course/enroll`,
         { courseId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -21,7 +21,7 @@ export default function OfferLetter() {
     const fetchEnrollment = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://187.127.166.185:5000/api/course/my-courses', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/course/my-courses`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const found = response.data.find(e => e._id === enrollmentId);
@@ -47,7 +47,7 @@ export default function OfferLetter() {
     setGenerating(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://187.127.166.185:5000/api/course/generate-offer-letter', 
+      await axios.post(`${import.meta.env.VITE_API_URL}/course/generate-offer-letter`, 
         { enrollmentId, ...formData }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );

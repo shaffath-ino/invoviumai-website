@@ -21,7 +21,7 @@ export default function CourseDetails() {
       try {
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
-        const response = await axios.get(`http://187.127.166.185:5000/api/course/courses/${courseId}`, { headers });
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/course/courses/${courseId}`, { headers });
         setCourse(response.data);
       } catch {
         toast.error('Failed to load course details');
@@ -44,7 +44,7 @@ export default function CourseDetails() {
       }
       
       const response = await axios.post(
-        'http://187.127.166.185:5000/api/course/enroll',
+        `${import.meta.env.VITE_API_URL}/course/enroll`,
         { courseId: course._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );

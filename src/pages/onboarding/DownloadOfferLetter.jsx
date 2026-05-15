@@ -21,7 +21,7 @@ export default function DownloadOfferLetter() {
   const fetchMyCourses = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://187.127.166.185:5000/api/course/my-courses', {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/course/my-courses`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Filter only activated courses with offer letters
@@ -38,7 +38,7 @@ export default function DownloadOfferLetter() {
     setDownloading(courseId);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://187.127.166.185:5000/api/course/download-offer-letter/${courseId}`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/course/download-offer-letter/${courseId}`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob'
       });
