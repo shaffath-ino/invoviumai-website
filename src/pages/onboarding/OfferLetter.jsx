@@ -26,6 +26,11 @@ export default function OfferLetter() {
         });
         const found = response.data.find(e => e._id === enrollmentId);
         if (found) {
+          if (found.status === 'Enrolled') {
+            toast.error('Please complete payment first');
+            navigate(`/payment/${enrollmentId}`);
+            return;
+          }
           setEnrollment(found);
         } else {
           toast.error('Enrollment not found');

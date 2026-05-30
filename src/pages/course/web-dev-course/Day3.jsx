@@ -11,334 +11,405 @@ import {
 import toast from 'react-hot-toast';
 
 // ---------------------------------------------------------
-// MASSIVE CONTENT DATASET FOR DAY 1
+// CONTENT DATASET FOR DAY 3 (JAVASCRIPT FUNDAMENTALS)
 // ---------------------------------------------------------
 const courseContent = [
   {
-    id: "intro-fullstack",
-    title: "Introduction to Full Stack Development",
+    id: "js-intro",
+    title: "Introduction to JavaScript",
     content: `
-Full Stack Development refers to the practice of working on both the front-end (client-side) and back-end (server-side) portions of a web application. A Full Stack Developer is a versatile engineer capable of handling databases, servers, systems engineering, and client-facing interfaces.
+JavaScript (JS) is a lightweight, interpreted programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js.
 
-### Why Full Stack?
-In the modern tech ecosystem, understanding the complete request-response cycle gives you a significant edge. You can architect solutions from the database schema all the way to the CSS animations in the browser. It reduces bottlenecks in teams and allows you to build complete MVPs independently.
+### Why JavaScript?
+HTML defines the structure, CSS defines the style, and JavaScript defines the behavior of a web page. With JS, you can:
+- Update and change both HTML and CSS dynamically.
+- Calculate, manipulate, and validate data.
+- Fetch data from remote servers (APIs).
+- Create interactive maps, animated graphics, and complex web applications.
 
-**Real-world example:** Think of a restaurant. The frontend is the dining area, the menu, and the waiters. The backend is the kitchen, the chefs, and the recipes. The database is the pantry where ingredients are stored. A full-stack developer is the restaurant manager who understands and orchestrates all these moving parts.
-
-### Best Practices
-- Master one stack (e.g., MERN) before trying to learn everything.
-- Understand HTTP and how the web works at a fundamental level.
-- Keep learning: The tech landscape changes rapidly.
+### Adding JS to HTML
+You can include JS in your HTML using the \`<script>\` tag, either inline or via an external file:
+\`\`\`html
+<script src="script.js"></script>
+\`\`\`
     `,
-    interview: "Q: What is the difference between a Full Stack Developer and a Software Engineer?\nA: While overlapping, a Full Stack Developer typically focuses on web technologies across client and server, whereas a Software Engineer might work on any type of software (desktop, mobile, embedded) using various languages."
+    interview: "Q: What is the difference between Java and JavaScript?\nA: Java is a compiled, strongly typed object-oriented language. JavaScript is an interpreted, loosely typed scripting language primarily used for web development."
   },
   {
-    id: "frontend-backend-db",
-    title: "Frontend, Backend & Databases",
+    id: "js-variables",
+    title: "Variables (let, const, var)",
     content: `
-### What is Frontend?
-The frontend is everything the user sees and interacts with. It's built using HTML (structure), CSS (presentation), and JavaScript (logic/behavior). Modern frontend development relies heavily on frameworks like React, Vue, or Angular to build complex, state-driven interfaces.
+Variables are containers for storing data values. In modern JavaScript, we use \`let\` and \`const\`. 
 
-### What is Backend?
-The backend handles the business logic, authentication, data processing, and server management. It's the engine under the hood. It communicates with the frontend via APIs (Application Programming Interfaces). Common backend languages include Node.js (JavaScript), Python, Java, and Go.
+### The const keyword
+Use \`const\` for values that will not change. Once assigned, you cannot reassign it.
+\`\`\`javascript
+const pi = 3.14159;
+// pi = 3.14; // This will throw an error
+\`\`\`
 
-### What is a Database?
-A database is an organized collection of data. It allows you to store, retrieve, and manage information persistently. 
-- **Relational (SQL):** MySQL, PostgreSQL (Uses tables, rows, columns)
-- **Non-Relational (NoSQL):** MongoDB, Redis (Uses documents, key-value pairs)
+### The let keyword
+Use \`let\` when you know the variable's value will change over time (like in a loop or a counter).
+\`\`\`javascript
+let score = 0;
+score = score + 10;
+\`\`\`
 
-### The Complete Flow
-1. User clicks a button on the Frontend (React).
-2. Frontend sends an HTTP request to the Backend (Node/Express).
-3. Backend receives the request, processes it, and queries the Database (MongoDB).
-4. Database returns data to the Backend.
-5. Backend formats data and sends an HTTP response to the Frontend.
-6. Frontend updates the UI based on the response.
+### The var keyword (Legacy)
+Before ES6 (2015), \`var\` was the only way to declare variables. It has function scope rather than block scope, which can lead to confusing bugs. **It is recommended to always use let and const.**
     `,
-    interview: "Q: Explain the difference between SQL and NoSQL.\nA: SQL databases are table-based and use a predefined schema, making them great for complex queries and transactional data. NoSQL databases are document, key-value, or graph-based, offering dynamic schemas and high scalability for unstructured data."
+    interview: "Q: What is hoisting in JavaScript?\nA: Hoisting is JS's default behavior of moving declarations to the top of the current scope. Variables declared with `var` are hoisted and initialized as undefined. `let` and `const` are hoisted but not initialized, resulting in a ReferenceError if accessed early (Temporal Dead Zone)."
   },
   {
-    id: "intro-react",
-    title: "Introduction to React",
+    id: "js-datatypes",
+    title: "Data Types",
     content: `
-React is a declarative, efficient, and flexible JavaScript library for building user interfaces, originally developed by Facebook.
+JavaScript variables can hold many data types: numbers, strings, objects and more.
 
-### Core Concepts:
-1. **Components:** The building blocks of React. They are reusable, self-contained pieces of UI (like a button, a form, or an entire page).
-2. **JSX:** A syntax extension for JavaScript that looks like HTML. It allows you to write markup directly inside your JS logic.
-3. **State:** Data that changes over time and affects what renders on the screen.
-4. **Props:** Short for properties. Used to pass data from a parent component down to a child component.
-5. **Virtual DOM:** A lightweight copy of the actual DOM. React uses it to efficiently determine the minimal number of changes needed to update the real DOM, boosting performance.
+### Primitive Types
+- **String:** Text, enclosed in single or double quotes, or backticks for template literals (\`"Hello"\`, \`'World'\`, \`\`Hi\`\`).
+- **Number:** Numeric values (\`42\`, \`3.14\`). JS only has one number type.
+- **Boolean:** Logical entity (\`true\` or \`false\`).
+- **Undefined:** A variable that has been declared but not assigned a value.
+- **Null:** Intentional absence of any object value.
+- **Symbol:** Unique and immutable primitive introduced in ES6.
 
-**Real-world example:** Imagine building a car. Instead of building the entire car as one giant piece, you build the engine, the wheels, the doors (components) separately, and then assemble them.
+### Complex Types
+- **Object:** Collections of key-value pairs (\`{ name: "Alice", age: 25 }\`).
+- **Array:** A special type of object used to store multiple values in a single variable (\`[1, 2, 3]\`).
     `,
-    interview: "Q: Why use React over vanilla JavaScript?\nA: React simplifies DOM manipulation, provides a component-based architecture for reusability, and offers better performance through the Virtual DOM, especially for complex, dynamic applications."
+    interview: "Q: What is the difference between null and undefined?\nA: `undefined` means a variable has been declared but not assigned a value. `null` is an assignment value that represents no value or no object. `typeof undefined` is 'undefined', but `typeof null` is 'object' (a known JS bug)."
   },
   {
-    id: "intro-node-mongo",
-    title: "Introduction to Node.js & MongoDB",
+    id: "js-operators",
+    title: "Operators & Expressions",
     content: `
-### Node.js
-Node.js is a JavaScript runtime environment built on Chrome's V8 engine. It allows you to run JavaScript on the server, outside the browser. 
+Operators allow you to perform tests or computations on data.
 
-**Key Features:**
-- **Asynchronous & Event-Driven:** It doesn't wait for API calls or database queries to finish before moving to the next line of code, making it highly concurrent and fast.
-- **Single-Threaded but Highly Scalable:** Uses an event loop to handle multiple connections simultaneously.
+### Arithmetic Operators
+\`+\` (Addition), \`-\` (Subtraction), \`*\` (Multiplication), \`/\` (Division), \`%\` (Modulus/Remainder), \`++\` (Increment), \`--\` (Decrement).
 
-### MongoDB
-MongoDB is a popular NoSQL database that stores data in JSON-like documents (BSON). 
+### Comparison Operators
+These evaluate to a boolean (\`true\` or \`false\`).
+- \`==\` (Equal to - performs type coercion)
+- \`===\` (Strict equal - checks value AND type)
+- \`!=\` (Not equal)
+- \`!==\` (Strict not equal)
+- \`>\`, \`<\`, \`>=\`, \`<=\` (Greater/Less than)
 
-**Key Features:**
-- **Document Model:** Data is stored as documents inside collections.
-- **Flexible Schema:** Documents in the same collection don't need to have the identical set of fields.
-- **Scalability:** Built to scale out natively using sharding.
-
-**The MERN Stack Magic:** Because MongoDB uses JSON-like documents, Node.js runs JavaScript, and React uses JavaScript, the entire MERN stack speaks the same language (JavaScript/JSON), making data serialization and transmission seamless.
+### Logical Operators
+- \`&&\` (Logical AND): True if both operands are true.
+- \`||\` (Logical OR): True if at least one operand is true.
+- \`!\` (Logical NOT): Reverses the boolean state.
     `,
-    interview: "Q: What is the Event Loop in Node.js?\nA: The event loop is what allows Node.js to perform non-blocking I/O operations despite being single-threaded. It offloads operations to the system kernel whenever possible, and processes callbacks when operations complete."
-  },
-  {
-    id: "js-fundamentals",
-    title: "JavaScript Fundamentals (Variables & Types)",
-    content: `
-JavaScript is the language of the web. It is dynamically typed, meaning you don't have to declare the type of a variable.
-
-### Variables (let, const, var)
-- **const:** Block-scoped. Cannot be reassigned. Use this by default!
-- **let:** Block-scoped. Can be reassigned. Use when you know the value will change (e.g., counters).
-- **var:** Function-scoped. Legacy way of declaring variables. Avoid using it in modern code due to hoisting behaviors.
-
-### Data Types
-- **Primitives:** String, Number, Boolean, Null, Undefined, Symbol, BigInt.
-- **Non-Primitives (Objects):** Objects, Arrays, Functions.
-
-**Undefined vs Null:**
-- \`undefined\`: A variable has been declared but has not yet been assigned a value.
-- \`null\`: An intentional absence of any object value.
-
-### Type Coercion
-JavaScript automatically converts types when needed, which can lead to bugs. Always use strict equality (\`===\`) instead of loose equality (\`==\`) to prevent unexpected type coercion.
-    `,
-    interview: "Q: What is the difference between == and ===?\nA: `==` checks for value equality with type coercion (e.g., '5' == 5 is true). `===` checks for both value and type equality without coercion (e.g., '5' === 5 is false)."
+    interview: "Q: Why is it highly recommended to use === instead of ==?\nA: `==` performs type coercion before comparison (e.g., `\"2\" == 2` is true). `===` checks both value and type without coercion (e.g., `\"2\" === 2` is false), which prevents unexpected bugs."
   },
   {
     id: "js-control-flow",
-    title: "JavaScript Functions & Control Flow",
+    title: "Control Flow (If/Else, Switch)",
     content: `
-### Functions
-Functions are first-class citizens in JavaScript, meaning they can be assigned to variables, passed as arguments, and returned from other functions.
+Control flow dictates the order in which statements are executed based on conditions.
 
-- **Function Declarations:** \`function add(a, b) { return a + b; }\`
-- **Arrow Functions (ES6):** \`const add = (a, b) => a + b;\` (Shorter syntax, lexical \`this\` binding).
+### If / Else
+\`\`\`javascript
+const age = 18;
+if (age >= 18) {
+  console.log("You can vote.");
+} else if (age >= 16) {
+  console.log("You can drive.");
+} else {
+  console.log("Too young.");
+}
+\`\`\`
 
-### Control Flow (Loops & Conditionals)
-- **if/else, switch:** For branching logic.
-- **for loop:** Traditional counter-based loop.
-- **for...of:** Iterates over iterable objects (Arrays, Strings).
-- **for...in:** Iterates over the enumerable properties of an object.
-- **while / do...while:** Loops based on a condition.
-
-**Higher-Order Array Methods:**
-Instead of traditional loops, modern JS relies heavily on methods like:
-- \`.map()\`: Transforms every element in an array and returns a new array.
-- \`.filter()\`: Returns a new array with only elements that pass a test.
-- \`.reduce()\`: Accumulates an array into a single value.
+### Switch Statement
+The switch statement is used to perform different actions based on different conditions, usually comparing one value against many cases.
+\`\`\`javascript
+const day = "Monday";
+switch (day) {
+  case "Monday":
+    console.log("Start of the work week!");
+    break;
+  case "Friday":
+    console.log("Almost weekend!");
+    break;
+  default:
+    console.log("Just another day.");
+}
+\`\`\`
     `,
-    interview: "Q: What is a closure in JavaScript?\nA: A closure is a function that remembers the variables from its lexical scope even after the outer function has finished executing."
+    interview: "Q: What is a ternary operator?\nA: A ternary operator is a one-line shorthand for an if/else statement. Syntax: `condition ? exprIfTrue : exprIfFalse`. For example: `const status = (age >= 18) ? 'Adult' : 'Minor';`"
   },
   {
-    id: "git-basics",
-    title: "Git Basics & GitHub Workflow",
+    id: "js-loops",
+    title: "Loops (For, While)",
     content: `
-Git is a distributed version control system. It tracks changes in your source code, allowing you to revert to previous states, collaborate with others, and manage multiple features simultaneously.
+Loops are handy if you want to run the same code over and over again, each time with a different value.
 
-### Key Concepts
-- **Repository (Repo):** The project directory tracked by Git.
-- **Commit:** A snapshot of your code at a specific point in time.
-- **Branch:** An independent line of development. The main branch is typically \`main\` or \`master\`.
-- **Merge:** Combining changes from one branch into another.
+### For Loop
+Best used when you know exactly how many times you want to loop.
+\`\`\`javascript
+for (let i = 0; i < 5; i++) {
+  console.log("Iteration " + i);
+}
+\`\`\`
 
-### Essential Commands
-1. \`git init\`: Initialize a new local repository.
-2. \`git add .\`: Stage all changed files for the next commit.
-3. \`git commit -m "Message"\`: Save the staged changes to the local history.
-4. \`git push\`: Upload local commits to a remote repository (like GitHub).
-5. \`git pull\`: Download and merge changes from the remote repository.
-6. \`git status\`: Check the current state of your working directory.
+### While Loop
+Loops through a block of code as long as a specified condition is true.
+\`\`\`javascript
+let i = 0;
+while (i < 5) {
+  console.log("Iteration " + i);
+  i++;
+}
+\`\`\`
 
-### Standard GitHub Workflow
-1. Clone the repo: \`git clone <url>\`
-2. Create a feature branch: \`git checkout -b feature/login\`
-3. Make changes, add, and commit.
-4. Push the branch: \`git push origin feature/login\`
-5. Open a Pull Request (PR) on GitHub.
-6. Review, approve, and merge into the main branch.
+### For...of and For...in
+- **for...of**: Loops through the values of an iterable object (like an Array or String).
+- **for...in**: Loops through the properties (keys) of an object.
     `,
-    interview: "Q: What is the difference between git fetch and git pull?\nA: `git fetch` downloads the latest changes from the remote repo but does NOT merge them into your working files. `git pull` does a fetch and then immediately merges the changes into your current branch."
+    interview: "Q: What is an infinite loop and how do you prevent it?\nA: An infinite loop occurs when the terminating condition of the loop is never met, freezing the browser or crashing the program. Prevent it by ensuring that the loop variable gets updated in a way that eventually makes the condition false."
   },
   {
-    id: "dom-manipulation",
-    title: "Understanding the DOM",
+    id: "js-functions",
+    title: "Functions & Scope",
     content: `
-The Document Object Model (DOM) is a programming interface for web documents. It represents the page so that programs can change the document structure, style, and content.
+A JavaScript function is a block of code designed to perform a particular task.
 
-### Key Concepts
-- The DOM is represented as a tree of objects (nodes).
-- You can select elements using \`document.getElementById\`, \`document.querySelector\`, etc.
-- You can modify elements using properties like \`textContent\`, \`innerHTML\`, and \`style\`.
-- You can create new elements with \`document.createElement\` and add them using \`appendChild\`.
+### Function Declaration
+\`\`\`javascript
+function greet(name) {
+  return "Hello, " + name;
+}
+\`\`\`
+
+### Arrow Functions (ES6)
+Arrow functions provide a shorter syntax and do not have their own \`this\`.
+\`\`\`javascript
+const greet = (name) => {
+  return "Hello, " + name;
+};
+// Shorthand for returning a single expression:
+const multiply = (a, b) => a * b;
+\`\`\`
+
+### Scope
+- **Global Scope:** Variables declared outside any function or block are globally accessible.
+- **Local/Function Scope:** Variables declared within a function cannot be accessed outside of it.
+- **Block Scope:** Variables declared with \`let\` or \`const\` inside curly braces \`{}\` cannot be accessed from outside the block.
     `,
-    interview: "Q: What is the difference between innerHTML and textContent?\nA: innerHTML parses content as HTML (which can expose you to XSS attacks if not sanitized), whereas textContent inserts raw text safely, ignoring HTML tags."
+    interview: "Q: What is a closure in JavaScript?\nA: A closure is a feature where an inner function has access to the outer (enclosing) function's variables, even after the outer function has returned. It \"remembers\" the environment in which it was created."
   },
   {
-    id: "http-protocols",
-    title: "HTTP and APIs",
+    id: "js-arrays",
+    title: "Arrays & Array Methods",
     content: `
-HTTP (Hypertext Transfer Protocol) is the foundation of data communication on the World Wide Web.
+Arrays are special variables that can hold more than one value at a time.
 
-### HTTP Methods
-- **GET:** Retrieve data from a server.
-- **POST:** Send new data to a server.
-- **PUT / PATCH:** Update existing data on a server.
-- **DELETE:** Remove data from a server.
+\`\`\`javascript
+const fruits = ["Apple", "Banana", "Cherry"];
+console.log(fruits[0]); // Apple
+\`\`\`
 
-### Status Codes
-- **2xx:** Success (e.g., 200 OK, 201 Created).
-- **3xx:** Redirection.
-- **4xx:** Client Error (e.g., 400 Bad Request, 404 Not Found).
-- **5xx:** Server Error (e.g., 500 Internal Server Error).
+### Common Array Methods
+- \`push()\`: Adds a new element to the end.
+- \`pop()\`: Removes the last element.
+- \`shift()\`: Removes the first element.
+- \`unshift()\`: Adds a new element to the beginning.
+- \`length\`: Property that returns the number of elements.
+
+### Advanced Methods (Higher-Order Functions)
+- \`map()\`: Creates a new array by performing a function on each element.
+- \`filter()\`: Creates a new array with elements that pass a test.
+- \`reduce()\`: Reduces the array to a single value.
+\`\`\`javascript
+const numbers = [1, 2, 3];
+const doubled = numbers.map(num => num * 2); // [2, 4, 6]
+\`\`\`
     `,
-    interview: "Q: What is a RESTful API?\nA: A REST API is an architectural style for an API that uses HTTP requests to access and use data, adhering to stateless, client-server communications."
+    interview: "Q: What does array.map() return?\nA: `map()` returns a completely new array of the same length as the original, populated with the results of calling a provided function on every element in the calling array."
   },
   {
-    id: "terminal-basics",
-    title: "Command Line Fundamentals",
+    id: "js-objects",
+    title: "Objects",
     content: `
-As a developer, you will spend a significant amount of time in the terminal (Command Prompt, PowerShell, bash, or zsh).
+In JavaScript, almost everything is an object. Objects are variables too, but they can contain many values, written as \`name:value\` pairs (properties).
 
-### Essential Commands
-- \`pwd\`: Print working directory.
-- \`ls\` (or \`dir\` on Windows): List files in the directory.
-- \`cd\`: Change directory (e.g., \`cd src\`).
-- \`mkdir\`: Make a new directory.
-- \`rm\` (or \`del\`): Remove a file.
-- \`touch\` (or \`echo >\`): Create a new empty file.
+### Creating Objects
+\`\`\`javascript
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 30,
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+\`\`\`
 
-Mastering these basic terminal commands dramatically increases your productivity and is required for managing Node.js and Git environments.
+### Accessing Properties
+You can access object properties in two ways:
+1. **Dot notation:** \`person.firstName\`
+2. **Bracket notation:** \`person["firstName"]\`
+
+### Object Destructuring
+ES6 allows you to unpack properties from objects into distinct variables easily:
+\`\`\`javascript
+const { firstName, age } = person;
+console.log(firstName); // John
+\`\`\`
     `,
-    interview: "Q: How do you navigate up one directory in the terminal?\nA: You use `cd ..` to move up to the parent directory."
+    interview: "Q: What does the 'this' keyword refer to in JavaScript?\nA: The value of `this` depends on context. In an object method, `this` refers to the object. In a regular function (non-strict mode), it refers to the global object. In an arrow function, `this` is lexically bound to its surrounding scope."
+  },
+  {
+    id: "js-dom",
+    title: "The DOM (Document Object Model)",
+    content: `
+The DOM represents the web page as a tree of objects. JavaScript can access and change all the elements of an HTML document.
+
+### Selecting Elements
+- \`document.getElementById(id)\`
+- \`document.querySelector(selector)\`: Returns the first element that matches a CSS selector.
+- \`document.querySelectorAll(selector)\`: Returns all matching elements.
+
+### Changing HTML & CSS
+\`\`\`javascript
+const header = document.querySelector('h1');
+header.textContent = "New Title"; // Changes text
+header.style.color = "blue";      // Changes CSS
+header.classList.add("active");   // Adds a CSS class
+\`\`\`
+
+### Event Listeners
+You can execute code when a user interacts with the page (clicks, types, hovers).
+\`\`\`javascript
+const button = document.querySelector('#btn');
+button.addEventListener('click', () => {
+  alert('Button clicked!');
+});
+\`\`\`
+    `,
+    interview: "Q: What is event bubbling?\nA: Event bubbling is a concept in the DOM where an event triggered on a deeply nested element \"bubbles up\" to its parent elements in the hierarchy, triggering their event handlers as well."
   }
 ];
 
 const mcqs = [
   {
-    question: "Which of the following describes the Virtual DOM in React?",
+    question: "Which keyword should you use to declare a variable whose value should NEVER change?",
     options: [
-      "A direct manipulation of the browser's DOM elements",
-      "A lightweight copy of the actual DOM kept in memory",
-      "A database used to store React components",
-      "A plugin that allows React to run offline"
-    ],
-    answer: 1,
-    explanation: "React creates an in-memory data structure cache (Virtual DOM), computes the resulting differences, and then updates the browser's displayed DOM efficiently."
-  },
-  {
-    question: "What is the primary difference between let and var in JavaScript?",
-    options: [
-      "var is block-scoped, let is function-scoped",
-      "let can be reassigned, var cannot",
-      "let is block-scoped, var is function-scoped",
-      "They are exactly the same"
+      "let",
+      "var",
+      "const",
+      "static"
     ],
     answer: 2,
-    explanation: "Variables declared with `let` are scoped to the nearest enclosing block (like an if statement or loop), whereas `var` is scoped to the nearest enclosing function."
+    explanation: "The const keyword creates a read-only reference to a value, preventing reassignment."
   },
   {
-    question: "Which Git command is used to save changes locally with a descriptive message?",
-    options: ["git push", "git commit", "git save", "git add"],
-    answer: 1,
-    explanation: "git commit captures a snapshot of the project's currently staged changes."
-  },
-  {
-    question: "In the MERN stack, what role does Express.js play?",
+    question: "What will be the output of `console.log(typeof null)`?",
     options: [
-      "The database management system",
-      "The client-side UI library",
-      "The backend web application framework running on Node.js",
-      "The hosting platform"
+      "null",
+      "undefined",
+      "object",
+      "string"
     ],
     answer: 2,
-    explanation: "Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications."
+    explanation: "Due to a historical bug in JavaScript, typeof null returns 'object'."
   },
   {
-    question: "Which array method should you use to transform every element in an array and return a new array of the same length?",
-    options: ["forEach()", "filter()", "reduce()", "map()"],
-    answer: 3,
-    explanation: "map() creates a new array populated with the results of calling a provided function on every element in the calling array."
+    question: "Which array method removes the LAST element from an array?",
+    options: [
+      "pop()",
+      "push()",
+      "shift()",
+      "unshift()"
+    ],
+    answer: 0,
+    explanation: "pop() removes the last element. push() adds to the end. shift() removes the first element. unshift() adds to the beginning."
+  },
+  {
+    question: "Which operator is used to test for STRICT equality (value AND type)?",
+    options: [
+      "=",
+      "==",
+      "===",
+      "!="
+    ],
+    answer: 2,
+    explanation: "=== is the strict equality operator, which returns true only if both the value and the type of the two operands are exactly the same."
+  },
+  {
+    question: "How do you select an element with the id 'container' using JavaScript?",
+    options: [
+      "document.select('#container')",
+      "document.querySelector('#container')",
+      "document.getElementById('#container')",
+      "document.getElement('#container')"
+    ],
+    answer: 1,
+    explanation: "document.querySelector('#container') correctly uses the CSS selector syntax to select by ID. document.getElementById('container') also works, but does not use the '#' prefix."
   }
 ];
 
 const codingChallenges = [
   {
     id: 1,
-    title: "1. Sum of Two Numbers",
-    description: "Write a function `sum(a, b)` that returns the sum of a and b.",
-    initialCode: "function sum(a, b) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn sum;",
+    title: "1. Sum of Array",
+    description: "Write a function `sumArray(arr)` that takes an array of numbers and returns the total sum.",
+    initialCode: "function sumArray(arr) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn sumArray;",
     testCases: [
-      { args: [2, 3], expected: 5 },
-      { args: [-1, 1], expected: 0 },
-      { args: [100, 200], expected: 300 }
+      { args: [[1, 2, 3]], expected: 6 },
+      { args: [[10, 20, -10]], expected: 20 },
+      { args: [[]], expected: 0 }
     ]
   },
   {
     id: 2,
-    title: "2. Reverse String",
-    description: "Write a function `reverse(str)` that takes a string and returns it reversed.",
-    initialCode: "function reverse(str) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn reverse;",
+    title: "2. Reverse a String",
+    description: "Write a function `reverseString(str)` that takes a string and returns it reversed.",
+    initialCode: "function reverseString(str) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn reverseString;",
     testCases: [
       { args: ["hello"], expected: "olleh" },
-      { args: ["react"], expected: "tcaer" },
+      { args: ["JavaScript"], expected: "tpircSavaJ" },
       { args: ["a"], expected: "a" }
     ]
   },
   {
     id: 3,
-    title: "3. Check Even or Odd",
-    description: "Write a function `isEven(num)` that returns true if even, false if odd.",
-    initialCode: "function isEven(num) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn isEven;",
+    title: "3. Find Even Numbers",
+    description: "Write a function `filterEvens(arr)` that returns a new array containing only the even numbers from the original array.",
+    initialCode: "function filterEvens(arr) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn filterEvens;",
     testCases: [
-      { args: [4], expected: true },
-      { args: [7], expected: false },
-      { args: [0], expected: true }
+      { args: [[1, 2, 3, 4, 5, 6]], expected: [2, 4, 6] },
+      { args: [[1, 3, 5]], expected: [] },
+      { args: [[2, 4, 6]], expected: [2, 4, 6] }
     ]
   },
   {
     id: 4,
-    title: "4. Find Largest Number",
-    description: "Write a function `findLargest(arr)` that returns the largest number in an array.",
-    initialCode: "function findLargest(arr) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn findLargest;",
-    testCases: [
-      { args: [[1, 5, 3, 9, 2]], expected: 9 },
-      { args: [[-10, -5, -1]], expected: -1 },
-      { args: [[100]], expected: 100 }
-    ]
-  },
-  {
-    id: 5,
-    title: "5. Factorial Program",
-    description: "Write a function `factorial(n)` that returns the factorial of n. (Assume n >= 0)",
+    title: "4. Factorial",
+    description: "Write a function `factorial(n)` that returns the factorial of n (n!). For example, 5! = 5 * 4 * 3 * 2 * 1 = 120. Assume n is non-negative.",
     initialCode: "function factorial(n) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn factorial;",
     testCases: [
       { args: [5], expected: 120 },
       { args: [0], expected: 1 },
       { args: [3], expected: 6 }
     ]
+  },
+  {
+    id: 5,
+    title: "5. Check if Prime",
+    description: "Write a function `isPrime(n)` that returns true if a number is prime, and false otherwise. A prime number is greater than 1 and has no divisors other than 1 and itself.",
+    initialCode: "function isPrime(n) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn isPrime;",
+    testCases: [
+      { args: [7], expected: true },
+      { args: [10], expected: false },
+      { args: [1], expected: false },
+      { args: [2], expected: true }
+    ]
   }
 ];
 
-// ---------------------------------------------------------
-// HELPER COMPONENTS
-// ---------------------------------------------------------
 const MarkdownRenderer = ({ text }) => {
   const parseMarkdown = (raw) => {
     let parsed = raw;
@@ -354,10 +425,7 @@ const MarkdownRenderer = ({ text }) => {
   return <div className="markdown-body" dangerouslySetInnerHTML={{ __html: parseMarkdown(text) }} />;
 };
 
-// ---------------------------------------------------------
-// MAIN DAY1 COMPONENT
-// ---------------------------------------------------------
-export default function Day1() {
+export default function Day3() {
   const navigate = useNavigate();
   const [loadingAccess, setLoadingAccess] = useState(true);
   const [activeTab, setActiveTab] = useState('reading'); // 'reading', 'compiler', 'quiz'
@@ -368,6 +436,15 @@ export default function Day1() {
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   const [showCertificate, setShowCertificate] = useState(false);
 
+  // Compiler state
+  const [activeChallengeIdx, setActiveChallengeIdx] = useState(0);
+  const [userCode, setUserCode] = useState(codingChallenges[0].initialCode);
+  const [consoleOutput, setConsoleOutput] = useState([]);
+  const [testResults, setTestResults] = useState([]);
+
+  const contentContainerRef = useRef(null);
+
+  // Verify Course access
   useEffect(() => {
     const verifyAccess = async () => {
       try {
@@ -382,7 +459,6 @@ export default function Day1() {
           headers: { Authorization: `Bearer ${token}` }
         });
 
-        // Find if user is enrolled in "Web Development Internship" and status is "Activated"
         const isActivated = response.data.some(
           e => e.courseId?.title === 'Web Development Internship' && e.status === 'Activated'
         );
@@ -403,17 +479,9 @@ export default function Day1() {
     verifyAccess();
   }, [navigate]);
 
-  // Compiler state
-  const [activeChallengeIdx, setActiveChallengeIdx] = useState(0);
-  const [userCode, setUserCode] = useState(codingChallenges[0].initialCode);
-  const [consoleOutput, setConsoleOutput] = useState([]);
-  const [testResults, setTestResults] = useState([]);
-
-  const contentContainerRef = useRef(null);
-
   // Load progress
   useEffect(() => {
-    const saved = localStorage.getItem('day1_progress');
+    const saved = localStorage.getItem('day3_progress');
     if (saved) {
       setReadTopics(JSON.parse(saved));
     }
@@ -421,7 +489,7 @@ export default function Day1() {
 
   // Save progress
   useEffect(() => {
-    localStorage.setItem('day1_progress', JSON.stringify(readTopics));
+    localStorage.setItem('day3_progress', JSON.stringify(readTopics));
   }, [readTopics]);
 
   const markAsRead = (id) => {
@@ -429,7 +497,7 @@ export default function Day1() {
       const updated = [...readTopics, id];
       setReadTopics(updated);
       toast.success('Topic completed!', { icon: '✅' });
-      
+
       if (quizSubmitted) {
         const score = Object.keys(quizAnswers).reduce((acc, qIdx) => {
           return acc + (quizAnswers[qIdx] === mcqs[qIdx].answer ? 1 : 0);
@@ -464,8 +532,6 @@ export default function Day1() {
     const challenge = codingChallenges[activeChallengeIdx];
     
     try {
-      // Create a safely wrapped function evaluator
-      // Note: In a real prod app, use Web Workers or Sandboxed Iframes to evaluate user code.
       const funcBody = `
         let logs = [];
         const originalLog = console.log;
@@ -494,11 +560,9 @@ export default function Day1() {
         throw new Error("Your code must return a function at the end.");
       }
 
-      // Run against test cases
       const results = challenge.testCases.map((tc, i) => {
         try {
           const result = userFunc(...tc.args);
-          // Simple equality for primitives, JSON.stringify for arrays/objects
           const passed = JSON.stringify(result) === JSON.stringify(tc.expected);
           return { index: i, passed, result, expected: tc.expected, args: tc.args };
         } catch (err) {
@@ -560,7 +624,12 @@ export default function Day1() {
       `}>
         <div className="p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold">FS</div>
+            <button 
+              onClick={() => navigate('/my-courses')}
+              className="p-1 rounded bg-slate-100 dark:bg-white/10 hover:bg-slate-200 text-slate-600 dark:text-slate-200 transition-all mr-1"
+            >
+              <ArrowLeft size={16} />
+            </button>
             <h1 className="font-bold text-lg">Full Stack Track</h1>
           </div>
           <button className="lg:hidden text-slate-500" onClick={() => setSidebarOpen(false)}>
@@ -571,7 +640,7 @@ export default function Day1() {
         {/* Progress Tracker */}
         <div className="p-6 border-b border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-800/50">
           <div className="flex justify-between text-sm font-bold mb-2">
-            <span>Day 1 Progress</span>
+            <span>Day 3 Progress</span>
             <span className="text-primary">{calculateProgress()}%</span>
           </div>
           <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
@@ -644,14 +713,17 @@ export default function Day1() {
               <Menu size={24} />
             </button>
             <h2 className="font-black text-xl hidden sm:block">
-              {activeTab === 'reading' && "Module 1: The Foundation"}
-              {activeTab === 'compiler' && "Interactive Coding Environment"}
-              {activeTab === 'quiz' && "Module Assessment"}
+              {activeTab === 'reading' && "Module 3: JavaScript Fundamentals"}
+              {activeTab === 'compiler' && "Day 3 Practice Environment"}
+              {activeTab === 'quiz' && "Day 3 Quiz Check"}
             </h2>
           </div>
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-primary transition-colors">
-              <Download size={16} /> <span className="hidden sm:inline">Download Notes</span>
+            <button 
+              onClick={() => navigate('/dashboard')}
+              className="text-sm font-bold text-slate-500 hover:text-primary transition-colors flex items-center gap-1"
+            >
+              <ArrowLeft size={16} /> Exit Class
             </button>
           </div>
         </header>
@@ -668,13 +740,13 @@ export default function Day1() {
                 <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/30 blur-[100px] rounded-full pointer-events-none" />
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white font-bold text-xs mb-6 border border-white/20">
-                    Day 1 of 30
+                    Day 3 of 30
                   </div>
                   <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
-                    Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Full-Stack</span>
+                    JavaScript <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Fundamentals</span>
                   </h1>
                   <p className="text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed">
-                    Today, we lay the foundational bricks of your engineering career. Read carefully, understand the concepts, and complete the checkpoints.
+                    Today, we dive into JavaScript to add interactivity and logic to our web pages. Master variables, functions, and the DOM.
                   </p>
                 </div>
               </div>
@@ -683,7 +755,7 @@ export default function Day1() {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                 <input 
                   type="text" 
-                  placeholder="Search Day 1 content..."
+                  placeholder="Search Day 3 content..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl pl-12 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
@@ -753,7 +825,6 @@ export default function Day1() {
           {activeTab === 'compiler' && (
             <div className="h-full flex flex-col lg:flex-row p-6 gap-6 bg-slate-950">
               
-              {/* Challenge Selector */}
               <div className="w-full lg:w-80 flex flex-col gap-4 shrink-0">
                 <h3 className="text-white font-bold text-lg px-2">Coding Challenges</h3>
                 <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0">
@@ -775,13 +846,10 @@ export default function Day1() {
                 </div>
               </div>
 
-              {/* Editor & Output Area */}
               <div className="flex-1 flex flex-col min-h-0 border border-slate-800 rounded-2xl overflow-hidden bg-slate-900 shadow-2xl">
-                
-                {/* Editor Header */}
                 <div className="h-14 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-4 shrink-0">
                   <div className="flex items-center gap-2 text-slate-400 font-mono text-sm">
-                    <Code size={16} /> script.js
+                    <Code size={16} /> solution.js
                   </div>
                   <div className="flex items-center gap-2">
                     <button onClick={() => setUserCode(codingChallenges[activeChallengeIdx].initialCode)} className="p-2 text-slate-400 hover:text-white transition-colors" title="Reset Code">
@@ -796,7 +864,6 @@ export default function Day1() {
                   </div>
                 </div>
 
-                {/* Editor Area */}
                 <div className="flex-1 flex flex-col md:flex-row min-h-0">
                   <div className="flex-1 min-h-0 relative border-b md:border-b-0 md:border-r border-slate-800">
                     <textarea
@@ -808,7 +875,6 @@ export default function Day1() {
                     />
                   </div>
 
-                  {/* Console & Tests Area */}
                   <div className="w-full md:w-80 lg:w-96 flex flex-col min-h-0 bg-slate-950">
                     <div className="flex-1 p-4 overflow-y-auto border-b border-slate-800">
                       <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Test Results</h4>
@@ -846,7 +912,6 @@ export default function Day1() {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           )}
@@ -855,8 +920,8 @@ export default function Day1() {
           {activeTab === 'quiz' && (
             <div className="max-w-3xl mx-auto py-16 px-6">
               <div className="text-center mb-12">
-                <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">Module Assessment</h2>
-                <p className="text-lg text-slate-600 dark:text-gray-400">Test your knowledge on Day 1 concepts.</p>
+                <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">Day 3 Assessment</h2>
+                <p className="text-lg text-slate-600 dark:text-gray-400">Validate your JavaScript Fundamentals knowledge.</p>
               </div>
 
               <div className="space-y-8">
@@ -927,7 +992,7 @@ export default function Day1() {
                       Score: {Object.values(quizAnswers).filter((ans, idx) => ans === mcqs[idx].answer).length} / {mcqs.length}
                     </h3>
                     {calculateProgress() < 100 && (
-                      <p className="text-yellow-400 text-sm mt-4">Note: Complete all reading materials to earn your Day 1 Certificate!</p>
+                      <p className="text-yellow-400 text-sm mt-4">Note: Complete all reading materials to earn your Day 3 Certificate!</p>
                     )}
                   </div>
                 </div>
@@ -957,16 +1022,16 @@ export default function Day1() {
                 <Award size={48} className="text-white" />
               </div>
               
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">Day 1 Complete!</h2>
+              <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">Day 3 Complete!</h2>
               <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-md mx-auto">
-                Incredible work! You've mastered the foundational concepts of Full-Stack Development. You are 1 step closer to your dream role.
+                Excellent! You've mastered JavaScript Variables, Control Flow, Functions, Arrays, and the DOM. You are 3 steps closer to your dream role.
               </p>
               
               <button 
-                onClick={() => setShowCertificate(false)}
+                onClick={() => { setShowCertificate(false); navigate('/my-courses'); }}
                 className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all"
               >
-                Continue to Day 2
+                Return to Syllabus
               </button>
             </motion.div>
           </motion.div>

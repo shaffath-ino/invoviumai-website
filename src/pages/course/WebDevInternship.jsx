@@ -52,7 +52,7 @@ export default function WebDevInternship() {
         { courseId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      toast.success('Enrolled successfully!');
+      toast.success('Registration started! Please complete payment.');
       const url = `${window.location.origin}/payment/${response.data.enrollmentId}`;
       window.open(url, '_blank');
       navigate('/intern-courses');
@@ -208,19 +208,7 @@ export default function WebDevInternship() {
         </div>
       </div>
 
-      {/* Day 1 Free Preview */}
-      <div className="py-24 px-6 max-w-5xl mx-auto relative z-10 border-t border-slate-200 dark:border-white/10 text-center">
-        <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-6">Experience the Curriculum</h2>
-        <p className="text-lg text-slate-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-          Not sure what to expect? Try out the interactive, hands-on learning environment with our Day 1 curriculum module completely for free.
-        </p>
-        <button 
-          onClick={() => navigate('/day1')}
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:-translate-y-1 hover:shadow-xl transition-all"
-        >
-          Start Day 1 Free Preview <ChevronRight size={20} />
-        </button>
-      </div>
+
 
       {/* Call to Action Footer */}
       <div className="py-24 px-6 relative z-10 border-t border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/[0.02]">

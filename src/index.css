@@ -19,6 +19,13 @@
   }
 }
 
+@media print {
+  body {
+    @apply bg-white text-black;
+    background-image: none !important;
+  }
+}
+
 @layer utilities {
   .bg-grid {
     background-size: 60px 60px;

@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 // Get all courses
 const getCourses = async (req, res) => {
   try {
-    const courses = await Course.find({ isActive: true });
+    const courses = await Course.find({ isActive: true }).lean();
     res.json(courses);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -23,7 +23,7 @@ const getCourses = async (req, res) => {
 // Get course by ID
 const getCourseById = async (req, res) => {
   try {
-    const course = await Course.findById(req.params.id);
+    const course = await Course.findById(req.params.id).lean();
     if (!course) return res.status(404).json({ message: 'Course not found' });
     res.json(course);
   } catch (error) {
@@ -43,7 +43,7 @@ const enrollCourse = async (req, res) => {
     const { courseId } = req.body;
 
     // Check if already enrolled
-    const existingEnrollment = await Enrollment.findOne({ userId: decoded.userId, courseId });
+    const existingEnrollment = await Enrollment.findOne({ userId: decoded.userId, courseId }).lean();
     if (existingEnrollment) {
       return res.status(400).json({ message: 'Already enrolled in this course' });
     }
@@ -72,11 +72,11 @@ const processPayment = async (req, res) => {
     const enrollment = await Enrollment.findOne({ _id: enrollmentId, userId: decoded.userId });
     if (!enrollment) return res.status(404).json({ message: 'Enrollment not found' });
 
-    const course = await Course.findById(enrollment.courseId);
+    const course = await Course.findById(enrollment.courseId).lean();
     if (!course) return res.status(404).json({ message: 'Course not found' });
 
     // Simulate payment success and mark as paid (waiting for offer letter)
-    enrollment.status = 'paid';
+    enrollment.status = 'Paid';
     enrollment.currentStage = 'Beginner';
     enrollment.paymentDetails = {
       amount: course.price,
@@ -103,6 +103,10 @@ const generateOfferLetter = async (req, res) => {
     const enrollment = await Enrollment.findOne({ _id: enrollmentId, userId: decoded.userId }).populate('courseId').populate('userId');
     if (!enrollment) return res.status(404).json({ message: 'Enrollment not found' });
 
+    if (enrollment.status !== 'Paid' && enrollment.status !== 'Activated') {
+      return res.status(400).json({ message: 'Payment must be completed before generating offer letter' });
+    }
+
     // Automate duration and end date
     const durationString = enrollment.courseId.duration || '3 months';
     const monthsMatch = durationString.match(/(\d+)/);
@@ -122,7 +126,7 @@ const generateOfferLetter = async (req, res) => {
       startDate, 
       endDate: automatedEndDate 
     };
-    enrollment.status = 'activated';
+    enrollment.status = 'Activated';
 
     // Generate PDF
     const doc = new PDFDocument();
@@ -130,9 +134,7 @@ const generateOfferLetter = async (req, res) => {
     const filePath = path.join(__dirname, '../public/offer-letters', fileName);
 
     // Ensure directory exists
-    if (!fs.existsSync(path.dirname(filePath))) {
-      fs.mkdirSync(path.dirname(filePath), { recursive: true });
-    }
+    await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
 
     const stream = fs.createWriteStream(filePath);
     doc.pipe(stream);
@@ -179,7 +181,8 @@ const getMyCourses = async (req, res) => {
 
     const enrollments = await Enrollment.find({ userId: decoded.userId })
       .populate('courseId')
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .lean();
 
     res.json(enrollments);
   } catch (error) {
@@ -196,7 +199,7 @@ const downloadOfferLetter = async (req, res) => {
     const decoded = jwt.verify(token, config.JWT_SECRET || 'fallback_secret');
     const { courseId } = req.params;
 
-    const enrollment = await Enrollment.findOne({ userId: decoded.userId, courseId, status: 'activated' });
+    const enrollment = await Enrollment.findOne({ userId: decoded.userId, courseId, status: 'Activated' }).lean();
     if (!enrollment || !enrollment.offerLetterPath) {
       return res.status(404).json({ message: 'Offer letter not found' });
     }

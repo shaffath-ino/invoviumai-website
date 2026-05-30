@@ -13,17 +13,17 @@ const getStageIndex = (stage) => {
 };
 
 const getCourseProgress = (enrollment) => {
-  if (!enrollment || enrollment.status !== 'activated') return 0;
+  if (!enrollment || enrollment.status !== 'Activated') return 0;
   return Math.round(((getStageIndex(enrollment.currentStage) + 1) / STAGES.length) * 100);
 };
 
 const getStatusText = (status) => {
   switch (status) {
-    case 'activated':
+    case 'Activated':
       return 'Learning';
-    case 'paid':
+    case 'Paid':
       return 'Offer letter pending';
-    case 'enrolled':
+    case 'Enrolled':
       return 'Payment pending';
     default:
       return status || 'Not started';

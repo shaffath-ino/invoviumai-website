@@ -10,7 +10,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-dark pt-20 pb-10 transition-colors duration-500">
+    <footer className="border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-dark pt-20 pb-10 transition-colors duration-500 print:hidden">
       <div className="max-w-7xl mx-auto px-6 h-full flex flex-col justify-between">
         
         {/* Main Top Grid */}
@@ -78,7 +78,16 @@ export default function Footer() {
             </h4>
             <div className="space-y-4 text-[13px] text-slate-600 dark:text-gray-400">
               <p className="flex items-center gap-3">
-                <Mail size={16} className="text-primary shrink-0"/> contact@inoviumai.com
+                <Mail size={16} className="text-primary shrink-0"/> <span><strong className="text-slate-700 dark:text-gray-300">General:</strong> contact@inoviumai.com</span>
+              </p>
+              <p className="flex items-center gap-3">
+                <Mail size={16} className="text-primary shrink-0"/> <span><strong className="text-slate-700 dark:text-gray-300">Support:</strong> support@inoviumai.com</span>
+              </p>
+              <p className="flex items-center gap-3">
+                <Mail size={16} className="text-primary shrink-0"/> <span><strong className="text-slate-700 dark:text-gray-300">Careers:</strong> careers@inoviumai.com</span>
+              </p>
+              <p className="flex items-center gap-3">
+                <Mail size={16} className="text-primary shrink-0"/> <span><strong className="text-slate-700 dark:text-gray-300">Billing:</strong> billing@inoviumai.com</span>
               </p>
               <p className="flex items-center gap-3">
                 <Phone size={16} className="text-primary shrink-0"/> <span>9884716042 / 9884946867</span>

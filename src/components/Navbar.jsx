@@ -119,7 +119,7 @@ export default function Navbar() {
         stiffness: 300,
         damping: 30,
       }}
-      className={`fixed top-4 inset-x-0 mx-auto z-50 w-[calc(100%-2rem)] md:w-max rounded-full flex items-center justify-between px-4 md:px-6 py-3 transition-all duration-300 ${
+      className={`fixed top-4 inset-x-0 mx-auto z-50 w-[calc(100%-2rem)] md:w-max rounded-full flex items-center justify-between px-4 md:px-6 py-3 transition-all duration-300 print:hidden ${
         scrolled || isOpen
           ? "bg-white/70 dark:bg-black/70 backdrop-blur-xl shadow-lg border border-slate-200/50 dark:border-white/10"
           : "bg-transparent border border-transparent"

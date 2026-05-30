@@ -91,7 +91,7 @@ export default function Course() {
           headers: { Authorization: `Bearer ${token}` }
         });
         const found = response.data.find(e => e._id === enrollmentId);
-        if (found && found.status === 'activated') {
+        if (found && found.status === 'Activated') {
           setEnrollment(found);
           
           // Calculate Current Day based on Start Date
@@ -139,12 +139,8 @@ export default function Course() {
   if (!enrollment) return null;
 
   // Calculate maximum unlocked day
-  const startDate = new Date(enrollment.additionalDetails?.startDate || enrollment.createdAt);
-  const today = new Date();
-  startDate.setHours(0,0,0,0);
-  today.setHours(0,0,0,0);
-  const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-  const maxUnlockedDay = diffDays >= 0 ? diffDays + 1 : 1;
+  // Removed day blocker constraint
+  const maxUnlockedDay = 999;
 
   const currentLesson = mockCurriculum[selectedDay] || mockCurriculum[1];
 
@@ -236,9 +232,23 @@ export default function Course() {
             <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-6">
               {currentLesson.title}
             </h2>
-            <p className="text-lg text-slate-600 dark:text-gray-300 leading-relaxed">
-              {currentLesson.content}
-            </p>
+            {(selectedDay === 1 || selectedDay === 2 || selectedDay === 3) && enrollment?.courseId?.title === 'Web Development Internship' ? (
+              <div className="flex flex-col items-center justify-center py-6 text-center">
+                <p className="text-lg text-slate-600 dark:text-gray-300 leading-relaxed mb-6">
+                  Day {selectedDay} has an interactive learning workspace that includes readings, code practice with a live compiler, and assessment quizzes.
+                </p>
+                <button
+                  onClick={() => navigate(`/day${selectedDay}`)}
+                  className="px-8 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center gap-2"
+                >
+                  <Play size={16} fill="currentColor" /> Enter Interactive Workspace
+                </button>
+              </div>
+            ) : (
+              <p className="text-lg text-slate-600 dark:text-gray-300 leading-relaxed">
+                {currentLesson.content}
+              </p>
+            )}
           </motion.div>
 
           {/* Code Example */}

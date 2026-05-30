@@ -31,6 +31,8 @@ const InternCourses = lazy(() => import('./pages/course/InternCourses'));
 const MyCourses = lazy(() => import('./pages/course/MyCourses'));
 const WebDevInternship = lazy(() => import('./pages/course/WebDevInternship'));
 const Day1 = lazy(() => import('./pages/course/web-dev-course/Day1'));
+const Day2 = lazy(() => import('./pages/course/web-dev-course/Day2'));
+const Day3 = lazy(() => import('./pages/course/web-dev-course/Day3'));
 
 // -- Careers --
 const Careers = lazy(() => import('./pages/career/Careers'));
@@ -40,6 +42,8 @@ const JobDetails = lazy(() => import('./pages/career/JobDetails'));
 const Payment = lazy(() => import('./pages/onboarding/Payment'));
 const OfferLetter = lazy(() => import('./pages/onboarding/OfferLetter'));
 const DownloadOfferLetter = lazy(() => import('./pages/onboarding/DownloadOfferLetter'));
+const PaymentHistory = lazy(() => import('./pages/dashboard/PaymentHistory'));
+const Invoice = lazy(() => import('./pages/dashboard/Invoice'));
 
 // Loading Skeleton
 function PageSkeleton() {
@@ -101,6 +105,8 @@ function AnimatedRoutes() {
           <Route path="/dashboard" element={<PageWrapper><StudentDashboard /></PageWrapper>} />
           <Route path="/intern-courses" element={<PageWrapper><InternCourses /></PageWrapper>} />
           <Route path="/company-dashboard" element={<PageWrapper><CompanyDashboard /></PageWrapper>} />
+          <Route path="/payment-history" element={<PageWrapper><PaymentHistory /></PageWrapper>} />
+          <Route path="/invoice/:paymentId" element={<PageWrapper><Invoice /></PageWrapper>} />
           <Route path="/payment/:enrollmentId" element={<PageWrapper><Payment /></PageWrapper>} />
           <Route path="/offer-letter/:enrollmentId" element={<PageWrapper><OfferLetter /></PageWrapper>} />
           <Route path="/my-courses" element={<PageWrapper><MyCourses /></PageWrapper>} />
@@ -109,6 +115,8 @@ function AnimatedRoutes() {
           <Route path="/course-details/:courseId" element={<PageWrapper><CourseDetails /></PageWrapper>} />
           <Route path="/web-development-internship" element={<PageWrapper><WebDevInternship /></PageWrapper>} />
           <Route path="/day1" element={<PageWrapper><Day1 /></PageWrapper>} />
+          <Route path="/day2" element={<PageWrapper><Day2 /></PageWrapper>} />
+          <Route path="/day3" element={<PageWrapper><Day3 /></PageWrapper>} />
           <Route path="/admin-dashboard" element={<PageWrapper><AdminDashboard /></PageWrapper>} />
           <Route path="/careers/:id" element={<PageWrapper><JobDetails /></PageWrapper>} />
         </Routes>
@@ -122,7 +130,7 @@ function PageWrapper({ children }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
+      exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="w-full relative"
     >
@@ -138,7 +146,7 @@ export default function App() {
         <ScrollToTop />
         <SpotlightTracker>
           <Navbar />
-          <main className="flex-grow w-full pt-[80px]">
+          <main className="flex-grow w-full pt-[80px] print:pt-0">
             <AnimatedRoutes />
           </main>
           <Footer />

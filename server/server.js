@@ -3,18 +3,21 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import config from '../config.js';
 import rateLimit from 'express-rate-limit';
+import compression from 'compression';
 import authRoutes from './routes/auth.js';
 import chatRoutes from './routes/chat.js';
 import courseRoutes from './routes/course.js';
 import adminRoutes from './routes/admin.js';
-
+import paymentRoutes from './routes/payment.js';
 
 const app = express();
 
 // Middleware
-app.use(express.json());
+app.use(compression());
+app.use(express.json({ limit: '10mb' }));
 app.use(cors());
 app.use('/offer-letters', express.static('public/offer-letters'));
+app.use('/screenshots', express.static('public/screenshots'));
 
 // Rate Limiter
 const limiter = rateLimit({
@@ -31,6 +34,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // Database connection
 const PORT = config.PORT || 5000;

@@ -25,7 +25,7 @@ export default function DownloadOfferLetter() {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Filter only activated courses with offer letters
-      const activatedCourses = response.data.filter(e => e.status === 'activated');
+      const activatedCourses = response.data.filter(e => e.status === 'Activated');
       setEnrollments(activatedCourses);
     } catch {
       toast.error('Failed to load courses');

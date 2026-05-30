@@ -12,7 +12,7 @@ export const sendOtp = async (req, res) => {
     if (!email) return res.status(400).json({ error: 'Email is required' });
 
     // Validate account existence preemptively
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email }).lean();
     if (type === 'signup' && existingUser) {
       return res.status(400).json({ 
         error: `This email is already in use. Multiple users are not allowed to use the same email.` 
@@ -25,7 +25,7 @@ export const sendOtp = async (req, res) => {
     }
 
     // Check if OTP was sent recently (Rate limiting resend to 30s)
-    const existingOtp = await OTP.findOne({ email }).sort({ createdAt: -1 });
+    const existingOtp = await OTP.findOne({ email }).sort({ createdAt: -1 }).lean();
     if (existingOtp) {
       const timeDiff = new Date() - new Date(existingOtp.createdAt);
       if (timeDiff < 30 * 1000) {
@@ -102,13 +102,13 @@ export const signup = async (req, res) => {
     const { accountType, name, email, password } = req.body;
     
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email }).lean();
     if (existingUser) {
       return res.status(400).json({ error: `This email is already in use. Multiple users are not allowed to use the same email.` });
     }
 
     // Check if OTP was verified
-    const otpDoc = await OTP.findOne({ email, verified: true }).sort({ createdAt: -1 });
+    const otpDoc = await OTP.findOne({ email, verified: true }).sort({ createdAt: -1 }).lean();
     if (!otpDoc) {
       return res.status(400).json({ error: 'Please verify OTP before signing up' });
     }
@@ -158,7 +158,7 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).lean();
     if (!user) {
       return res.status(400).json({ error: 'Invalid email or password' });
     }
@@ -204,7 +204,7 @@ export const resetPassword = async (req, res) => {
     }
 
     // Check if OTP was verified
-    const otpDoc = await OTP.findOne({ email, verified: true }).sort({ createdAt: -1 });
+    const otpDoc = await OTP.findOne({ email, verified: true }).sort({ createdAt: -1 }).lean();
     if (!otpDoc) {
       return res.status(400).json({ error: 'Please verify your email with OTP first' });
     }

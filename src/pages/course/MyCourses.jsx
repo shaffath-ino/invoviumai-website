@@ -32,9 +32,9 @@ export default function MyCourses() {
   };
 
   const handleStartCourse = (enrollment) => {
-    if (enrollment.status === 'activated') {
+    if (enrollment.status === 'Activated') {
       navigate(`/course/${enrollment._id}`);
-    } else if (enrollment.status === 'paid') {
+    } else if (enrollment.status === 'Paid') {
       navigate(`/offer-letter/${enrollment._id}`);
     } else {
       navigate(`/payment/${enrollment._id}`);
@@ -51,9 +51,10 @@ export default function MyCourses() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'enrolled': return 'text-yellow-500';
-      case 'paid': return 'text-blue-500';
-      case 'activated': return 'text-green-500';
+      case 'Enrolled': return 'text-yellow-500';
+      case 'Pending_Verification': return 'text-orange-500';
+      case 'Paid': return 'text-blue-500';
+      case 'Activated': return 'text-green-500';
       default: return 'text-gray-500';
     }
   };
@@ -131,15 +132,20 @@ export default function MyCourses() {
                 </div>
                 <button 
                   onClick={() => handleStartCourse(enrollment)}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all"
+                  disabled={enrollment.status === 'Pending_Verification'}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {enrollment.status === 'activated' ? (
+                  {enrollment.status === 'Activated' ? (
                     <>
                       <Play size={16} /> Start Learning
                     </>
-                  ) : enrollment.status === 'paid' ? (
+                  ) : enrollment.status === 'Paid' ? (
                     <>
                       <CheckCircle size={16} /> Generate Offer Letter
+                    </>
+                  ) : enrollment.status === 'Pending_Verification' ? (
+                    <>
+                      <CheckCircle size={16} /> Verification Pending
                     </>
                   ) : (
                     <>

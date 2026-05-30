@@ -47,6 +47,17 @@ router.get('/students', verifyAdmin, async (req, res) => {
   }
 });
 
+// Delete Enrollment
+router.delete('/enrollment/:id', verifyAdmin, async (req, res) => {
+  try {
+    const enrollment = await Enrollment.findByIdAndDelete(req.params.id);
+    if (!enrollment) return res.status(404).json({ message: 'Enrollment not found' });
+    res.json({ message: 'Enrollment deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
 // Job CRUD operations
 router.get('/jobs', async (req, res) => {
   try {

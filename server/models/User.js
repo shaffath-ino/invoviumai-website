@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  purchasedCourses: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course'
+  }],
+  paymentHistory: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Payment'
+  }]
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

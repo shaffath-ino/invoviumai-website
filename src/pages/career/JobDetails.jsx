@@ -106,11 +106,12 @@ export default function JobDetails() {
           </div>
         )}
         
-        <div className="mt-16 text-center">
-          <Link to="/contact" className="btn-primary inline-flex relative group overflow-hidden">
+        <div className="mt-16 text-center border-t border-white/10 pt-10">
+          <p className="text-slate-500 mb-6">To apply, please send your resume and portfolio to our hiring team.</p>
+          <a href="mailto:careers@inoviumai.com" className="btn-primary inline-flex relative group overflow-hidden">
              <span className="absolute inset-0 w-full h-full bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none"></span>
-             <span className="relative font-bold text-lg px-8 py-2">Apply for this Role</span>
-          </Link>
+             <span className="relative font-bold text-lg px-8 py-2">Email careers@inoviumai.com</span>
+          </a>
         </div>
       </div>
     </div>

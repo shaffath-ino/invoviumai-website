@@ -24,12 +24,12 @@ const getStageIndex = (stage) => {
 };
 
 const getCourseProgress = (enrollment) => {
-  if (!enrollment || enrollment.status !== 'activated') return 0;
+  if (!enrollment || enrollment.status !== 'Activated') return 0;
   return Math.round(((getStageIndex(enrollment.currentStage) + 1) / STAGES.length) * 100);
 };
 
 const getRemainingLevels = (enrollment) => {
-  if (!enrollment || enrollment.status !== 'activated') return STAGES.length;
+  if (!enrollment || enrollment.status !== 'Activated') return STAGES.length;
   return Math.max(STAGES.length - getStageIndex(enrollment.currentStage) - 1, 0);
 };
 
@@ -77,12 +77,14 @@ const getNearestDaysLeft = (enrollments) => {
 
 const getStatusText = (status) => {
   switch (status) {
-    case 'activated':
+    case 'Activated':
       return 'Start Learning';
-    case 'paid':
+    case 'Paid':
       return 'Generate Offer Letter';
-    case 'enrolled':
+    case 'Enrolled':
       return 'Complete Payment';
+    case 'Pending_Verification':
+      return 'Verification Pending';
     default:
       return status || 'View Details';
   }
@@ -121,16 +123,16 @@ export default function StudentDashboard() {
   };
 
   const handleOpenCourse = (enrollment) => {
-    if (enrollment.status === 'activated') {
+    if (enrollment.status === 'Activated') {
       navigate(`/course/${enrollment._id}`);
-    } else if (enrollment.status === 'paid') {
+    } else if (enrollment.status === 'Paid') {
       navigate(`/offer-letter/${enrollment._id}`);
     } else {
       navigate(`/payment/${enrollment._id}`);
     }
   };
 
-  const activeEnrollment = enrollments.find((enrollment) => enrollment.status === 'activated') || enrollments[0];
+  const activeEnrollment = enrollments.find((enrollment) => enrollment.status === 'Activated') || enrollments[0];
   const progress = getOverallProgress(enrollments);
   const remainingLevels = getTotalRemainingLevels(enrollments);
   const daysLeft = getNearestDaysLeft(enrollments);
@@ -174,6 +176,9 @@ export default function StudentDashboard() {
             </button>
             <button onClick={() => navigate('/download-offer-letter')} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-500/10 text-blue-500 font-bold border border-blue-500/30 hover:bg-blue-500/20 transition-all">
               <FileText size={16} /> Download Offer Letter
+            </button>
+            <button onClick={() => navigate('/payment-history')} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-500/10 text-green-500 font-bold border border-green-500/30 hover:bg-green-500/20 transition-all">
+              <FileText size={16} /> Payment History
             </button>
             <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/10 text-red-500 font-bold border border-red-500/30 hover:bg-red-500/20 transition-all">
               <LogOut size={16} /> Logout
@@ -291,7 +296,11 @@ export default function StudentDashboard() {
                           <div className="h-full rounded-full bg-primary" style={{ width: `${courseProgress}%` }} />
                         </div>
 
-                        <button onClick={() => handleOpenCourse(enrollment)} className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all">
+                        <button 
+                          onClick={() => handleOpenCourse(enrollment)} 
+                          disabled={enrollment.status === 'Pending_Verification'}
+                          className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
                           {getStatusText(enrollment.status)} <ChevronRight size={16} />
                         </button>
                       </div>

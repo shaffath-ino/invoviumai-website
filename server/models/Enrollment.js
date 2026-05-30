@@ -13,8 +13,8 @@ const enrollmentSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['enrolled', 'paid', 'activated'],
-    default: 'enrolled'
+    enum: ['Enrolled', 'Pending_Verification', 'Paid', 'Activated'],
+    default: 'Enrolled'
   },
   paymentDetails: {
     amount: Number,

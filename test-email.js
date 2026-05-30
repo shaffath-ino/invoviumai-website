@@ -1,5 +1,8 @@
 import { sendEmail } from './server/utils/sendEmail.js';
 
-sendEmail('test@example.com', 'Test OTP', '123456')
-  .then(res => console.log('Result:', res))
-  .catch(err => console.error('Script Error:', err));
+const testEmail = async () => {
+  const result = await sendEmail('tvenkateshwaran14@gmail.com', 'Test Email from Backend', '123456');
+  console.log('Result:', result);
+};
+
+testEmail().catch(err => console.error('Script Error:', err));

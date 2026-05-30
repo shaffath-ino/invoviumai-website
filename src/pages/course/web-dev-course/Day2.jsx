@@ -11,334 +11,369 @@ import {
 import toast from 'react-hot-toast';
 
 // ---------------------------------------------------------
-// MASSIVE CONTENT DATASET FOR DAY 1
+// CONTENT DATASET FOR DAY 2 (CSS & RESPONSIVE DESIGN)
 // ---------------------------------------------------------
 const courseContent = [
   {
-    id: "intro-fullstack",
-    title: "Introduction to Full Stack Development",
+    id: "css-box-model",
+    title: "Understanding the CSS Box Model",
     content: `
-Full Stack Development refers to the practice of working on both the front-end (client-side) and back-end (server-side) portions of a web application. A Full Stack Developer is a versatile engineer capable of handling databases, servers, systems engineering, and client-facing interfaces.
+The CSS Box Model is the foundation of design and layout on the web. Every element in HTML is represented as a rectangular box. The box model consists of four layers:
 
-### Why Full Stack?
-In the modern tech ecosystem, understanding the complete request-response cycle gives you a significant edge. You can architect solutions from the database schema all the way to the CSS animations in the browser. It reduces bottlenecks in teams and allows you to build complete MVPs independently.
+1. **Content:** The actual text, images, or child elements.
+2. **Padding:** The space between the content and the border. It is transparent and inside the element.
+3. **Border:** A border surrounding the padding and content.
+4. **Margin:** The space outside the border, separating the element from other elements.
 
-**Real-world example:** Think of a restaurant. The frontend is the dining area, the menu, and the waiters. The backend is the kitchen, the chefs, and the recipes. The database is the pantry where ingredients are stored. A full-stack developer is the restaurant manager who understands and orchestrates all these moving parts.
+### Box Sizing: border-box vs content-box
+By default, browsers use \`box-sizing: content-box\`. This means if you set \`width: 200px; padding: 20px; border: 5px solid black;\`, the actual rendered width of the element will be:
+\`200px (width) + 40px (padding left/right) + 10px (border left/right) = 250px\`.
 
-### Best Practices
-- Master one stack (e.g., MERN) before trying to learn everything.
-- Understand HTTP and how the web works at a fundamental level.
-- Keep learning: The tech landscape changes rapidly.
+To fix this counter-intuitive behavior, modern web designs apply:
+\`\`\`css
+* {
+  box-sizing: border-box;
+}
+\`\`\`
+With \`border-box\`, the padding and border are included in the specified width. An element with \`width: 200px\` remains exactly 200px wide.
     `,
-    interview: "Q: What is the difference between a Full Stack Developer and a Software Engineer?\nA: While overlapping, a Full Stack Developer typically focuses on web technologies across client and server, whereas a Software Engineer might work on any type of software (desktop, mobile, embedded) using various languages."
+    interview: "Q: What is the difference between margin and padding?\nA: Padding adds space *inside* the element (increasing clickable area and content spacing), whereas margin adds space *outside* the element (separating it from neighboring items)."
   },
   {
-    id: "frontend-backend-db",
-    title: "Frontend, Backend & Databases",
+    id: "flexbox",
+    title: "Mastering CSS Flexbox",
     content: `
-### What is Frontend?
-The frontend is everything the user sees and interacts with. It's built using HTML (structure), CSS (presentation), and JavaScript (logic/behavior). Modern frontend development relies heavily on frameworks like React, Vue, or Angular to build complex, state-driven interfaces.
+Flexbox (Flexible Box Layout) is a one-dimensional layout model designed for distributing space and aligning items in a row or column.
 
-### What is Backend?
-The backend handles the business logic, authentication, data processing, and server management. It's the engine under the hood. It communicates with the frontend via APIs (Application Programming Interfaces). Common backend languages include Node.js (JavaScript), Python, Java, and Go.
+### Flex Container Properties
+- \`display: flex;\` activates the flex context.
+- \`flex-direction:\` Defines the main axis (row, column, row-reverse, column-reverse).
+- \`justify-content:\` Aligns items along the main axis (flex-start, flex-end, center, space-between, space-around, space-evenly).
+- \`align-items:\` Aligns items along the cross axis (stretch, flex-start, flex-end, center, baseline).
+- \`flex-wrap:\` Controls whether flex items wrap onto multiple lines (nowrap, wrap, wrap-reverse).
 
-### What is a Database?
-A database is an organized collection of data. It allows you to store, retrieve, and manage information persistently. 
-- **Relational (SQL):** MySQL, PostgreSQL (Uses tables, rows, columns)
-- **Non-Relational (NoSQL):** MongoDB, Redis (Uses documents, key-value pairs)
-
-### The Complete Flow
-1. User clicks a button on the Frontend (React).
-2. Frontend sends an HTTP request to the Backend (Node/Express).
-3. Backend receives the request, processes it, and queries the Database (MongoDB).
-4. Database returns data to the Backend.
-5. Backend formats data and sends an HTTP response to the Frontend.
-6. Frontend updates the UI based on the response.
+### Flex Item Properties
+- \`flex-grow:\` Ability for an item to grow if necessary (takes up remaining space).
+- \`flex-shrink:\` Ability for an item to shrink if necessary.
+- \`flex-basis:\` The default size of an element before remaining space is distributed.
+- \`align-self:\` Overrides the container's align-items setting for this specific item.
     `,
-    interview: "Q: Explain the difference between SQL and NoSQL.\nA: SQL databases are table-based and use a predefined schema, making them great for complex queries and transactional data. NoSQL databases are document, key-value, or graph-based, offering dynamic schemas and high scalability for unstructured data."
+    interview: "Q: How do you perfectly center an element using Flexbox?\nA: Set the container's display to `flex`, and apply `justify-content: center;` (main axis centering) and `align-items: center;` (cross axis centering)."
   },
   {
-    id: "intro-react",
-    title: "Introduction to React",
+    id: "css-grid",
+    title: "Introduction to CSS Grid",
     content: `
-React is a declarative, efficient, and flexible JavaScript library for building user interfaces, originally developed by Facebook.
+CSS Grid Layout is a two-dimensional layout system for the web. Unlike Flexbox, which is designed for one-dimensional layouts (rows OR columns), Grid is designed for both rows AND columns simultaneously.
 
-### Core Concepts:
-1. **Components:** The building blocks of React. They are reusable, self-contained pieces of UI (like a button, a form, or an entire page).
-2. **JSX:** A syntax extension for JavaScript that looks like HTML. It allows you to write markup directly inside your JS logic.
-3. **State:** Data that changes over time and affects what renders on the screen.
-4. **Props:** Short for properties. Used to pass data from a parent component down to a child component.
-5. **Virtual DOM:** A lightweight copy of the actual DOM. React uses it to efficiently determine the minimal number of changes needed to update the real DOM, boosting performance.
+### Grid Container Properties
+- \`display: grid;\` starts the grid context.
+- \`grid-template-columns:\` Defines grid columns (e.g., \`grid-template-columns: 1fr 2fr 1fr;\` or \`repeat(3, 1fr);\`).
+- \`grid-template-rows:\` Defines grid rows.
+- \`gap:\` Sets spacing between grid tracks (\`grid-row-gap\` and \`grid-column-gap\`).
 
-**Real-world example:** Imagine building a car. Instead of building the entire car as one giant piece, you build the engine, the wheels, the doors (components) separately, and then assemble them.
+### Grid Item Properties
+- \`grid-column:\` Short-hand for defining start/end line coordinates (e.g., \`grid-column: 1 / 3;\` span 2 columns).
+- \`grid-row:\` Short-hand for defining row start/end coordinates.
     `,
-    interview: "Q: Why use React over vanilla JavaScript?\nA: React simplifies DOM manipulation, provides a component-based architecture for reusability, and offers better performance through the Virtual DOM, especially for complex, dynamic applications."
+    interview: "Q: When should you use Flexbox vs CSS Grid?\nA: Use Flexbox when you want to layout items in a single direction (row or column) or align items sequentially. Use Grid when you need a multi-dimensional grid layout with alignment in both columns and rows."
   },
   {
-    id: "intro-node-mongo",
-    title: "Introduction to Node.js & MongoDB",
+    id: "media-queries",
+    title: "Media Queries & Responsive Web Design",
     content: `
-### Node.js
-Node.js is a JavaScript runtime environment built on Chrome's V8 engine. It allows you to run JavaScript on the server, outside the browser. 
+Responsive Web Design (RWD) makes web pages look good on all devices (desktops, tablets, and phones). The cornerstone of RWD is Media Queries.
 
-**Key Features:**
-- **Asynchronous & Event-Driven:** It doesn't wait for API calls or database queries to finish before moving to the next line of code, making it highly concurrent and fast.
-- **Single-Threaded but Highly Scalable:** Uses an event loop to handle multiple connections simultaneously.
+### The Viewport Meta Tag
+To make a site responsive, you must include this in your HTML \`<head>\`:
+\`\`\`html
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+\`\`\`
 
-### MongoDB
-MongoDB is a popular NoSQL database that stores data in JSON-like documents (BSON). 
+### Media Query Syntax
+A media query consists of a media type and expressions that limit style sheets' scope:
+\`\`\`css
+/* Desktop First Approach */
+@media (max-width: 768px) {
+  /* CSS rules here apply to devices with screen widths of 768px or less */
+  .sidebar {
+    display: none;
+  }
+}
+\`\`\`
 
-**Key Features:**
-- **Document Model:** Data is stored as documents inside collections.
-- **Flexible Schema:** Documents in the same collection don't need to have the identical set of fields.
-- **Scalability:** Built to scale out natively using sharding.
-
-**The MERN Stack Magic:** Because MongoDB uses JSON-like documents, Node.js runs JavaScript, and React uses JavaScript, the entire MERN stack speaks the same language (JavaScript/JSON), making data serialization and transmission seamless.
+### Mobile-First Design
+It is best practice to write mobile-first styles: write base styles for small mobile screens first, then use \`min-width\` media queries to scale up rules for tablets and laptops.
     `,
-    interview: "Q: What is the Event Loop in Node.js?\nA: The event loop is what allows Node.js to perform non-blocking I/O operations despite being single-threaded. It offloads operations to the system kernel whenever possible, and processes callbacks when operations complete."
+    interview: "Q: What is a breakpoint in CSS?\nA: A breakpoint is a specific screen width (defined via media queries) where the design layout adapts or changes to fit the device viewport size."
   },
   {
-    id: "js-fundamentals",
-    title: "JavaScript Fundamentals (Variables & Types)",
+    id: "css-positioning",
+    title: "Mastering CSS Positioning",
     content: `
-JavaScript is the language of the web. It is dynamically typed, meaning you don't have to declare the type of a variable.
+The \`position\` property specifies the type of positioning method used for an element. 
 
-### Variables (let, const, var)
-- **const:** Block-scoped. Cannot be reassigned. Use this by default!
-- **let:** Block-scoped. Can be reassigned. Use when you know the value will change (e.g., counters).
-- **var:** Function-scoped. Legacy way of declaring variables. Avoid using it in modern code due to hoisting behaviors.
-
-### Data Types
-- **Primitives:** String, Number, Boolean, Null, Undefined, Symbol, BigInt.
-- **Non-Primitives (Objects):** Objects, Arrays, Functions.
-
-**Undefined vs Null:**
-- \`undefined\`: A variable has been declared but has not yet been assigned a value.
-- \`null\`: An intentional absence of any object value.
-
-### Type Coercion
-JavaScript automatically converts types when needed, which can lead to bugs. Always use strict equality (\`===\`) instead of loose equality (\`==\`) to prevent unexpected type coercion.
+### Common Position Values
+- **static:** The default. Elements render in order, as they appear in the document flow.
+- **relative:** Positioned relative to its normal (static) position. Setting top/right/bottom/left will adjust it away from its normal position.
+- **absolute:** Positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed). It is removed from the normal document flow.
+- **fixed:** Positioned relative to the viewport. It stays in the exact same place even if the page is scrolled.
+- **sticky:** Toggles between relative and fixed, depending on the scroll position.
     `,
-    interview: "Q: What is the difference between == and ===?\nA: `==` checks for value equality with type coercion (e.g., '5' == 5 is true). `===` checks for both value and type equality without coercion (e.g., '5' === 5 is false)."
+    interview: "Q: What is the difference between absolute and relative positioning?\nA: 'Relative' moves an element from its normal position but keeps its space in the document flow. 'Absolute' completely removes the element from the flow and positions it relative to its closest positioned parent."
   },
   {
-    id: "js-control-flow",
-    title: "JavaScript Functions & Control Flow",
+    id: "css-typography",
+    title: "Advanced CSS Typography",
     content: `
-### Functions
-Functions are first-class citizens in JavaScript, meaning they can be assigned to variables, passed as arguments, and returned from other functions.
+Typography is a crucial part of web design. Modern CSS provides powerful tools for controlling how text looks.
 
-- **Function Declarations:** \`function add(a, b) { return a + b; }\`
-- **Arrow Functions (ES6):** \`const add = (a, b) => a + b;\` (Shorter syntax, lexical \`this\` binding).
+### Key Properties
+- \`font-family\`: Defines the typeface. Best practice is to use web-safe fallback fonts or import from Google Fonts.
+- \`line-height\`: Controls the vertical spacing between lines. A line-height of 1.5 to 1.6 is generally recommended for readability.
+- \`letter-spacing\` & \`word-spacing\`: Controls the horizontal spacing between characters and words.
+- \`text-transform\`: Easily convert text to \`uppercase\`, \`lowercase\`, or \`capitalize\`.
 
-### Control Flow (Loops & Conditionals)
-- **if/else, switch:** For branching logic.
-- **for loop:** Traditional counter-based loop.
-- **for...of:** Iterates over iterable objects (Arrays, Strings).
-- **for...in:** Iterates over the enumerable properties of an object.
-- **while / do...while:** Loops based on a condition.
-
-**Higher-Order Array Methods:**
-Instead of traditional loops, modern JS relies heavily on methods like:
-- \`.map()\`: Transforms every element in an array and returns a new array.
-- \`.filter()\`: Returns a new array with only elements that pass a test.
-- \`.reduce()\`: Accumulates an array into a single value.
+### Fluid Typography
+Using \`clamp()\` allows typography to scale fluidly between a minimum and maximum size depending on viewport width:
+\`\`\`css
+h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+\`\`\`
     `,
-    interview: "Q: What is a closure in JavaScript?\nA: A closure is a function that remembers the variables from its lexical scope even after the outer function has finished executing."
+    interview: "Q: What does the clamp() function do in CSS?\nA: clamp() takes three parameters (minimum, preferred, maximum) and allows a value to fluidly scale with the viewport while never going below the minimum or above the maximum bounds."
   },
   {
-    id: "git-basics",
-    title: "Git Basics & GitHub Workflow",
+    id: "css-transitions",
+    title: "CSS Transitions & Animations",
     content: `
-Git is a distributed version control system. It tracks changes in your source code, allowing you to revert to previous states, collaborate with others, and manage multiple features simultaneously.
+Animations bring web interfaces to life by providing visual feedback and smoothing state changes.
 
-### Key Concepts
-- **Repository (Repo):** The project directory tracked by Git.
-- **Commit:** A snapshot of your code at a specific point in time.
-- **Branch:** An independent line of development. The main branch is typically \`main\` or \`master\`.
-- **Merge:** Combining changes from one branch into another.
+### CSS Transitions
+Transitions provide a way to control animation speed when changing CSS properties (e.g., on hover).
+\`\`\`css
+.button {
+  background-color: blue;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+.button:hover {
+  background-color: darkblue;
+  transform: translateY(-2px);
+}
+\`\`\`
 
-### Essential Commands
-1. \`git init\`: Initialize a new local repository.
-2. \`git add .\`: Stage all changed files for the next commit.
-3. \`git commit -m "Message"\`: Save the staged changes to the local history.
-4. \`git push\`: Upload local commits to a remote repository (like GitHub).
-5. \`git pull\`: Download and merge changes from the remote repository.
-6. \`git status\`: Check the current state of your working directory.
-
-### Standard GitHub Workflow
-1. Clone the repo: \`git clone <url>\`
-2. Create a feature branch: \`git checkout -b feature/login\`
-3. Make changes, add, and commit.
-4. Push the branch: \`git push origin feature/login\`
-5. Open a Pull Request (PR) on GitHub.
-6. Review, approve, and merge into the main branch.
+### Keyframe Animations
+For complex, multi-step animations, use \`@keyframes\`:
+\`\`\`css
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.loader {
+  animation: bounce 2s infinite;
+}
+\`\`\`
     `,
-    interview: "Q: What is the difference between git fetch and git pull?\nA: `git fetch` downloads the latest changes from the remote repo but does NOT merge them into your working files. `git pull` does a fetch and then immediately merges the changes into your current branch."
+    interview: "Q: What is the difference between a CSS transition and an animation?\nA: Transitions implicitly animate an element between two states (e.g., hover on and off), requiring a trigger. Animations explicitly define keyframes and can run automatically without a trigger."
   },
   {
-    id: "dom-manipulation",
-    title: "Understanding the DOM",
+    id: "css-variables",
+    title: "CSS Custom Properties (Variables)",
     content: `
-The Document Object Model (DOM) is a programming interface for web documents. It represents the page so that programs can change the document structure, style, and content.
+CSS variables allow you to store specific values for reuse throughout your stylesheet. They are incredibly useful for theming, such as implementing Dark Mode.
 
-### Key Concepts
-- The DOM is represented as a tree of objects (nodes).
-- You can select elements using \`document.getElementById\`, \`document.querySelector\`, etc.
-- You can modify elements using properties like \`textContent\`, \`innerHTML\`, and \`style\`.
-- You can create new elements with \`document.createElement\` and add them using \`appendChild\`.
+### Defining Variables
+Variables are usually defined in the \`:root\` pseudo-class so they are available globally.
+\`\`\`css
+:root {
+  --primary-color: #3498db;
+  --bg-color: #ffffff;
+  --text-color: #333333;
+}
+\`\`\`
+
+### Using Variables
+Use the \`var()\` function to apply the values.
+\`\`\`css
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+.button {
+  background-color: var(--primary-color);
+}
+\`\`\`
     `,
-    interview: "Q: What is the difference between innerHTML and textContent?\nA: innerHTML parses content as HTML (which can expose you to XSS attacks if not sanitized), whereas textContent inserts raw text safely, ignoring HTML tags."
+    interview: "Q: Why use CSS Variables over SASS/LESS variables?\nA: CSS variables are accessible and modifiable at runtime via JavaScript, whereas SASS/LESS variables are compiled away into static CSS values during the build process."
   },
   {
-    id: "http-protocols",
-    title: "HTTP and APIs",
+    id: "css-architecture",
+    title: "CSS Architecture (BEM)",
     content: `
-HTTP (Hypertext Transfer Protocol) is the foundation of data communication on the World Wide Web.
+As projects grow, maintaining CSS becomes difficult. Methodologies like BEM (Block, Element, Modifier) help structure CSS.
 
-### HTTP Methods
-- **GET:** Retrieve data from a server.
-- **POST:** Send new data to a server.
-- **PUT / PATCH:** Update existing data on a server.
-- **DELETE:** Remove data from a server.
+### The BEM Convention
+- **Block:** A standalone entity that is meaningful on its own (e.g., \`card\`, \`navbar\`).
+- **Element:** A part of a block that has no standalone meaning (e.g., \`card__title\`, \`card__image\`).
+- **Modifier:** A flag on a block or element used to change appearance or behavior (e.g., \`card--featured\`, \`card__button--disabled\`).
 
-### Status Codes
-- **2xx:** Success (e.g., 200 OK, 201 Created).
-- **3xx:** Redirection.
-- **4xx:** Client Error (e.g., 400 Bad Request, 404 Not Found).
-- **5xx:** Server Error (e.g., 500 Internal Server Error).
+### Example
+\`\`\`html
+<div class="card card--dark">
+  <img class="card__image" src="..." />
+  <h2 class="card__title">Title</h2>
+  <button class="card__button card__button--primary">Click</button>
+</div>
+\`\`\`
     `,
-    interview: "Q: What is a RESTful API?\nA: A REST API is an architectural style for an API that uses HTTP requests to access and use data, adhering to stateless, client-server communications."
+    interview: "Q: What problem does BEM solve?\nA: BEM solves CSS scoping and specificity issues by flattening the CSS selector hierarchy and providing clear naming conventions that explain the relationship between HTML elements."
   },
   {
-    id: "terminal-basics",
-    title: "Command Line Fundamentals",
+    id: "responsive-images",
+    title: "Responsive Images & Media",
     content: `
-As a developer, you will spend a significant amount of time in the terminal (Command Prompt, PowerShell, bash, or zsh).
+Serving large desktop images to mobile devices hurts performance. We must serve responsive media.
 
-### Essential Commands
-- \`pwd\`: Print working directory.
-- \`ls\` (or \`dir\` on Windows): List files in the directory.
-- \`cd\`: Change directory (e.g., \`cd src\`).
-- \`mkdir\`: Make a new directory.
-- \`rm\` (or \`del\`): Remove a file.
-- \`touch\` (or \`echo >\`): Create a new empty file.
+### Max-Width 100%
+The most basic rule for responsive images is ensuring they never overflow their container:
+\`\`\`css
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+\`\`\`
 
-Mastering these basic terminal commands dramatically increases your productivity and is required for managing Node.js and Git environments.
+### The <picture> Element
+For serving entirely different image files based on screen size (art direction) or format support (WebP), use the \`<picture>\` element:
+\`\`\`html
+<picture>
+  <source media="(max-width: 768px)" srcset="small-image.webp">
+  <source media="(min-width: 769px)" srcset="large-image.webp">
+  <img src="fallback-image.jpg" alt="Responsive graphic">
+</picture>
+\`\`\`
     `,
-    interview: "Q: How do you navigate up one directory in the terminal?\nA: You use `cd ..` to move up to the parent directory."
+    interview: "Q: Why is max-width used instead of width: 100% for images?\nA: `max-width: 100%` allows the image to scale down to fit small containers but prevents it from scaling up past its original resolution, preventing pixelation. `width: 100%` forces the image to always be exactly the container width, regardless of its native size."
   }
 ];
 
 const mcqs = [
   {
-    question: "Which of the following describes the Virtual DOM in React?",
+    question: "Which box-sizing value includes padding and border in the element's total width and height?",
     options: [
-      "A direct manipulation of the browser's DOM elements",
-      "A lightweight copy of the actual DOM kept in memory",
-      "A database used to store React components",
-      "A plugin that allows React to run offline"
+      "content-box",
+      "border-box",
+      "padding-box",
+      "margin-box"
     ],
     answer: 1,
-    explanation: "React creates an in-memory data structure cache (Virtual DOM), computes the resulting differences, and then updates the browser's displayed DOM efficiently."
+    explanation: "border-box ensures that width and height declarations apply to the border-box (content, padding, and border combined), making sizes highly predictable."
   },
   {
-    question: "What is the primary difference between let and var in JavaScript?",
+    question: "Which Flexbox property centers items along the main axis of a container?",
     options: [
-      "var is block-scoped, let is function-scoped",
-      "let can be reassigned, var cannot",
-      "let is block-scoped, var is function-scoped",
-      "They are exactly the same"
+      "align-items: center",
+      "align-content: center",
+      "justify-content: center",
+      "justify-items: center"
     ],
     answer: 2,
-    explanation: "Variables declared with `let` are scoped to the nearest enclosing block (like an if statement or loop), whereas `var` is scoped to the nearest enclosing function."
+    explanation: "justify-content aligns flex items along the main axis. align-items aligns them along the cross axis."
   },
   {
-    question: "Which Git command is used to save changes locally with a descriptive message?",
-    options: ["git push", "git commit", "git save", "git add"],
+    question: "What is the correct viewport meta tag configuration for responsive mobile views?",
+    options: [
+      "<meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+      "<meta name='viewport' content='device-width'>",
+      "<meta name='viewport' content='responsive=true'>",
+      "<meta name='viewport' content='scale-to-fit=yes'>"
+    ],
+    answer: 0,
+    explanation: "The standard viewport configuration uses width=device-width and initial-scale=1.0 to render layouts relative to the screen width."
+  },
+  {
+    question: "What does the '1fr' unit represent in CSS Grid?",
+    options: [
+      "One fixed pixel ratio",
+      "One fractional unit of the free space in the grid container",
+      "One font size relative size",
+      "One frame unit"
+    ],
     answer: 1,
-    explanation: "git commit captures a snapshot of the project's currently staged changes."
+    explanation: "fr is a fractional unit used to describe a fraction of the available space inside the grid container."
   },
   {
-    question: "In the MERN stack, what role does Express.js play?",
+    question: "Which CSS property specifies the spacing between cells or grid lines?",
     options: [
-      "The database management system",
-      "The client-side UI library",
-      "The backend web application framework running on Node.js",
-      "The hosting platform"
+      "spacing",
+      "border-collapse",
+      "gap",
+      "grid-margin"
     ],
     answer: 2,
-    explanation: "Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications."
-  },
-  {
-    question: "Which array method should you use to transform every element in an array and return a new array of the same length?",
-    options: ["forEach()", "filter()", "reduce()", "map()"],
-    answer: 3,
-    explanation: "map() creates a new array populated with the results of calling a provided function on every element in the calling array."
+    explanation: "The `gap` property (previously grid-gap) sets the columns and rows spacing for grids and flexboxes."
   }
 ];
 
 const codingChallenges = [
   {
     id: 1,
-    title: "1. Sum of Two Numbers",
-    description: "Write a function `sum(a, b)` that returns the sum of a and b.",
-    initialCode: "function sum(a, b) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn sum;",
+    title: "1. Celsius to Fahrenheit Converter",
+    description: "Write a function `convert(celsius)` that converts Celsius to Fahrenheit using formula: `(c * 9/5) + 32`.",
+    initialCode: "function convert(celsius) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn convert;",
     testCases: [
-      { args: [2, 3], expected: 5 },
-      { args: [-1, 1], expected: 0 },
-      { args: [100, 200], expected: 300 }
+      { args: [0], expected: 32 },
+      { args: [30], expected: 86 },
+      { args: [-10], expected: 14 }
     ]
   },
   {
     id: 2,
-    title: "2. Reverse String",
-    description: "Write a function `reverse(str)` that takes a string and returns it reversed.",
-    initialCode: "function reverse(str) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn reverse;",
+    title: "2. Is Palindrome String",
+    description: "Write a function `isPalindrome(str)` that checks if a string reads the same forwards and backwards. Ignore casing.",
+    initialCode: "function isPalindrome(str) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn isPalindrome;",
     testCases: [
-      { args: ["hello"], expected: "olleh" },
-      { args: ["react"], expected: "tcaer" },
-      { args: ["a"], expected: "a" }
+      { args: ["racecar"], expected: true },
+      { args: ["hello"], expected: false },
+      { args: ["Madam"], expected: true }
     ]
   },
   {
     id: 3,
-    title: "3. Check Even or Odd",
-    description: "Write a function `isEven(num)` that returns true if even, false if odd.",
-    initialCode: "function isEven(num) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn isEven;",
+    title: "3. Count Vowels",
+    description: "Write a function `countVowels(str)` that returns the number of vowels (a, e, i, o, u) inside a string.",
+    initialCode: "function countVowels(str) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn countVowels;",
     testCases: [
-      { args: [4], expected: true },
-      { args: [7], expected: false },
-      { args: [0], expected: true }
+      { args: ["hello"], expected: 2 },
+      { args: ["inoviumai"], expected: 5 },
+      { args: ["xyz"], expected: 0 }
     ]
   },
   {
     id: 4,
-    title: "4. Find Largest Number",
-    description: "Write a function `findLargest(arr)` that returns the largest number in an array.",
-    initialCode: "function findLargest(arr) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn findLargest;",
+    title: "4. Max in Array",
+    description: "Write a function `getMax(arr)` that returns the maximum number in an array.",
+    initialCode: "function getMax(arr) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn getMax;",
     testCases: [
-      { args: [[1, 5, 3, 9, 2]], expected: 9 },
-      { args: [[-10, -5, -1]], expected: -1 },
-      { args: [[100]], expected: 100 }
+      { args: [[1, 10, 3, 4]], expected: 10 },
+      { args: [[-5, -2, -9]], expected: -2 },
+      { args: [[5]], expected: 5 }
     ]
   },
   {
     id: 5,
-    title: "5. Factorial Program",
-    description: "Write a function `factorial(n)` that returns the factorial of n. (Assume n >= 0)",
-    initialCode: "function factorial(n) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn factorial;",
+    title: "5. Fibonacci Number",
+    description: "Write a function `fibonacci(n)` that returns the n-th Fibonacci number (where F(0)=0, F(1)=1, F(2)=1, etc.).",
+    initialCode: "function fibonacci(n) {\n  // your code here\n  \n}\n\n// Do not change below\nreturn fibonacci;",
     testCases: [
-      { args: [5], expected: 120 },
-      { args: [0], expected: 1 },
-      { args: [3], expected: 6 }
+      { args: [0], expected: 0 },
+      { args: [1], expected: 1 },
+      { args: [6], expected: 8 }
     ]
   }
 ];
 
-// ---------------------------------------------------------
-// HELPER COMPONENTS
-// ---------------------------------------------------------
 const MarkdownRenderer = ({ text }) => {
   const parseMarkdown = (raw) => {
     let parsed = raw;
@@ -354,10 +389,7 @@ const MarkdownRenderer = ({ text }) => {
   return <div className="markdown-body" dangerouslySetInnerHTML={{ __html: parseMarkdown(text) }} />;
 };
 
-// ---------------------------------------------------------
-// MAIN DAY1 COMPONENT
-// ---------------------------------------------------------
-export default function Day1() {
+export default function Day2() {
   const navigate = useNavigate();
   const [loadingAccess, setLoadingAccess] = useState(true);
   const [activeTab, setActiveTab] = useState('reading'); // 'reading', 'compiler', 'quiz'
@@ -368,6 +400,15 @@ export default function Day1() {
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   const [showCertificate, setShowCertificate] = useState(false);
 
+  // Compiler state
+  const [activeChallengeIdx, setActiveChallengeIdx] = useState(0);
+  const [userCode, setUserCode] = useState(codingChallenges[0].initialCode);
+  const [consoleOutput, setConsoleOutput] = useState([]);
+  const [testResults, setTestResults] = useState([]);
+
+  const contentContainerRef = useRef(null);
+
+  // Verify Course access
   useEffect(() => {
     const verifyAccess = async () => {
       try {
@@ -382,7 +423,6 @@ export default function Day1() {
           headers: { Authorization: `Bearer ${token}` }
         });
 
-        // Find if user is enrolled in "Web Development Internship" and status is "Activated"
         const isActivated = response.data.some(
           e => e.courseId?.title === 'Web Development Internship' && e.status === 'Activated'
         );
@@ -403,17 +443,9 @@ export default function Day1() {
     verifyAccess();
   }, [navigate]);
 
-  // Compiler state
-  const [activeChallengeIdx, setActiveChallengeIdx] = useState(0);
-  const [userCode, setUserCode] = useState(codingChallenges[0].initialCode);
-  const [consoleOutput, setConsoleOutput] = useState([]);
-  const [testResults, setTestResults] = useState([]);
-
-  const contentContainerRef = useRef(null);
-
   // Load progress
   useEffect(() => {
-    const saved = localStorage.getItem('day1_progress');
+    const saved = localStorage.getItem('day2_progress');
     if (saved) {
       setReadTopics(JSON.parse(saved));
     }
@@ -421,7 +453,7 @@ export default function Day1() {
 
   // Save progress
   useEffect(() => {
-    localStorage.setItem('day1_progress', JSON.stringify(readTopics));
+    localStorage.setItem('day2_progress', JSON.stringify(readTopics));
   }, [readTopics]);
 
   const markAsRead = (id) => {
@@ -429,7 +461,7 @@ export default function Day1() {
       const updated = [...readTopics, id];
       setReadTopics(updated);
       toast.success('Topic completed!', { icon: '✅' });
-      
+
       if (quizSubmitted) {
         const score = Object.keys(quizAnswers).reduce((acc, qIdx) => {
           return acc + (quizAnswers[qIdx] === mcqs[qIdx].answer ? 1 : 0);
@@ -464,8 +496,6 @@ export default function Day1() {
     const challenge = codingChallenges[activeChallengeIdx];
     
     try {
-      // Create a safely wrapped function evaluator
-      // Note: In a real prod app, use Web Workers or Sandboxed Iframes to evaluate user code.
       const funcBody = `
         let logs = [];
         const originalLog = console.log;
@@ -494,11 +524,9 @@ export default function Day1() {
         throw new Error("Your code must return a function at the end.");
       }
 
-      // Run against test cases
       const results = challenge.testCases.map((tc, i) => {
         try {
           const result = userFunc(...tc.args);
-          // Simple equality for primitives, JSON.stringify for arrays/objects
           const passed = JSON.stringify(result) === JSON.stringify(tc.expected);
           return { index: i, passed, result, expected: tc.expected, args: tc.args };
         } catch (err) {
@@ -560,7 +588,12 @@ export default function Day1() {
       `}>
         <div className="p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold">FS</div>
+            <button 
+              onClick={() => navigate('/my-courses')}
+              className="p-1 rounded bg-slate-100 dark:bg-white/10 hover:bg-slate-200 text-slate-600 dark:text-slate-200 transition-all mr-1"
+            >
+              <ArrowLeft size={16} />
+            </button>
             <h1 className="font-bold text-lg">Full Stack Track</h1>
           </div>
           <button className="lg:hidden text-slate-500" onClick={() => setSidebarOpen(false)}>
@@ -571,7 +604,7 @@ export default function Day1() {
         {/* Progress Tracker */}
         <div className="p-6 border-b border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-800/50">
           <div className="flex justify-between text-sm font-bold mb-2">
-            <span>Day 1 Progress</span>
+            <span>Day 2 Progress</span>
             <span className="text-primary">{calculateProgress()}%</span>
           </div>
           <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
@@ -644,14 +677,17 @@ export default function Day1() {
               <Menu size={24} />
             </button>
             <h2 className="font-black text-xl hidden sm:block">
-              {activeTab === 'reading' && "Module 1: The Foundation"}
-              {activeTab === 'compiler' && "Interactive Coding Environment"}
-              {activeTab === 'quiz' && "Module Assessment"}
+              {activeTab === 'reading' && "Module 2: Advanced CSS & Responsive"}
+              {activeTab === 'compiler' && "Day 2 Practice Environment"}
+              {activeTab === 'quiz' && "Day 2 Quiz Check"}
             </h2>
           </div>
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-primary transition-colors">
-              <Download size={16} /> <span className="hidden sm:inline">Download Notes</span>
+            <button 
+              onClick={() => navigate('/dashboard')}
+              className="text-sm font-bold text-slate-500 hover:text-primary transition-colors flex items-center gap-1"
+            >
+              <ArrowLeft size={16} /> Exit Class
             </button>
           </div>
         </header>
@@ -668,13 +704,13 @@ export default function Day1() {
                 <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/30 blur-[100px] rounded-full pointer-events-none" />
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white font-bold text-xs mb-6 border border-white/20">
-                    Day 1 of 30
+                    Day 2 of 30
                   </div>
                   <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
-                    Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Full-Stack</span>
+                    Responsive <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Web Design</span>
                   </h1>
                   <p className="text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed">
-                    Today, we lay the foundational bricks of your engineering career. Read carefully, understand the concepts, and complete the checkpoints.
+                    Today, we learn how to structuralize and customize layouts. Create fluid box boundaries, adapt layouts dynamically, and deploy CSS models.
                   </p>
                 </div>
               </div>
@@ -683,7 +719,7 @@ export default function Day1() {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                 <input 
                   type="text" 
-                  placeholder="Search Day 1 content..."
+                  placeholder="Search Day 2 content..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl pl-12 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
@@ -753,7 +789,6 @@ export default function Day1() {
           {activeTab === 'compiler' && (
             <div className="h-full flex flex-col lg:flex-row p-6 gap-6 bg-slate-950">
               
-              {/* Challenge Selector */}
               <div className="w-full lg:w-80 flex flex-col gap-4 shrink-0">
                 <h3 className="text-white font-bold text-lg px-2">Coding Challenges</h3>
                 <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0">
@@ -775,13 +810,10 @@ export default function Day1() {
                 </div>
               </div>
 
-              {/* Editor & Output Area */}
               <div className="flex-1 flex flex-col min-h-0 border border-slate-800 rounded-2xl overflow-hidden bg-slate-900 shadow-2xl">
-                
-                {/* Editor Header */}
                 <div className="h-14 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-4 shrink-0">
                   <div className="flex items-center gap-2 text-slate-400 font-mono text-sm">
-                    <Code size={16} /> script.js
+                    <Code size={16} /> solution.js
                   </div>
                   <div className="flex items-center gap-2">
                     <button onClick={() => setUserCode(codingChallenges[activeChallengeIdx].initialCode)} className="p-2 text-slate-400 hover:text-white transition-colors" title="Reset Code">
@@ -796,7 +828,6 @@ export default function Day1() {
                   </div>
                 </div>
 
-                {/* Editor Area */}
                 <div className="flex-1 flex flex-col md:flex-row min-h-0">
                   <div className="flex-1 min-h-0 relative border-b md:border-b-0 md:border-r border-slate-800">
                     <textarea
@@ -808,7 +839,6 @@ export default function Day1() {
                     />
                   </div>
 
-                  {/* Console & Tests Area */}
                   <div className="w-full md:w-80 lg:w-96 flex flex-col min-h-0 bg-slate-950">
                     <div className="flex-1 p-4 overflow-y-auto border-b border-slate-800">
                       <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Test Results</h4>
@@ -846,7 +876,6 @@ export default function Day1() {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           )}
@@ -855,8 +884,8 @@ export default function Day1() {
           {activeTab === 'quiz' && (
             <div className="max-w-3xl mx-auto py-16 px-6">
               <div className="text-center mb-12">
-                <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">Module Assessment</h2>
-                <p className="text-lg text-slate-600 dark:text-gray-400">Test your knowledge on Day 1 concepts.</p>
+                <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">Day 2 Assessment</h2>
+                <p className="text-lg text-slate-600 dark:text-gray-400">Validate your layout and responsiveness knowledge.</p>
               </div>
 
               <div className="space-y-8">
@@ -927,7 +956,7 @@ export default function Day1() {
                       Score: {Object.values(quizAnswers).filter((ans, idx) => ans === mcqs[idx].answer).length} / {mcqs.length}
                     </h3>
                     {calculateProgress() < 100 && (
-                      <p className="text-yellow-400 text-sm mt-4">Note: Complete all reading materials to earn your Day 1 Certificate!</p>
+                      <p className="text-yellow-400 text-sm mt-4">Note: Complete all reading materials to earn your Day 2 Certificate!</p>
                     )}
                   </div>
                 </div>
@@ -957,16 +986,16 @@ export default function Day1() {
                 <Award size={48} className="text-white" />
               </div>
               
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">Day 1 Complete!</h2>
+              <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">Day 2 Complete!</h2>
               <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-md mx-auto">
-                Incredible work! You've mastered the foundational concepts of Full-Stack Development. You are 1 step closer to your dream role.
+                Excellent! You've mastered CSS Layouts, Grid structures, Flexbox models, and Responsive Design logic. You are 2 steps closer to your dream role.
               </p>
               
               <button 
-                onClick={() => setShowCertificate(false)}
+                onClick={() => { setShowCertificate(false); navigate('/my-courses'); }}
                 className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all"
               >
-                Continue to Day 2
+                Return to Syllabus
               </button>
             </motion.div>
           </motion.div>
