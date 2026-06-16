@@ -30,6 +30,43 @@ const courseSchema = new mongoose.Schema({
       required: true
     }
   }],
+  overview: {
+    type: String
+  },
+  targetAudience: {
+    type: String
+  },
+  prerequisites: {
+    type: String
+  },
+  learningOutcomes: [{
+    type: String
+  }],
+  projectsInfo: {
+    miniProjects: [{
+      type: String
+    }],
+    capstoneProject: {
+      type: String
+    }
+  },
+  assessmentStructure: {
+    type: String
+  },
+  careerPreparation: {
+    type: String
+  },
+  certificationCriteria: {
+    type: String
+  },
+  readinessScore: {
+    type: Number,
+    min: 0,
+    max: 100
+  },
+  recommendations: {
+    type: String
+  },
   isActive: {
     type: Boolean,
     default: true

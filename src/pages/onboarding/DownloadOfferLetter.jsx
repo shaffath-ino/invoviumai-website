@@ -24,8 +24,8 @@ export default function DownloadOfferLetter() {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/course/my-courses`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      // Filter only activated courses with offer letters
-      const activatedCourses = response.data.filter(e => e.status === 'Activated');
+      // Filter only activated courses with valid offer letters/courses
+      const activatedCourses = response.data.filter(e => e.status === 'Activated' && e.courseId);
       setEnrollments(activatedCourses);
     } catch {
       toast.error('Failed to load courses');
@@ -128,19 +128,19 @@ export default function DownloadOfferLetter() {
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">{enrollment.courseId.title}</h3>
-                    <p className="text-sm text-slate-500 dark:text-gray-400">{enrollment.courseId.description}</p>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">{enrollment.courseId?.title || 'Unknown Course'}</h3>
+                    <p className="text-sm text-slate-500 dark:text-gray-400">{enrollment.courseId?.description || ''}</p>
                     <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">
                       Enrolled on: {new Date(enrollment.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                   <button 
-                    onClick={() => handleDownload(enrollment.courseId._id)}
-                    disabled={downloading === enrollment.courseId._id}
+                    onClick={() => handleDownload(enrollment.courseId?._id)}
+                    disabled={downloading === enrollment.courseId?._id}
                     className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Download size={16} />
-                    {downloading === enrollment.courseId._id ? 'Downloading...' : 'Download PDF'}
+                    {downloading === enrollment.courseId?._id ? 'Downloading...' : 'Download PDF'}
                   </button>
                 </div>
               </motion.div>

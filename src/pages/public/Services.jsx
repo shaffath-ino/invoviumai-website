@@ -48,7 +48,7 @@ export default function Services() {
   ];
 
   return (
-    <div className="w-full relative px-6 py-24 max-w-7xl mx-auto">
+    <div className="w-full relative px-6 py-24 max-w-8xl mx-auto">
       {/* Services Intro */}
       <div className="text-center mb-24 max-w-3xl mx-auto">
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-7xl font-black mb-8 leading-[1.1]">
@@ -95,6 +95,8 @@ export default function Services() {
               </li>
             ))}
           </ul>
+          <img src="/mms_dashboard_1774332764053.png" alt="MMS Broking Dashboard" className="block dark:hidden w-full h-auto mt-6 rounded-xl border border-slate-200 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
+          <img src="/mms_dashboard_maroon_1774333827105.png" alt="MMS Broking Dashboard Dark" className="hidden dark:block w-full h-auto mt-6 rounded-xl border border-white/10 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
         </motion.div>
 
         {/* 5. Second Project */}
@@ -112,6 +114,8 @@ export default function Services() {
               </li>
             ))}
           </ul>
+          <img src="/telecall_dashboard_1774332787268.png" alt="Intelligent Telecalling Dashboard" className="block dark:hidden w-full h-auto mt-6 rounded-xl border border-slate-200 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
+          <img src="/telecall_dashboard_maroon_1774333846515.png" alt="Intelligent Telecalling Dashboard Dark" className="hidden dark:block w-full h-auto mt-6 rounded-xl border border-white/10 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
         </motion.div>
 
       </div>

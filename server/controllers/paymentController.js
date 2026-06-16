@@ -70,12 +70,11 @@ export const verifyPayment = async (req, res) => {
 
       // Add to user's payment history and purchased courses
       if (payment) {
-        await User.findByIdAndUpdate(req.user._id, {
-          $addToSet: { 
-            paymentHistory: payment._id,
-            purchasedCourses: courseId
-          }
-        });
+        const updateData = { $addToSet: { paymentHistory: payment._id } };
+        if (courseId) {
+          updateData.$addToSet.purchasedCourses = courseId;
+        }
+        await User.findByIdAndUpdate(req.user._id, updateData);
         
         // Also update enrollment status if enrollmentId is provided
         if (enrollmentId) {
@@ -210,9 +209,13 @@ export const uploadScreenshot = async (req, res) => {
       screenshotUrl
     });
     
-    // Get amount from course
-    const course = await Course.findById(courseId).lean();
-    if (course) payment.amount = course.price;
+    // Get amount from course if courseId is present
+    if (courseId) {
+      const course = await Course.findById(courseId).lean();
+      if (course) payment.amount = course.price;
+    } else {
+      payment.amount = req.body.amount || 5000; // Fallback for project payment
+    }
     
     await payment.save();
 
@@ -226,12 +229,11 @@ export const uploadScreenshot = async (req, res) => {
     }
     
     // Add to user's payment history and purchased courses
-    await User.findByIdAndUpdate(req.user._id, {
-        $addToSet: { 
-          paymentHistory: payment._id,
-          purchasedCourses: courseId
-        }
-    });
+    const updateData = { $addToSet: { paymentHistory: payment._id } };
+    if (courseId) {
+      updateData.$addToSet.purchasedCourses = courseId;
+    }
+    await User.findByIdAndUpdate(req.user._id, updateData);
 
     res.status(200).json({ message: "Screenshot uploaded successfully, pending verification.", payment });
   } catch (error) {
@@ -252,16 +254,18 @@ export const verifyManualPayment = async (req, res) => {
     payment.paymentId = `manual_verified_${Date.now()}`;
     await payment.save();
 
-    // Find enrollment to update status
-    const enrollment = await Enrollment.findOne({ userId: payment.userId, courseId: payment.courseId });
-    
-    if (enrollment) {
-      await Enrollment.findByIdAndUpdate(enrollment._id, { 
-        status: 'Paid', 
-        'paymentDetails.amount': payment.amount,
-        'paymentDetails.transactionId': payment.paymentId,
-        'paymentDetails.paymentDate': new Date() 
-      });
+    // Find enrollment to update status if courseId exists
+    if (payment.courseId) {
+      const enrollment = await Enrollment.findOne({ userId: payment.userId, courseId: payment.courseId });
+      
+      if (enrollment) {
+        await Enrollment.findByIdAndUpdate(enrollment._id, { 
+          status: 'Paid', 
+          'paymentDetails.amount': payment.amount,
+          'paymentDetails.transactionId': payment.paymentId,
+          'paymentDetails.paymentDate': new Date() 
+        });
+      }
     }
 
     // Send Email

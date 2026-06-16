@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { BookOpen, Play, CheckCircle, ArrowLeft, LogOut } from 'lucide-react';
+import { BookOpen, Play, CheckCircle, ArrowLeft } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
 export default function MyCourses() {
-  const { firstName, logout } = useContext(AuthContext);
+  const { firstName } = useContext(AuthContext);
   const navigate = useNavigate();
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +23,9 @@ export default function MyCourses() {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/course/my-courses`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setEnrollments(response.data);
+      // Guard against deleted/missing courses
+      const validEnrollments = response.data.filter(e => e.courseId);
+      setEnrollments(validEnrollments);
     } catch {
       toast.error('Failed to load courses');
     } finally {
@@ -39,14 +41,6 @@ export default function MyCourses() {
     } else {
       navigate(`/payment/${enrollment._id}`);
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('username');
-    if (logout) logout();
-    navigate('/login');
   };
 
   const getStatusColor = (status) => {
@@ -74,23 +68,17 @@ export default function MyCourses() {
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary pointer-events-none" />
 
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-12">
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => navigate('/dashboard')}
-              className="p-2 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 transition-all"
-            >
-              <ArrowLeft size={20} />
-            </button>
-            <div>
-              <h2 className="text-3xl font-black text-slate-900 dark:text-white">My Courses</h2>
-              <p className="text-slate-500 dark:text-gray-400 font-medium">Welcome back, {firstName || 'Student'}</p>
-            </div>
-          </div>
-
-          <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/10 text-red-500 font-bold border border-red-500/30 hover:bg-red-500/20 transition-all">
-            <LogOut size={16} /> Logout
+        <div className="flex items-center gap-4 mb-12">
+          <button 
+            onClick={() => navigate('/dashboard')}
+            className="p-2 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 transition-all"
+          >
+            <ArrowLeft size={20} />
           </button>
+          <div>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white">My Courses</h2>
+            <p className="text-slate-500 dark:text-gray-400 font-medium">Welcome back, {firstName || 'Student'}</p>
+          </div>
         </div>
 
         {loading ? (
@@ -117,15 +105,15 @@ export default function MyCourses() {
                 className="p-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-white/5 hover:border-primary/50 transition-all"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">{enrollment.courseId.title}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">{enrollment.courseId?.title || 'Unknown Course'}</h3>
                   <span className={`text-sm font-medium px-2 py-1 rounded-full ${getStatusColor(enrollment.status)} bg-current/10`}>
                     {enrollment.status}
                   </span>
                 </div>
-                <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">{enrollment.courseId.description}</p>
+                <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">{enrollment.courseId?.description || ''}</p>
                 <div className="space-y-2 mb-4">
-                  <p className="text-sm"><span className="font-medium">Duration:</span> {enrollment.courseId.duration}</p>
-                  <p className="text-sm"><span className="font-medium">Amount:</span> ₹{enrollment.paymentDetails?.amount || enrollment.courseId.price}</p>
+                  <p className="text-sm"><span className="font-medium">Duration:</span> {enrollment.courseId?.duration || 'N/A'}</p>
+                  <p className="text-sm"><span className="font-medium">Amount:</span> ₹{enrollment.paymentDetails?.amount || enrollment.courseId?.price || 0}</p>
                   {enrollment.additionalDetails?.college && (
                     <p className="text-sm"><span className="font-medium">College:</span> {enrollment.additionalDetails.college}</p>
                   )}

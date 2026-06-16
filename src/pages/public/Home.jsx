@@ -75,8 +75,8 @@ export default function Home() {
 
         <motion.div style={{ y: yBg }} className="mt-24 w-full relative z-10 perspective-[2000px]">
           <motion.div
-            initial={{ opacity: 0, rotateX: 20, y: 100 }}
-            animate={{ opacity: 1, rotateX: 0, y: 0 }}
+            initial={{ opacity: 0, rotateX: 20, y: 120 }}
+            animate={{ opacity: 1, rotateX: 0, y: -20 }}
             transition={{ duration: 1.5, delay: 0.5, type: "spring", stiffness: 100 }}
             className="w-full glass-card max-w-5xl mx-auto p-2 md:p-4 flex items-center justify-center relative shadow-2xl group transition-all duration-500"
           >
@@ -85,14 +85,14 @@ export default function Home() {
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               className="w-full bg-slate-900 dark:bg-black rounded-2xl overflow-hidden relative border border-slate-700 dark:border-white/10 flex items-center justify-center p-8 md:p-16"
             >
-              <img src={bannerImg} alt="Inovium AI Private Limited" className="w-full max-w-4xl h-auto drop-shadow-[0_0_25px_rgba(230,57,70,0.5)] transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+              <img src={bannerImg} alt="Inovium AI Private Limited" className="w-full max-w-4x2 h-auto rounded-[40px] drop-shadow-[0_0_25px_rgba(230,57,70,0.5)] transform group-hover:scale-105 transition-transform duration-700 ease-out" />
             </motion.div>
           </motion.div>
         </motion.div>
       </section>
 
       {/* 2. Why Choose Us */}
-      <section className="px-6 py-32 bg-slate-50/50 dark:bg-black/40 border-y border-slate-200 dark:border-white/5 relative z-10 transition-colors">
+      <section className="px-6 py-32 bg-slate-50/50 dark:bg-black/40 border-y border-slate-200 dark:border-white/5 relative z-100 transition-colors">
         <div className="max-w-7xl mx-auto">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="text-center mb-20">
             <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold mb-6 text-slate-900 dark:text-white">Why Choose Us</motion.h2>
@@ -155,6 +155,61 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
+      </section>
+
+      {/* 4. Large Branding / CTA Showcase */}
+      <section className="px-4 py-16 md:py-24 max-w-4xl mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="w-full relative rounded-[40px] overflow-hidden shadow-2xl group border border-white/10 bg-black"
+        >
+          {/* Overlay gradient for readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10 pointer-events-none transition-opacity duration-700"></div>
+
+          <img
+            src="/InoviumAI.png"
+            alt="Inovium AI Platform"
+            loading="lazy"
+            className="w-full h-[400px] md:h-[600px] object-cover opacity-70 group-hover:opacity-50 group-hover:scale-105 transition-all duration-1000 ease-out"
+          />
+
+          <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-8 md:p-16 z-20">
+            <motion.h2
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="text-4xl md:text-6xl lg:text-5xl font-black text-white mb-6 tracking-tight drop-shadow-2xl"
+            >
+              Transform Your <span className="text-primary">Operations</span>
+            </motion.h2>
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="text-lg md:text-xl text-gray-300 font-medium max-w-3xl mb-10 drop-shadow-lg"
+            >
+              Leverage advanced artificial intelligence and scalable software infrastructure to drive operational efficiency, ensure robust security, and achieve sustainable enterprise growth.
+            </motion.p>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+            >
+              <Link
+                to="/contact"
+                className="btn-primary text-lg px-8 py-4 shadow-[0_0_20px_rgba(230,57,70,0.5)] hover:shadow-[0_0_40px_rgba(230,57,70,0.8)] transition-shadow"
+              >
+                Schedule a Consultation
+              </Link>
+            </motion.div>
+          </div>
+        </motion.div>
       </section>
     </div>
   );

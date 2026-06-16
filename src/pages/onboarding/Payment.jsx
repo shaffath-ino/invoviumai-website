@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { CreditCard, ArrowLeft, CheckCircle, Upload, Image as ImageIcon } from 'lucide-react';
+import { CreditCard, ArrowLeft, CheckCircle, Upload, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -28,6 +28,7 @@ export default function Payment() {
   const [processing, setProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('online'); // 'online' or 'manual'
   const [screenshot, setScreenshot] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   useEffect(() => {
     const fetchEnrollment = async () => {
@@ -38,6 +39,11 @@ export default function Payment() {
         });
         const found = response.data.find(e => e._id === enrollmentId);
         if (found) {
+          if (!found.courseId) {
+            toast.error('The associated course is no longer available.');
+            navigate('/dashboard');
+            return;
+          }
           setEnrollment(found);
         } else {
           toast.error('Enrollment not found');
@@ -58,24 +64,46 @@ export default function Payment() {
     // If they uploaded a screenshot, we always submit it for manual verification
     if (screenshot) {
       setProcessing(true);
+      setUploadProgress(0);
+      
+      // Simulate smooth progress up to 90%
+      let currentProgress = 0;
+      const progressInterval = setInterval(() => {
+        currentProgress += Math.floor(Math.random() * 8) + 4;
+        if (currentProgress >= 90) {
+          currentProgress = 90;
+          clearInterval(progressInterval);
+        }
+        setUploadProgress(currentProgress);
+      }, 100);
+
       try {
         const token = localStorage.getItem('token');
-        const reader = new FileReader();
-        reader.readAsDataURL(screenshot);
-        reader.onloadend = async () => {
-          const base64data = reader.result;
-          await axios.post(`${import.meta.env.VITE_API_URL}/payments/upload-screenshot`, 
-            {
-              courseId: enrollment.courseId._id,
-              enrollmentId: enrollment._id,
-              screenshotBase64: base64data
-            },
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-          toast.success('Screenshot uploaded successfully! Pending verification.');
-          navigate(`/dashboard`);
-        };
+        const base64data = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(screenshot);
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = (error) => reject(error);
+        });
+
+        await axios.post(`${import.meta.env.VITE_API_URL}/payments/upload-screenshot`, 
+          {
+            courseId: enrollment.courseId._id,
+            enrollmentId: enrollment._id,
+            screenshotBase64: base64data
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        // Clear interval, set to 100%, wait briefly, then navigate
+        clearInterval(progressInterval);
+        setUploadProgress(100);
+        await new Promise((resolve) => setTimeout(resolve, 600));
+
+        toast.success('Screenshot uploaded successfully! Pending verification.');
+        navigate(`/dashboard`);
       } catch (error) {
+        clearInterval(progressInterval);
         toast.error(error.response?.data?.message || 'Failed to upload screenshot');
         setProcessing(false);
       }
@@ -182,7 +210,7 @@ export default function Payment() {
     }
   };
 
-  if (loading) {
+  if (loading || !enrollment || !enrollment.courseId) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">Loading...</div>
@@ -195,6 +223,72 @@ export default function Payment() {
       {/* Background Radiance */}
       <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
+
+      {processing && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md"
+        >
+          <motion.div 
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            className="w-full max-w-md p-8 rounded-3xl bg-white/95 dark:bg-slate-950/95 border border-slate-200 dark:border-white/10 shadow-2xl relative overflow-hidden"
+          >
+            {/* Glowing line */}
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-secondary animate-pulse" />
+            
+            <div className="flex flex-col items-center text-center">
+              <div className="relative mb-6">
+                <div className="absolute -inset-1 rounded-full bg-primary/20 blur-lg animate-pulse" />
+                <div className="relative w-20 h-20 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center">
+                  <Upload className="w-10 h-10 text-primary animate-bounce" />
+                </div>
+              </div>
+
+              <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">
+                {screenshot ? 'Uploading Screenshot' : 'Processing Payment'}
+              </h3>
+              
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-xs">
+                {screenshot 
+                  ? 'Transmitting secure payment receipt. Please keep this browser window open.'
+                  : 'Contacting secure gateway. Please wait...'}
+              </p>
+
+              {screenshot && (
+                <div className="w-full space-y-3">
+                  <div className="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                    <span>PROGRESS</span>
+                    <span className="text-primary">{uploadProgress}%</span>
+                  </div>
+                  
+                  {/* Progress Bar Container */}
+                  <div className="w-full h-3 bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden p-0.5 border border-slate-200/50 dark:border-white/5">
+                    <div 
+                      className="h-full bg-gradient-to-r from-primary to-secondary rounded-full shadow-[0_0_10px_rgba(230,57,70,0.5)] transition-all duration-300 ease-out"
+                      style={{ width: `${uploadProgress}%` }}
+                    />
+                  </div>
+                  
+                  {/* Subtitle animation indicator */}
+                  <div className="flex items-center justify-center gap-1.5 text-xs text-primary font-medium mt-2 animate-pulse">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-ping" />
+                    <span>Sending base64 stream payload...</span>
+                  </div>
+                </div>
+              )}
+
+              {!screenshot && (
+                <div className="flex items-center gap-2 mt-2">
+                  <Loader2 className="w-5 h-5 text-primary animate-spin" />
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">Initializing gateway...</span>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
 
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }} 
@@ -288,8 +382,9 @@ export default function Payment() {
             <button 
               onClick={handlePayment}
               disabled={processing || (paymentMethod === 'manual' && !screenshot)}
-              className="w-full py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
+              {processing && <Loader2 className="w-5 h-5 animate-spin" />}
               {processing 
                 ? 'Processing...' 
                 : screenshot 

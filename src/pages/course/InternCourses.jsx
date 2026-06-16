@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ArrowLeft, BookOpen, CheckCircle, CreditCard, GraduationCap, LogOut } from 'lucide-react';
+import { ArrowLeft, BookOpen, CheckCircle, CreditCard, GraduationCap } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -31,7 +31,7 @@ const getStatusText = (status) => {
 };
 
 export default function InternCourses() {
-  const { firstName, logout } = useContext(AuthContext);
+  const { firstName } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
@@ -44,13 +44,19 @@ export default function InternCourses() {
   const fetchCourses = async () => {
     try {
       const token = localStorage.getItem('token');
-      const headers = { Authorization: `Bearer ${token}` };
-      const [coursesResponse, enrollmentsResponse] = await Promise.all([
-        axios.get(`${import.meta.env.VITE_API_URL}/course/courses`, { headers }),
-        axios.get(`${import.meta.env.VITE_API_URL}/course/my-courses`, { headers })
-      ]);
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      
+      const coursesResponse = await axios.get(`${import.meta.env.VITE_API_URL}/course/courses`);
       setCourses(coursesResponse.data);
-      setEnrollments(enrollmentsResponse.data);
+
+      if (token) {
+        try {
+          const enrollmentsResponse = await axios.get(`${import.meta.env.VITE_API_URL}/course/my-courses`, { headers });
+          setEnrollments(enrollmentsResponse.data);
+        } catch (enrollErr) {
+          console.error("Failed to load enrollments", enrollErr);
+        }
+      }
     } catch {
       toast.error('Failed to load intern courses');
     } finally {
@@ -79,13 +85,6 @@ export default function InternCourses() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('username');
-    if (logout) logout();
-    navigate('/login');
-  };
 
   return (
     <div className="w-full relative px-6 py-24 min-h-screen flex flex-col items-center max-w-7xl mx-auto z-10">
@@ -108,18 +107,17 @@ export default function InternCourses() {
             </div>
             <div>
               <h2 className="text-3xl font-black text-slate-900 dark:text-white">Intern Courses</h2>
-              <p className="text-slate-500 dark:text-gray-400 font-medium">Welcome back, {firstName || 'Student'}</p>
+              {firstName && <p className="text-slate-500 dark:text-gray-400 font-medium">Welcome back, {firstName}</p>}
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            <button onClick={() => navigate('/my-courses')} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary font-bold border border-primary/30 hover:bg-primary/20 transition-all">
-              <BookOpen size={16} /> My Courses
-            </button>
-            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/10 text-red-500 font-bold border border-red-500/30 hover:bg-red-500/20 transition-all">
-              <LogOut size={16} /> Logout
-            </button>
-          </div>
+          {firstName && (
+            <div className="flex flex-wrap gap-3">
+              <button onClick={() => navigate('/my-courses')} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary font-bold border border-primary/30 hover:bg-primary/20 transition-all">
+                <BookOpen size={16} /> My Courses
+              </button>
+            </div>
+          )}
         </div>
 
         {loading ? (

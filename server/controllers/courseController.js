@@ -103,6 +103,10 @@ const generateOfferLetter = async (req, res) => {
     const enrollment = await Enrollment.findOne({ _id: enrollmentId, userId: decoded.userId }).populate('courseId').populate('userId');
     if (!enrollment) return res.status(404).json({ message: 'Enrollment not found' });
 
+    if (!enrollment.courseId) {
+      return res.status(404).json({ message: 'The associated course is no longer available.' });
+    }
+
     if (enrollment.status !== 'Paid' && enrollment.status !== 'Activated') {
       return res.status(400).json({ message: 'Payment must be completed before generating offer letter' });
     }

@@ -26,6 +26,11 @@ export default function OfferLetter() {
         });
         const found = response.data.find(e => e._id === enrollmentId);
         if (found) {
+          if (!found.courseId) {
+            toast.error('The associated course is no longer available.');
+            navigate('/dashboard');
+            return;
+          }
           if (found.status === 'Enrolled') {
             toast.error('Please complete payment first');
             navigate(`/payment/${enrollmentId}`);

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-// eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars
   motion,
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { CircleDot, Menu, X, ArrowRight, Sun, Moon } from "lucide-react";
+import { Menu, X, ArrowRight, Sun, Moon } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Navbar() {
@@ -33,7 +33,7 @@ export default function Navbar() {
       setIsDark(true);
     } else {
       document.documentElement.classList.remove("dark");
-       
+
       setIsDark(false);
     }
   }, []);
@@ -99,7 +99,7 @@ export default function Navbar() {
   const isLoggedIn = userRole === "student" || userRole === "company" || userRole === "admin";
   const displayLinks =
     userRole === "admin" ? adminLinks :
-    isLoggedIn && userRole === "student" ? studentLinks : navLinks;
+      isLoggedIn && userRole === "student" ? studentLinks : navLinks;
 
   const handleLogout = () => {
     logout();
@@ -119,11 +119,10 @@ export default function Navbar() {
         stiffness: 300,
         damping: 30,
       }}
-      className={`fixed top-4 inset-x-0 mx-auto z-50 w-[calc(100%-2rem)] md:w-max rounded-full flex items-center justify-between px-4 md:px-6 py-3 transition-all duration-300 print:hidden ${
-        scrolled || isOpen
-          ? "bg-white/70 dark:bg-black/70 backdrop-blur-xl shadow-lg border border-slate-200/50 dark:border-white/10"
-          : "bg-transparent border border-transparent"
-      }`}
+      className={`fixed top-4 inset-x-0 mx-auto z-50 w-[calc(100%-2rem)] md:w-max rounded-full flex items-center justify-between px-4 md:px-6 py-3 transition-all duration-300 print:hidden ${scrolled || isOpen
+        ? "bg-white/70 dark:bg-black/70 backdrop-blur-xl shadow-lg border border-slate-200/50 dark:border-white/10"
+        : "bg-transparent border border-transparent"
+        }`}
     >
       {/* Left: Logo */}
       <div className="flex-1 md:flex-none flex justify-start z-10">
@@ -132,12 +131,11 @@ export default function Navbar() {
           onClick={() => setIsOpen(false)}
           className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-          >
-            <CircleDot size={22} className="text-primary" strokeWidth={2.5} />
-          </motion.div>
+          <img 
+            src="/InoviumAI-Logo.png" 
+            alt="InoviumAI Logo" 
+            className="h-8 w-auto object-contain" 
+          />
           <h2 className="text-[17px] font-extrabold tracking-tight text-slate-900 dark:text-white m-0 transition-colors mr-2 md:mr-8">
             InoviumAI
           </h2>
@@ -150,11 +148,10 @@ export default function Navbar() {
           <Link
             key={link.name}
             to={link.path}
-            className={`text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 transform ${
-              `${location.pathname}${location.search}` === link.path || (link.path === "/dashboard" && location.pathname === "/dashboard" && location.search !== "?tab=courses")
-                ? "text-primary"
-                : "text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white"
-            }`}
+            className={`text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 transform ${`${location.pathname}${location.search}` === link.path || (link.path === "/dashboard" && location.pathname === "/dashboard" && location.search !== "?tab=courses")
+              ? "text-primary"
+              : "text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white"
+              }`}
           >
             {link.name}
           </Link>
@@ -231,11 +228,10 @@ export default function Navbar() {
                   <Link
                     to={link.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block text-lg font-bold uppercase tracking-wider transition-colors hover:text-primary ${
-                      `${location.pathname}${location.search}` === link.path || (link.path === "/dashboard" && location.pathname === "/dashboard" && location.search !== "?tab=courses")
-                        ? "text-primary"
-                        : "text-slate-800 dark:text-gray-100"
-                    }`}
+                    className={`block text-lg font-bold uppercase tracking-wider transition-colors hover:text-primary ${`${location.pathname}${location.search}` === link.path || (link.path === "/dashboard" && location.pathname === "/dashboard" && location.search !== "?tab=courses")
+                      ? "text-primary"
+                      : "text-slate-800 dark:text-gray-100"
+                      }`}
                   >
                     {link.name}
                   </Link>

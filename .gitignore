@@ -4,3 +4,5 @@ node_modules
 dist
 push_out.txt
 config.js
+server/public/offer-letters/
+server/public/screenshots/

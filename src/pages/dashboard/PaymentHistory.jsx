@@ -3,6 +3,8 @@ import axios from 'axios';
 import { ArrowLeft, CreditCard, Download, Receipt } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion';
 
 export default function PaymentHistory() {
   const [payments, setPayments] = useState([]);
@@ -47,7 +49,12 @@ export default function PaymentHistory() {
         </div>
       </div>
 
-      <div className="glass-card p-6 md:p-8 rounded-2xl relative overflow-hidden shadow-2xl">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        className="glass-card p-6 md:p-8 rounded-2xl relative overflow-hidden shadow-2xl"
+      >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary pointer-events-none" />
 
         {loading ? (
@@ -105,7 +112,7 @@ export default function PaymentHistory() {
             </table>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }
