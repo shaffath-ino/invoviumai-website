@@ -13,7 +13,7 @@ export default function About() {
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-7xl font-black mb-8 leading-[1.1]">
           Pioneering the <br /><span className="text-gradient">Intelligent Edge.</span>
         </motion.h1>
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-gray-400 leading-relaxed font-medium">
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-slate-600 dark:text-gray-400 leading-relaxed font-medium">
           InoviumAI is a forward-thinking engineering collective rapidly advancing enterprise architecture. We deploy intelligent, scalable systems designed to meet the growing demands of the modern digital landscape.
         </motion.p>
       </section>
@@ -26,7 +26,7 @@ export default function About() {
             <h2 className="text-3xl font-extrabold mb-8 text-slate-900 dark:text-white relative z-10">Mission & Vision</h2>
             <ul className="space-y-6 relative z-10">
               {['Develop robust, scalable web architectures to solve complex operational challenges.', 'Implement robust security protocols to ensure complete data integrity.', 'Leverage advanced AI/ML algorithms to optimize and automate workflows.', 'Build strong partnerships with clients through transparent, high-quality engineering.'].map((pt, i) => (
-                <li key={i} className="flex items-start text-base font-medium text-gray-300">
+                <li key={i} className="flex items-start text-base font-medium text-slate-600 dark:text-gray-300">
                   <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-0.5 border border-primary/30">
                     <div className="w-2 h-2 rounded-full bg-primary" />
                   </span>
@@ -64,7 +64,7 @@ export default function About() {
                     </div>
                   </div>
                   {founder.desc && (
-                    <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-primary/30 pl-4 py-1 italic font-medium">
+                    <p className="text-slate-600 dark:text-gray-400 text-sm leading-relaxed border-l-2 border-primary/30 pl-4 py-1 italic font-medium">
                       {founder.desc}
                     </p>
                   )}
@@ -77,7 +77,7 @@ export default function About() {
               <Users size={40} className="text-primary group-hover:scale-110 transition-transform mt-1 shrink-0" />
               <div>
                 <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Our Engineering Core</h3>
-                <p className="text-gray-400 text-base leading-relaxed">
+                <p className="text-slate-600 dark:text-gray-400 text-base leading-relaxed">
                   A dedicated team of highly skilled AI/ML engineers and full-stack developers. We bring a collaborative problem-solving mindset to build solutions that exceed expectations and create measurable business impact.
                 </p>
               </div>

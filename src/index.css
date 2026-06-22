@@ -13,6 +13,7 @@
   }
 
   body {
+    scroll-behavior: smooth;
     background-image: radial-gradient(circle at 15% 50%, rgba(230, 57, 70, 0.06), transparent 45%),
       radial-gradient(circle at 85% 30%, rgba(153, 0, 0, 0.06), transparent 45%);
   }
@@ -61,7 +62,12 @@
   }
 
   .glass-card {
-    @apply bg-white dark:bg-cardDark backdrop-blur-2xl border border-slate-100 dark:border-white/10 rounded-3xl shadow-[0_4px_30px_rgba(230,57,70,0.05)] dark:shadow-none transition-all duration-300;
+    @apply bg-white dark:bg-cardDark backdrop-blur-2xl border border-slate-100 dark:border-white/10 rounded-3xl shadow-[0_4px_30px_rgba(230,57,70,0.05)] dark:shadow-none transition-all duration-300 hardware-accelerated;
+  }
+
+  .hardware-accelerated {
+    transform: translateZ(0);
+    will-change: transform, opacity;
   }
 
   .glass-card:hover {

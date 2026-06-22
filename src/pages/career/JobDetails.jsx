@@ -45,7 +45,7 @@ export default function JobDetails() {
           {job.title}
         </h1>
         
-        <div className="flex flex-wrap items-center gap-4 md:gap-8 text-sm md:text-base font-medium text-gray-400 mb-8 pb-8 border-b border-white/10">
+        <div className="flex flex-wrap items-center gap-4 md:gap-8 text-sm md:text-base font-medium text-slate-600 dark:text-gray-400 mb-8 pb-8 border-b border-white/10">
           <span className="flex items-center gap-2"><Building2 size={18} className="text-primary" /> {job.dept}</span>
           <span className="flex items-center gap-2"><MapPin size={18} /> {job.location}</span>
           <span className="flex items-center gap-2"><Clock size={18} /> {job.type}</span>
@@ -57,7 +57,7 @@ export default function JobDetails() {
         {job.description && (
           <div className="mb-10">
             <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">Role Overview</h2>
-            <div className="text-gray-400 leading-relaxed whitespace-pre-wrap text-base">
+            <div className="text-slate-600 dark:text-gray-400 leading-relaxed whitespace-pre-wrap text-base">
               {job.description}
             </div>
           </div>
@@ -69,7 +69,7 @@ export default function JobDetails() {
               <h2 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Key Responsibilities</h2>
               <ul className="space-y-4">
                 {job.responsibilities.map((req, i) => (
-                  <li key={i} className="flex items-start gap-3 text-gray-300">
+                  <li key={i} className="flex items-start gap-3 text-slate-600 dark:text-gray-300">
                     <CheckCircle2 size={20} className="text-primary shrink-0 mt-0.5" />
                     <span className="leading-relaxed">{req}</span>
                   </li>
@@ -83,7 +83,7 @@ export default function JobDetails() {
               <h2 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Requirements</h2>
               <ul className="space-y-4">
                 {job.requirements.map((req, i) => (
-                  <li key={i} className="flex items-start gap-3 text-gray-300">
+                  <li key={i} className="flex items-start gap-3 text-slate-600 dark:text-gray-300">
                     <div className="w-2 h-2 rounded-full bg-secondary shrink-0 mt-2" />
                     <span className="leading-relaxed">{req}</span>
                   </li>

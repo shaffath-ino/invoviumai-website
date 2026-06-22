@@ -6,8 +6,8 @@ const noreplyTransporter = nodemailer.createTransport({
   port: config.EMAIL_PORT,
   secure: config.EMAIL_PORT == 465,
   auth: {
-    user: config.EMAIL_NOREPLY_USER, 
-    pass: config.EMAIL_NOREPLY_PASS, 
+    user: config.EMAIL_NOREPLY_USER,
+    pass: config.EMAIL_NOREPLY_PASS,
   },
 });
 
@@ -16,8 +16,8 @@ const billingTransporter = nodemailer.createTransport({
   port: config.EMAIL_PORT,
   secure: config.EMAIL_PORT == 465,
   auth: {
-    user: config.EMAIL_BILLING_USER, 
-    pass: config.EMAIL_BILLING_PASS, 
+    user: config.EMAIL_BILLING_USER,
+    pass: config.EMAIL_BILLING_PASS,
   },
 });
 
@@ -51,7 +51,7 @@ export const sendEmail = async (to, subject, otpCode) => {
       subject,
       html: htmlTemplate,
     });
-    
+
     console.log('Message sent: %s', info.messageId);
     return true;
   } catch (error) {
@@ -60,7 +60,7 @@ export const sendEmail = async (to, subject, otpCode) => {
       console.warn('⚠️ CRITICAL WARNING: Bypassing email sending because EMAIL_USER is not configured. Do not use in production!');
       return true;
     }
-    
+
     // In production (with credentials), log the real error and ALWAYS return false
     console.error('Nodemailer Error: Authentication or network issue ->', error.message);
     return false;
@@ -203,6 +203,92 @@ export const sendPaymentEmail = async (to, paymentDetails) => {
     return true;
   } catch (error) {
     console.error('Email Error ->', error.message);
+    return false;
+  }
+};
+
+export const sendContactEmail = async (entity, email, subject, reqs) => {
+  try {
+    const adminEmail = config.EMAIL_USER || 'contact@inoviumai.com';
+
+    // 1. Email to the Admin (InoviumAI team)
+    const adminHtmlTemplate = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <div style="background-color: #ef4444; padding: 24px; text-align: center;">
+            <h2 style="color: white; margin: 0; font-size: 24px; font-weight: bold;">New Contact Request</h2>
+        </div>
+        <div style="padding: 40px 30px; background-color: #ffffff;">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 24px;">You have received a new contact request from the InoviumAI website.</p>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+              <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; font-weight: bold; width: 120px; color: #111827;">Entity Name:</td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; color: #374151;">${entity}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #111827;">Email:</td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; color: #374151;"><a href="mailto:${email}" style="color: #ef4444;">${email}</a></td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #111827;">Subject:</td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; color: #374151;">${subject}</td>
+              </tr>
+            </table>
+            <h3 style="font-size: 16px; font-weight: bold; color: #111827; margin-bottom: 8px;">Requirements / Message:</h3>
+            <div style="background-color: #f3f4f6; padding: 16px; border-radius: 8px; color: #374151; white-space: pre-wrap; font-size: 15px;">
+              ${reqs}
+            </div>
+            <p style="font-size: 12px; color: #9ca3af; line-height: 1.5; margin-top: 30px;">This email was generated securely from your contact form.</p>
+        </div>
+      </div>
+    `;
+
+    // 2. Auto-responder to the User
+    const userHtmlTemplate = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <div style="background-color: #0f172a; padding: 24px; text-align: center;">
+            <h2 style="color: white; margin: 0; font-size: 24px; font-weight: bold;">Request Received</h2>
+        </div>
+        <div style="padding: 40px 30px; background-color: #ffffff;">
+            <p style="font-size: 16px; color: #374151; margin-bottom: 24px;">Hello ${entity},</p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 24px;">Thank you for reaching out to InoviumAI. We have successfully received your request regarding <strong>"${subject}"</strong>.</p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 24px;">Our engineering team is reviewing your requirements and will get back to you shortly.</p>
+            <p style="font-size: 16px; color: #374151; margin-bottom: 24px;">Best regards,<br/>The InoviumAI Team</p>
+            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 30px 0;" />
+            <p style="font-size: 12px; color: #9ca3af; line-height: 1.5; text-align: center;">InoviumAI Private Limited<br/>Plot No 428, VGP 2nd Cross Street, Uthandi, Chennai 600119</p>
+        </div>
+      </div>
+    `;
+
+    // Send to Admin
+    await noreplyTransporter.sendMail({
+      from: `"InoviumAI Portal" <${config.EMAIL_NOREPLY_USER || 'noreply@inoviumai.com'}>`,
+      replyTo: email,
+      to: adminEmail,
+      subject: `Contact Request: ${subject} - ${entity}`,
+      html: adminHtmlTemplate,
+    });
+
+    // Send Auto-responder to User (with its own error handling so it doesn't break submission if user email is fake)
+    try {
+      await noreplyTransporter.sendMail({
+        from: `"InoviumAI" <${config.EMAIL_NOREPLY_USER || 'noreply@inoviumai.com'}>`,
+        to: email,
+        subject: `We've received your request: ${subject}`,
+        html: userHtmlTemplate,
+      });
+    } catch (autoResponderError) {
+      console.warn('⚠️ Could not send auto-responder to user email (might be invalid):', autoResponderError.message);
+    }
+
+    return true;
+  } catch (error) {
+    // Strict Dev Mode Bypass: Only bypass if NO email credentials are provided at all.
+    if (!config.EMAIL_NOREPLY_USER) {
+      console.warn('⚠️ CRITICAL WARNING: Bypassing contact email sending because EMAIL_USER is not configured. Do not use in production!');
+      console.log(`Contact Request Received in Dev Mode:\nEntity: ${entity}\nEmail: ${email}\nSubject: ${subject}\nReqs: ${reqs}`);
+      return true;
+    }
+    console.error('Contact Email Error ->', error.message);
     return false;
   }
 };

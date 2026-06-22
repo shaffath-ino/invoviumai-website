@@ -125,7 +125,7 @@ export default function Careers() {
           <motion.h1 initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-7xl font-black mb-6 leading-[1.1]">
              Join <span className="text-gradient">InoviumAI.</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-gray-400 leading-relaxed font-medium mb-8">
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-slate-600 dark:text-gray-400 leading-relaxed font-medium mb-8">
             Shape the future of intelligent digital solutions. We are looking for passionate, driven professionals to build scalable infrastructure and advanced web applications.
           </motion.p>
           <motion.a 
@@ -152,7 +152,7 @@ export default function Careers() {
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-12">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="relative w-full max-w-md">
           <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-            <Search size={20} className="text-gray-400" />
+            <Search size={20} className="text-slate-600 dark:text-gray-400" />
           </div>
           <input 
             type="text" 
@@ -194,7 +194,7 @@ export default function Careers() {
               >
                 <div>
                    <h3 className="text-2xl font-extrabold mb-3 text-slate-900 dark:text-white group-hover:text-primary transition-colors">{job.title}</h3>
-                   <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-gray-400 font-medium">
+                   <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-slate-600 dark:text-gray-400 font-medium">
                      <span className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full"><Briefcase size={14} className="text-primary" /> {job.dept}</span>
                      <span className="flex items-center gap-2"><MapPin size={14} /> {job.location}</span>
                      <span className="flex items-center gap-2"><Clock size={14} /> {job.type}</span>

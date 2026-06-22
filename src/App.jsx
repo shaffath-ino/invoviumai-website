@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
@@ -66,18 +66,28 @@ function ScrollToTop() {
 }
 
 // Global Cursor Spotlight
-function SpotlightTracker({ children }) {
-  const [position, setPosition] = useState({ x: '50%', y: '50%' });
+const SpotlightTracker = React.memo(function SpotlightTracker({ children }) {
+  const containerRef = useRef(null);
 
-  const handleMouseMove = (e) => {
-    setPosition({ x: `${e.clientX}px`, y: `${e.clientY}px` });
-  };
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (containerRef.current) {
+        containerRef.current.style.setProperty('--mouse-x', `${e.clientX}px`);
+        containerRef.current.style.setProperty('--mouse-y', `${e.clientY}px`);
+      }
+    };
+    
+    // Use an animation frame to throttle style updates slightly if needed, 
+    // or just direct style injection which is much faster than React state updates.
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <div 
+      ref={containerRef}
       className="flex flex-col min-h-screen w-full overflow-hidden relative transition-colors duration-500"
-      onMouseMove={handleMouseMove}
-      style={{ '--mouse-x': position.x, '--mouse-y': position.y }}
+      style={{ '--mouse-x': '50%', '--mouse-y': '50%' }}
     >
       <div className="cursor-spotlight"></div>
       <div className="bg-grid"></div>
@@ -87,7 +97,7 @@ function SpotlightTracker({ children }) {
       </div>
     </div>
   );
-}
+});
 
 // Wrapper to animate page transitions
 function AnimatedRoutes() {
@@ -126,7 +136,7 @@ function AnimatedRoutes() {
   );
 }
 
-function PageWrapper({ children }) {
+const PageWrapper = React.memo(function PageWrapper({ children }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -138,7 +148,7 @@ function PageWrapper({ children }) {
       {children}
     </motion.div>
   );
-}
+});
 
 export default function App() {
   return (

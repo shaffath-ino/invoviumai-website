@@ -21,25 +21,35 @@ function AnimatedCounter({ from, to, symbol = "" }) {
   useEffect(() => {
     const node = nodeRef.current;
     if (!node) return;
+    
+    let animationControls;
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        animate(from, to, {
+        animationControls = animate(from, to, {
           duration: 2,
           ease: "easeOut",
           onUpdate(val) {
-            node.textContent = Math.floor(val).toLocaleString() + symbol;
+            if (nodeRef.current) {
+              nodeRef.current.textContent = Math.floor(val).toLocaleString() + symbol;
+            }
           }
         });
         observer.disconnect();
       }
     });
     observer.observe(node);
-    return () => observer.disconnect();
+    
+    return () => {
+      observer.disconnect();
+      if (animationControls) {
+        animationControls.stop();
+      }
+    };
   }, [from, to, symbol]);
   return <span ref={nodeRef}>{from}{symbol}</span>;
 }
 
-export default function Home() {
+const Home = React.memo(function Home() {
   const { scrollY } = useScroll();
   const yBg = useTransform(scrollY, [0, 1000], [0, 200]);
   const yOrbs = useTransform(scrollY, [0, 1000], [0, -150]);
@@ -73,19 +83,21 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        <motion.div style={{ y: yBg }} className="mt-24 w-full relative z-10 perspective-[2000px]">
+        <motion.div style={{ y: yBg, willChange: "transform" }} className="mt-24 w-full relative z-10 perspective-[2000px]">
           <motion.div
-            initial={{ opacity: 0, rotateX: 20, y: 120 }}
-            animate={{ opacity: 1, rotateX: 0, y: -20 }}
+            initial={{ opacity: 0, rotateX: 20, y: 120, z: 0 }}
+            animate={{ opacity: 1, rotateX: 0, y: -20, z: 0 }}
             transition={{ duration: 1.5, delay: 0.5, type: "spring", stiffness: 100 }}
+            style={{ willChange: "transform, opacity" }}
             className="w-full glass-card max-w-5xl mx-auto p-2 md:p-4 flex items-center justify-center relative shadow-2xl group transition-all duration-500"
           >
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              style={{ willChange: "transform" }}
               className="w-full bg-slate-900 dark:bg-black rounded-2xl overflow-hidden relative border border-slate-700 dark:border-white/10 flex items-center justify-center p-8 md:p-16"
             >
-              <img src={bannerImg} alt="Inovium AI Private Limited" className="w-full max-w-4x2 h-auto rounded-[40px] drop-shadow-[0_0_25px_rgba(230,57,70,0.5)] transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+              <img src={bannerImg} alt="Inovium AI Private Limited" className="w-full max-w-4xl h-auto rounded-[40px] drop-shadow-[0_0_25px_rgba(230,57,70,0.5)] transform group-hover:scale-105 transition-transform duration-700 ease-out" />
             </motion.div>
           </motion.div>
         </motion.div>
@@ -213,4 +225,6 @@ export default function Home() {
       </section>
     </div>
   );
-}
+});
+
+export default Home;

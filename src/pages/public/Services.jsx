@@ -54,7 +54,7 @@ export default function Services() {
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-7xl font-black mb-8 leading-[1.1]">
           Core <span className="text-gradient">Capabilities</span>
         </motion.h1>
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-gray-400 leading-relaxed">
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="text-xl text-slate-600 dark:text-gray-400 leading-relaxed">
           Robust, scalable, and intelligent. We construct digital infrastructures designed to support your business growth.
         </motion.p>
       </div>
@@ -68,7 +68,7 @@ export default function Services() {
                 <svc.icon size={28} className="text-primary" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-wide">{svc.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed mb-6">{svc.desc}</p>
+              <p className="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-6">{svc.desc}</p>
               <div className="mt-auto group-hover:translate-x-2 transition-transform duration-300">
                 <ArrowUpRight size={20} className="text-primary opacity-50 group-hover:opacity-100" />
               </div>
@@ -85,7 +85,7 @@ export default function Services() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] group-hover:bg-primary/30 transition-colors" />
           <h4 className="text-xs font-bold uppercase tracking-widest text-primary mb-2 relative z-10">MMS Broking Platform</h4>
           <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4 relative z-10">Take Full Control of Your Insurance Business with AI.</h2>
-          <p className="text-gray-400 mb-8 leading-relaxed relative z-10">
+          <p className="text-slate-600 dark:text-gray-400 mb-8 leading-relaxed relative z-10">
             An advanced AI-powered vehicle insurance management platform designed to simplify, automate, and scale your operations. From tracking high-volume premiums to monitoring payouts and policy lifecycles across diverse segments (2-wheelers, private cars, commercial), everything is unified within a single intelligent dashboard.
           </p>
           <ul className="space-y-4 mb-8 relative z-10 border-t border-white/10 pt-8 mt-auto">
@@ -104,7 +104,7 @@ export default function Services() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-[80px] group-hover:bg-secondary/30 transition-colors" />
           <h4 className="text-xs font-bold uppercase tracking-widest text-primary mb-2 relative z-10">Intelligent Telecalling</h4>
           <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4 relative z-10">Smart Telecalling Platform for Seamless Policy Renewal.</h2>
-          <p className="text-gray-400 mb-8 leading-relaxed relative z-10">
+          <p className="text-slate-600 dark:text-gray-400 mb-8 leading-relaxed relative z-10">
             Transform the way you manage policy renewals with a results-driven telecalling platform. Intelligently track upcoming expiries, equip telecallers with centralized lead data, and automate reminders so your team never misses a follow-up. Designed to maximize conversion rates and streamline customer outreach.
           </p>
           <ul className="space-y-4 mb-8 relative z-10 border-t border-white/10 pt-8 mt-auto">

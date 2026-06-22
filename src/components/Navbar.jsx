@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   // eslint-disable-next-line no-unused-vars
@@ -10,7 +10,7 @@ import {
 import { Menu, X, ArrowRight, Sun, Moon } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 
-export default function Navbar() {
+const Navbar = React.memo(function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);  // for mobile menu
   const location = useLocation();
@@ -38,7 +38,7 @@ export default function Navbar() {
     }
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     if (isDark) {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
@@ -48,10 +48,13 @@ export default function Navbar() {
       localStorage.setItem("theme", "dark");
       setIsDark(true);
     }
-  };
+  }, [isDark]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 20);
+    const isScrolled = latest > 20;
+    if (scrolled !== isScrolled) {
+      setScrolled(isScrolled);
+    }
   });
 
   // Close menu on click outside
@@ -101,11 +104,11 @@ export default function Navbar() {
     userRole === "admin" ? adminLinks :
       isLoggedIn && userRole === "student" ? studentLinks : navLinks;
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     logout();
     setIsOpen(false);
     navigate("/login");
-  };
+  }, [logout, navigate]);
 
   return (
     <motion.nav
@@ -276,4 +279,6 @@ export default function Navbar() {
       </AnimatePresence>
     </motion.nav>
   );
-}
+});
+
+export default Navbar;
