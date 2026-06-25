@@ -166,7 +166,7 @@ export default function WebDevInternship() {
       </div>
 
       {/* Comprehensive Syllabus */}
-      <div className="py-24 px-6 max-w-5xl mx-auto relative z-10">
+      <div className="py-12 md:py-24 px-6 max-w-5xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">Complete 16-Week Curriculum</h2>
           <p className="text-lg text-slate-600 dark:text-gray-400">Step-by-step roadmap from beginner to full-stack engineer.</p>
@@ -211,8 +211,8 @@ export default function WebDevInternship() {
 
 
       {/* Call to Action Footer */}
-      <div className="py-24 px-6 relative z-10 border-t border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/[0.02]">
-        <div className="max-w-4xl mx-auto glass-card p-12 rounded-3xl border border-primary/20 bg-primary/5 text-center relative overflow-hidden">
+      <div className="py-12 md:py-24 px-6 relative z-10 border-t border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/[0.02]">
+        <div className="max-w-4xl mx-auto glass-card p-6 md:p-12 rounded-3xl border border-primary/20 bg-primary/5 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary" />
           <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-6">Ready to Build Your Future?</h2>
           <p className="text-lg text-slate-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">

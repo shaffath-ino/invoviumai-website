@@ -219,7 +219,7 @@ export default function Login() {
   };
 
   return (
-    <div className="w-full relative px-6 py-24 min-h-[90vh] flex items-center justify-center max-w-7xl mx-auto z-10 transition-colors">
+    <div className="w-full relative px-6 py-12 md:py-24 min-h-[90vh] flex items-center justify-center max-w-7xl mx-auto z-10 transition-colors">
       <Toaster position="top-right" duration={4000} />
       
       {/* Background Radiance */}

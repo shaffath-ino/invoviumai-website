@@ -69,7 +69,8 @@ const courseSchema = new mongoose.Schema({
   },
   isActive: {
     type: Boolean,
-    default: true
+    default: true,
+    index: true
   }
 }, {
   timestamps: true

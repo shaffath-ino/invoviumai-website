@@ -4,7 +4,8 @@ const paymentSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
+    index: true
   },
   courseId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -25,7 +26,8 @@ const paymentSchema = new mongoose.Schema({
   },
   orderId: {
     type: String,
-    required: true // Razorpay order ID
+    required: true, // Razorpay order ID
+    unique: true
   },
   signature: {
     type: String,

@@ -95,7 +95,7 @@ const Home = React.memo(function Home() {
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               style={{ willChange: "transform" }}
-              className="w-full bg-slate-900 dark:bg-black rounded-2xl overflow-hidden relative border border-slate-700 dark:border-white/10 flex items-center justify-center p-8 md:p-16"
+              className="w-full bg-white dark:bg-black rounded-2xl overflow-hidden relative border border-slate-200 dark:border-white/10 flex items-center justify-center p-8 md:p-16"
             >
               <img src={bannerImg} alt="Inovium AI Private Limited" className="w-full max-w-4xl h-auto rounded-[40px] drop-shadow-[0_0_25px_rgba(230,57,70,0.5)] transform group-hover:scale-105 transition-transform duration-700 ease-out" />
             </motion.div>
@@ -176,7 +176,7 @@ const Home = React.memo(function Home() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="w-full relative rounded-[40px] overflow-hidden shadow-2xl group border border-white/10 bg-black"
+          className="w-full relative rounded-[40px] overflow-hidden shadow-2xl group border border-slate-200 dark:border-white/10 bg-black"
         >
           {/* Overlay gradient for readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10 pointer-events-none transition-opacity duration-700"></div>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Briefcase, MapPin, Clock, ArrowUpRight, Zap, Search, Plus, Edit2, Trash2, X } from 'lucide-react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import { useDebounce } from '../../hooks/useDebounce';
 import toast from 'react-hot-toast';
 
 // eslint-disable-next-line no-unused-vars
@@ -15,6 +16,7 @@ const fadeUp = {
 
 export default function Careers() {
   const [filter, setFilter] = useState('');
+  const debouncedFilter = useDebounce(filter, 300);
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -40,8 +42,8 @@ export default function Careers() {
   };
 
   const filteredJobs = jobs.filter(job => 
-    job.title.toLowerCase().includes(filter.toLowerCase()) || 
-    job.dept.toLowerCase().includes(filter.toLowerCase())
+    job.title.toLowerCase().includes(debouncedFilter.toLowerCase()) || 
+    job.dept.toLowerCase().includes(debouncedFilter.toLowerCase())
   );
 
   const handleOpenModal = (job = null) => {
@@ -120,7 +122,7 @@ export default function Careers() {
   return (
     <div className="w-full relative px-6 py-24 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row items-end justify-between gap-12 mb-20 border-b border-white/5 pb-16">
+      <div className="flex flex-col md:flex-row items-end justify-between gap-12 mb-20 border-b border-slate-200 dark:border-white/5 pb-16">
         <div className="max-w-2xl">
           <motion.h1 initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-7xl font-black mb-6 leading-[1.1]">
              Join <span className="text-gradient">InoviumAI.</span>
@@ -159,7 +161,7 @@ export default function Careers() {
             placeholder="Search by role or department..." 
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all font-medium shadow-lg backdrop-blur-md"
+            className="w-full pl-12 pr-4 py-4 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all font-medium shadow-lg backdrop-blur-md"
           />
         </motion.div>
 
@@ -195,7 +197,7 @@ export default function Careers() {
                 <div>
                    <h3 className="text-2xl font-extrabold mb-3 text-slate-900 dark:text-white group-hover:text-primary transition-colors">{job.title}</h3>
                    <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-slate-600 dark:text-gray-400 font-medium">
-                     <span className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full"><Briefcase size={14} className="text-primary" /> {job.dept}</span>
+                     <span className="flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-white/5 rounded-full"><Briefcase size={14} className="text-primary" /> {job.dept}</span>
                      <span className="flex items-center gap-2"><MapPin size={14} /> {job.location}</span>
                      <span className="flex items-center gap-2"><Clock size={14} /> {job.type}</span>
                    </div>
@@ -212,13 +214,13 @@ export default function Careers() {
                       </button>
                     </>
                   )}
-                  <Link to={job.link || `/careers/${job._id}`} className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white/10 hover:bg-primary hover:text-slate-900 dark:text-white transition-all text-slate-900 dark:text-white font-bold tracking-wide uppercase text-xs border border-white/10 hover:border-primary shadow-lg">
+                  <Link to={job.link || `/careers/${job._id}`} className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-primary hover:text-slate-900 dark:text-white transition-all text-slate-900 dark:text-white font-bold tracking-wide uppercase text-xs border border-slate-200 dark:border-white/10 hover:border-primary shadow-lg">
                     View Role <ArrowUpRight size={16} />
                   </Link>
                 </div>
               </motion.div>
             )) : (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-20 text-center text-gray-500 font-medium text-lg border border-dashed border-white/10 rounded-3xl">
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-20 text-center text-gray-500 font-medium text-lg border border-dashed border-slate-200 dark:border-white/10 rounded-3xl">
                 No roles found matching "{filter}".
               </motion.div>
             )}

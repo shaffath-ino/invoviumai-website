@@ -35,7 +35,7 @@ export default function FinalYearProject() {
   }, []);
 
   return (
-    <div className="w-full relative px-6 py-24 min-h-[90vh] flex flex-col items-center max-w-7xl mx-auto z-10 transition-colors">
+    <div className="w-full relative px-6 py-12 md:py-24 min-h-[90vh] flex flex-col items-center max-w-7xl mx-auto z-10 transition-colors">
       {/* Background glow effects */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />

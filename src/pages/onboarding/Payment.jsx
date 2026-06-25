@@ -68,14 +68,23 @@ export default function Payment() {
       
       // Simulate smooth progress up to 90%
       let currentProgress = 0;
-      const progressInterval = setInterval(() => {
-        currentProgress += Math.floor(Math.random() * 8) + 4;
-        if (currentProgress >= 90) {
-          currentProgress = 90;
-          clearInterval(progressInterval);
+      let lastTime = performance.now();
+      let animationFrameId;
+
+      const updateProgress = (time) => {
+        if (time - lastTime >= 100) {
+          currentProgress += Math.floor(Math.random() * 8) + 4;
+          if (currentProgress >= 90) {
+            currentProgress = 90;
+            setUploadProgress(currentProgress);
+            return;
+          }
+          setUploadProgress(currentProgress);
+          lastTime = time;
         }
-        setUploadProgress(currentProgress);
-      }, 100);
+        animationFrameId = requestAnimationFrame(updateProgress);
+      };
+      animationFrameId = requestAnimationFrame(updateProgress);
 
       try {
         const token = localStorage.getItem('token');
@@ -95,15 +104,14 @@ export default function Payment() {
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
-        // Clear interval, set to 100%, wait briefly, then navigate
-        clearInterval(progressInterval);
+        cancelAnimationFrame(animationFrameId);
         setUploadProgress(100);
         await new Promise((resolve) => setTimeout(resolve, 600));
 
         toast.success('Screenshot uploaded successfully! Pending verification.');
         navigate(`/dashboard`);
       } catch (error) {
-        clearInterval(progressInterval);
+        cancelAnimationFrame(animationFrameId);
         toast.error(error.response?.data?.message || 'Failed to upload screenshot');
         setProcessing(false);
       }
@@ -219,7 +227,7 @@ export default function Payment() {
   }
 
   return (
-    <div className="w-full relative px-6 py-24 min-h-screen flex flex-col items-center max-w-4xl mx-auto z-10">
+    <div className="w-full relative px-6 py-12 md:py-24 min-h-screen flex flex-col items-center max-w-4xl mx-auto z-10">
       {/* Background Radiance */}
       <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />

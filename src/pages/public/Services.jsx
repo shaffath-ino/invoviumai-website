@@ -64,7 +64,7 @@ export default function Services() {
         {services.map((svc, i) => (
           <TiltCard key={i}>
             <div className="glass-card p-8 flex flex-col h-full group transition-all duration-300">
-              <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all mb-6 group-hover:shadow-[0_0_15px_rgba(230,57,70,0.3)]">
+              <div className="w-14 h-14 rounded-xl bg-slate-100 dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all mb-6 group-hover:shadow-[0_0_15px_rgba(230,57,70,0.3)]">
                 <svc.icon size={28} className="text-primary" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-wide">{svc.title}</h3>
@@ -78,7 +78,7 @@ export default function Services() {
       </motion.div>
 
       {/* Key Projects Showcase */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20 border-t border-white/5 pt-24">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20 border-t border-slate-200 dark:border-white/5 pt-24">
 
         {/* 4. First Project */}
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="glass-card p-10 lg:p-14 relative overflow-hidden group border-primary/20 hover:border-primary/50 transition-colors shadow-2xl">
@@ -88,7 +88,7 @@ export default function Services() {
           <p className="text-slate-600 dark:text-gray-400 mb-8 leading-relaxed relative z-10">
             An advanced AI-powered vehicle insurance management platform designed to simplify, automate, and scale your operations. From tracking high-volume premiums to monitoring payouts and policy lifecycles across diverse segments (2-wheelers, private cars, commercial), everything is unified within a single intelligent dashboard.
           </p>
-          <ul className="space-y-4 mb-8 relative z-10 border-t border-white/10 pt-8 mt-auto">
+          <ul className="space-y-4 mb-8 relative z-10 border-t border-slate-200 dark:border-white/10 pt-8 mt-auto">
             {['Centralized Policy & Premium Tracking', 'Real-Time Insights & Advanced Filtering', 'Automated Claims & Payout Monitoring', 'Multi-Segment Vehicle Support'].map((feat, k) => (
               <li key={k} className="flex items-center text-sm font-semibold text-slate-900 dark:text-white">
                 <ShieldCheck size={16} className="text-primary mr-3" /> {feat}
@@ -96,7 +96,7 @@ export default function Services() {
             ))}
           </ul>
           <img src="/mms_dashboard_1774332764053.png" alt="MMS Broking Dashboard" className="block dark:hidden w-full h-auto mt-6 rounded-xl border border-slate-200 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
-          <img src="/mms_dashboard_maroon_1774333827105.png" alt="MMS Broking Dashboard Dark" className="hidden dark:block w-full h-auto mt-6 rounded-xl border border-white/10 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
+          <img src="/mms_dashboard_maroon_1774333827105.png" alt="MMS Broking Dashboard Dark" className="hidden dark:block w-full h-auto mt-6 rounded-xl border border-slate-200 dark:border-white/10 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
         </motion.div>
 
         {/* 5. Second Project */}
@@ -107,7 +107,7 @@ export default function Services() {
           <p className="text-slate-600 dark:text-gray-400 mb-8 leading-relaxed relative z-10">
             Transform the way you manage policy renewals with a results-driven telecalling platform. Intelligently track upcoming expiries, equip telecallers with centralized lead data, and automate reminders so your team never misses a follow-up. Designed to maximize conversion rates and streamline customer outreach.
           </p>
-          <ul className="space-y-4 mb-8 relative z-10 border-t border-white/10 pt-8 mt-auto">
+          <ul className="space-y-4 mb-8 relative z-10 border-t border-slate-200 dark:border-white/10 pt-8 mt-auto">
             {['Automated Expiry Identification & Tracking', 'Centralized Telecaller Leaderboards & CRM', 'Real-Time Status & Interaction Updates', 'Missed Follow-Up Prevention'].map((feat, k) => (
               <li key={k} className="flex items-center text-sm font-semibold text-slate-900 dark:text-white">
                 <PhoneCall size={16} className="text-primary mr-3" /> {feat}
@@ -115,7 +115,7 @@ export default function Services() {
             ))}
           </ul>
           <img src="/telecall_dashboard_1774332787268.png" alt="Intelligent Telecalling Dashboard" className="block dark:hidden w-full h-auto mt-6 rounded-xl border border-slate-200 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
-          <img src="/telecall_dashboard_maroon_1774333846515.png" alt="Intelligent Telecalling Dashboard Dark" className="hidden dark:block w-full h-auto mt-6 rounded-xl border border-white/10 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
+          <img src="/telecall_dashboard_maroon_1774333846515.png" alt="Intelligent Telecalling Dashboard Dark" className="hidden dark:block w-full h-auto mt-6 rounded-xl border border-slate-200 dark:border-white/10 relative z-10 shadow-lg hover:scale-[1.02] transition-transform duration-500" />
         </motion.div>
 
       </div>

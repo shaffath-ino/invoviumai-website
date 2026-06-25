@@ -137,6 +137,7 @@ const AIChatbot = React.memo(function AIChatbot() {
   const sendMessageRef = useRef(sendMessageToBackend);
   useEffect(() => {
     sendMessageRef.current = sendMessageToBackend;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sendMessageToBackend]);
 
   useEffect(() => {
@@ -233,7 +234,7 @@ const AIChatbot = React.memo(function AIChatbot() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 50, scale: 0.9 }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              className="absolute bottom-0 right-0 w-[calc(100vw-48px)] sm:w-[380px] h-[550px] max-h-[calc(100vh-100px)] bg-white dark:bg-cardDark border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-3xl z-50 transform origin-bottom-right transition-colors duration-300"
+              className="absolute bottom-0 right-0 w-[calc(100vw-48px)] sm:w-[380px] h-[550px] max-h-[calc(100vh-100px)] bg-white dark:bg-slate-950/95 border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-3xl z-50 transform origin-bottom-right transition-colors duration-300"
             >
               {/* Header */}
               <div className="flex items-center justify-between px-5 py-4 bg-white/50 dark:bg-white/5 border-b border-slate-200 dark:border-white/10 transition-colors">
@@ -284,13 +285,13 @@ const AIChatbot = React.memo(function AIChatbot() {
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-1 ${msg.sender === 'user' ? 'bg-secondary text-white' : 'bg-primary/20 text-primary border border-primary/30'}`}>
                       {msg.sender === 'user' ? <UserIcon size={12} /> : <Bot size={12} />}
                     </div>
-                    <div className={`text-[13px] px-4 py-2.5 rounded-2xl leading-relaxed whitespace-pre-wrap ${
+                    <div className={`text-[13px] px-4 py-2.5 rounded-2xl leading-relaxed ${
                       msg.sender === 'user' 
-                        ? 'bg-gradient-to-r from-primary to-secondary text-white rounded-tr-none shadow-md' 
+                        ? 'whitespace-pre-wrap bg-gradient-to-r from-primary to-secondary text-white rounded-tr-none shadow-md' 
                         : 'bg-white dark:bg-white/10 text-slate-700 dark:text-gray-200 rounded-tl-none border border-slate-100 dark:border-white/5 shadow-sm transition-colors'
                     }`}>
                       {msg.sender === 'bot' ? (
-                        <div className="prose prose-sm dark:prose-invert prose-p:leading-snug prose-p:my-1 prose-ul:my-1 prose-ol:my-1 max-w-none prose-a:text-primary">
+                        <div className="prose prose-sm dark:prose-invert prose-p:leading-snug prose-p:my-0 prose-ul:my-0 prose-ol:my-0 prose-li:my-0 max-w-none prose-a:text-primary">
                           {msg.isAnimated ? (
                             <TypewriterMarkdown 
                               text={msg.text} 

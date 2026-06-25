@@ -45,12 +45,12 @@ export default function JobDetails() {
           {job.title}
         </h1>
         
-        <div className="flex flex-wrap items-center gap-4 md:gap-8 text-sm md:text-base font-medium text-slate-600 dark:text-gray-400 mb-8 pb-8 border-b border-white/10">
+        <div className="flex flex-wrap items-center gap-4 md:gap-8 text-sm md:text-base font-medium text-slate-600 dark:text-gray-400 mb-8 pb-8 border-b border-slate-200 dark:border-white/10">
           <span className="flex items-center gap-2"><Building2 size={18} className="text-primary" /> {job.dept}</span>
           <span className="flex items-center gap-2"><MapPin size={18} /> {job.location}</span>
           <span className="flex items-center gap-2"><Clock size={18} /> {job.type}</span>
-          {job.experience && <span className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full text-white">{job.experience}</span>}
-          {job.salary && <span className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full text-green-400">{job.salary}</span>}
+          {job.experience && <span className="flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-white/5 rounded-full text-white">{job.experience}</span>}
+          {job.salary && <span className="flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-white/5 rounded-full text-green-400">{job.salary}</span>}
           {job.openings && <span className="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full text-primary font-bold">{job.openings} Openings</span>}
         </div>
 
@@ -94,7 +94,7 @@ export default function JobDetails() {
         </div>
 
         {job.benefits && job.benefits.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-white/10">
+          <div className="mt-12 pt-8 border-t border-slate-200 dark:border-white/10">
             <h2 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Benefits & Perks</h2>
             <div className="flex flex-wrap gap-3">
               {job.benefits.map((benefit, i) => (
@@ -106,7 +106,7 @@ export default function JobDetails() {
           </div>
         )}
         
-        <div className="mt-16 text-center border-t border-white/10 pt-10">
+        <div className="mt-16 text-center border-t border-slate-200 dark:border-white/10 pt-10">
           <p className="text-slate-500 mb-6">To apply, please send your resume and portfolio to our hiring team.</p>
           <a href="mailto:careers@inoviumai.com" className="btn-primary inline-flex relative group overflow-hidden">
              <span className="absolute inset-0 w-full h-full bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none"></span>

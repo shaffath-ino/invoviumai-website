@@ -171,7 +171,7 @@ export default function Course() {
   };
 
   return (
-    <div className="w-full relative px-6 py-24 min-h-screen flex flex-col items-center max-w-7xl mx-auto z-10">
+    <div className="w-full relative px-6 py-12 md:py-24 min-h-screen flex flex-col items-center max-w-7xl mx-auto z-10">
       {/* Background Radiance */}
       <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />

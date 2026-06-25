@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useMemo, useCallback } from 'react';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
         }
     }, [username, userRole, userId, roleType, firstName, branchName]);
 
-    const login = (username, userRole, userId, roleType, firstName, branchName) => {
+    const login = useCallback((username, userRole, userId, roleType, firstName, branchName) => {
         setUsername(username);
         setUserRole(userRole);
         setUserId(userId);
@@ -55,9 +55,9 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('roleType', roleType);
         localStorage.setItem('firstName', firstName);
         localStorage.setItem('branchName', branchName);
-    };
+    }, []);
 
-    const logout = () => {
+    const logout = useCallback(() => {
         setUsername(null);
         setUserRole(null);
         setUserId(null);
@@ -65,10 +65,14 @@ export const AuthProvider = ({ children }) => {
         setFirstName(null);
         setBranchName(null);
         AUTH_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
-    };
+    }, []);
+
+    const contextValue = useMemo(() => ({
+        username, userRole, userId, roleType, firstName, branchName, login, logout
+    }), [username, userRole, userId, roleType, firstName, branchName, login, logout]);
 
     return (
-        <AuthContext.Provider value={{ username, userRole, userId, roleType, firstName, branchName, login, logout }}>
+        <AuthContext.Provider value={contextValue}>
             {children}
         </AuthContext.Provider>
     );

@@ -125,7 +125,7 @@ export default function Contact() {
         <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, duration: 0.8 }} className="flex flex-col gap-10 lg:pt-12">
           
           <div className="flex items-start gap-6 group hover:-translate-y-1 transition-transform cursor-pointer">
-            <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all shadow-lg">
+            <div className="w-14 h-14 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all shadow-lg">
               <Mail className="text-primary" size={24} />
             </div>
             <div>
@@ -136,7 +136,7 @@ export default function Contact() {
           </div>
 
           <div className="flex items-start gap-6 group hover:-translate-y-1 transition-transform cursor-pointer">
-            <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all shadow-lg">
+            <div className="w-14 h-14 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all shadow-lg">
               <Phone className="text-primary" size={24} />
             </div>
             <div>
@@ -147,7 +147,7 @@ export default function Contact() {
           </div>
 
           <div className="flex items-start gap-6 group hover:-translate-y-1 transition-transform cursor-pointer">
-            <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all shadow-lg">
+            <div className="w-14 h-14 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 group-hover:border-primary/50 transition-all shadow-lg">
               <MapPin className="text-primary" size={24} />
             </div>
             <div>

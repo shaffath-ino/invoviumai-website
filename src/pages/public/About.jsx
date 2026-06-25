@@ -21,7 +21,7 @@ export default function About() {
       {/* Mission & Vision */}
       <section className="mb-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="glass-card p-12 lg:p-16 border-white/10 bg-gradient-to-br from-card to-black shadow-2xl relative overflow-hidden group">
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="glass-card p-12 lg:p-16 border-slate-200 dark:border-white/10 bg-gradient-to-br from-card to-black shadow-2xl relative overflow-hidden group">
             <Goal size={200} className="text-primary/5 absolute -right-10 -bottom-10 group-hover:scale-110 transition-transform duration-700" />
             <h2 className="text-3xl font-extrabold mb-8 text-slate-900 dark:text-white relative z-10">Mission & Vision</h2>
             <ul className="space-y-6 relative z-10">
@@ -73,7 +73,7 @@ export default function About() {
             </div>
 
             {/* Team Strength */}
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="glass-card p-10 border-white/10 shadow-xl group hover:border-primary/40 transition-all flex items-start gap-6">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="glass-card p-10 border-slate-200 dark:border-white/10 shadow-xl group hover:border-primary/40 transition-all flex items-start gap-6">
               <Users size={40} className="text-primary group-hover:scale-110 transition-transform mt-1 shrink-0" />
               <div>
                 <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Our Engineering Core</h3>

@@ -70,17 +70,26 @@ const SpotlightTracker = React.memo(function SpotlightTracker({ children }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
+    let animationFrameId;
     const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        containerRef.current.style.setProperty('--mouse-x', `${e.clientX}px`);
-        containerRef.current.style.setProperty('--mouse-y', `${e.clientY}px`);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
       }
+      animationFrameId = requestAnimationFrame(() => {
+        if (containerRef.current) {
+          containerRef.current.style.setProperty('--mouse-x', `${e.clientX}px`);
+          containerRef.current.style.setProperty('--mouse-y', `${e.clientY}px`);
+        }
+      });
     };
     
-    // Use an animation frame to throttle style updates slightly if needed, 
-    // or just direct style injection which is much faster than React state updates.
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, []);
 
   return (
